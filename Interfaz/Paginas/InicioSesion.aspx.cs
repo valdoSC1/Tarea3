@@ -22,7 +22,7 @@ namespace Interfaz.Paginas
             string input = txtContrasena.Value;
 
             // Patrones SQL
-            if (Regex.IsMatch(input.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(input.ToUpper(), "\'.+?\'"))
+            if (Regex.IsMatch(input.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(input.ToUpper(), "\'|\""))
             {
                 // Mostrar un mensaje de error y limpiar el textbox
                 //MessageBox.Show("Entrada no válida, no se permiten caracteres SQL.");
