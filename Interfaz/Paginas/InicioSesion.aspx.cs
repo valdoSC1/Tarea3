@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,16 +20,19 @@ namespace Interfaz.Paginas
 
         protected void btnInicioSesion_Click(object sender, EventArgs e)
         {
-            string input = txtContrasena.Value;
-
+            string contrasena = txtContrasena.Value;
+            string usuario = txtUsuario.Value;
             // Patrones SQL
-            if (Regex.IsMatch(input.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(input.ToUpper(), "\'|\""))
+            if (Regex.IsMatch(contrasena.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(contrasena.ToUpper(), "\'|\""))
             {
                 // Mostrar un mensaje de error y limpiar el textbox
-                //MessageBox.Show("Entrada no válida, no se permiten caracteres SQL.");
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña incorrectos.');", true);
 
                 txtContrasena.Value = "";
+            }
+             else if(contrasena.Trim().Length == 0 || usuario.Trim().Length == 0)
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña no pueden estar vacíos.');", true);
             }
             else
             {
