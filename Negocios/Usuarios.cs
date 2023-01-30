@@ -42,7 +42,6 @@ namespace Negocios
 
         public void modificarUsuarios()
         {
-
             try
             {
                 using (Tarea3Entities1 db = new Tarea3Entities1())
