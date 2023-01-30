@@ -22,7 +22,8 @@ namespace Datos
     
         public string Identificacion { get; set; }
         public string Nombre { get; set; }
-        public string Apellidos { get; set; }
+        public string Primer_Apellido { get; set; }
+        public string Segundo_Apellido { get; set; }
         public string Contrasena { get; set; }
         public int EstadoID { get; set; }
     

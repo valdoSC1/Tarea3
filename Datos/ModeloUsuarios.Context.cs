@@ -12,11 +12,13 @@ namespace Datos
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class Tarea3Entities : DbContext
+    public partial class Tarea3Entities1 : DbContext
     {
-        public Tarea3Entities()
-            : base("name=Tarea3Entities")
+        public Tarea3Entities1()
+            : base("name=Tarea3Entities1")
         {
         }
     
@@ -30,5 +32,94 @@ namespace Datos
         public virtual DbSet<Estado> Estadoes { get; set; }
         public virtual DbSet<Telefono> Telefonoes { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+    
+        public virtual int SP_CambiarContrasena(string id, string contrasena)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var contrasenaParameter = contrasena != null ?
+                new ObjectParameter("contrasena", contrasena) :
+                new ObjectParameter("contrasena", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_CambiarContrasena", idParameter, contrasenaParameter);
+        }
+    
+        public virtual int SP_EliminarUsuario(string id, string contrasena)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var contrasenaParameter = contrasena != null ?
+                new ObjectParameter("contrasena", contrasena) :
+                new ObjectParameter("contrasena", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EliminarUsuario", idParameter, contrasenaParameter);
+        }
+    
+        public virtual int SP_EstadoUsuario(string id, Nullable<int> estado)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EstadoUsuario", idParameter, estadoParameter);
+        }
+    
+        public virtual int SP_IngresarUsuarios(string id, string nombre, string primer_Apellido, string segundo_Apellido, string contrasena, Nullable<int> estadoID)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var primer_ApellidoParameter = primer_Apellido != null ?
+                new ObjectParameter("Primer_Apellido", primer_Apellido) :
+                new ObjectParameter("Primer_Apellido", typeof(string));
+    
+            var segundo_ApellidoParameter = segundo_Apellido != null ?
+                new ObjectParameter("Segundo_Apellido", segundo_Apellido) :
+                new ObjectParameter("Segundo_Apellido", typeof(string));
+    
+            var contrasenaParameter = contrasena != null ?
+                new ObjectParameter("Contrasena", contrasena) :
+                new ObjectParameter("Contrasena", typeof(string));
+    
+            var estadoIDParameter = estadoID.HasValue ?
+                new ObjectParameter("EstadoID", estadoID) :
+                new ObjectParameter("EstadoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_IngresarUsuarios", idParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, contrasenaParameter, estadoIDParameter);
+        }
+    
+        public virtual int SP_ModificarUsuario(string id, string nombre, string primer_Apellido, string segundo_Apellido)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var primer_ApellidoParameter = primer_Apellido != null ?
+                new ObjectParameter("Primer_Apellido", primer_Apellido) :
+                new ObjectParameter("Primer_Apellido", typeof(string));
+    
+            var segundo_ApellidoParameter = segundo_Apellido != null ?
+                new ObjectParameter("Segundo_Apellido", segundo_Apellido) :
+                new ObjectParameter("Segundo_Apellido", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ModificarUsuario", idParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter);
+        }
     }
 }
