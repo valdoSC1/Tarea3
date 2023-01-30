@@ -46,17 +46,13 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_CambiarContrasena", idParameter, contrasenaParameter);
         }
     
-        public virtual int SP_EliminarUsuario(string id, string contrasena)
+        public virtual int SP_EliminarUsuario(string id)
         {
             var idParameter = id != null ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(string));
     
-            var contrasenaParameter = contrasena != null ?
-                new ObjectParameter("contrasena", contrasena) :
-                new ObjectParameter("contrasena", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EliminarUsuario", idParameter, contrasenaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EliminarUsuario", idParameter);
         }
     
         public virtual int SP_EstadoUsuario(string id, Nullable<int> estado)
