@@ -48,7 +48,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Primer_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Segundo_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="EstadoID" Type="int" Nullable="false" />
           <Property Name="CorreoElectronico" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
@@ -205,7 +205,7 @@
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Primer_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Segundo_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EstadoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Contacto_Usuario" Relationship="Self.FK_Contacto_Usuario_Usuario" FromRole="Usuario" ToRole="Contacto_Usuario" />
           <NavigationProperty Name="Estado" Relationship="Self.FK_Usuario_Estado" FromRole="Usuario" ToRole="Estado" />
@@ -286,7 +286,7 @@
             <Parameter Name="contrasena" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_EliminarUsuario">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_EstadoUsuario">
             <Parameter Name="id" Mode="In" Type="String" />
