@@ -300,5 +300,23 @@ namespace Datos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ModificarContacto", idContactoParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, facebookParameter, instagramParameter, twitterParameter);
         }
+    
+        public virtual ObjectResult<SP_ConsultarTelefonos_Result> SP_ConsultarTelefonos(Nullable<int> idContacto)
+        {
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ConsultarTelefonos_Result>("SP_ConsultarTelefonos", idContactoParameter);
+        }
+    
+        public virtual ObjectResult<SP_ConsultarCorreos_Result> SP_ConsultarCorreos(Nullable<int> idContacto)
+        {
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ConsultarCorreos_Result>("SP_ConsultarCorreos", idContactoParameter);
+        }
     }
 }

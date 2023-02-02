@@ -10,6 +10,7 @@
             padding: 0px 16px;
             margin: 20px;
             width: 200px;
+            height: 140px;
             background-color: white;            
         }
 
@@ -18,7 +19,7 @@
             }
 
         .container {
-            width: 80%;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,9 +28,9 @@
         }
 
         .Editar {
-            width: 80px;
+            width: 50px;
             background-color: #485c85;
-            padding: 10px;
+            padding: 8px;
             color: white;
             text-decoration: none;
             transition: 0.3s;
@@ -39,6 +40,7 @@
                 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
                 background-color: #bccaf4;
             }
+
     </style>
 
     <h2 class="text-center text-primary">Contactos</h2>

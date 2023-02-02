@@ -134,7 +134,10 @@
     <Content Include="Estilos\estilos.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Paginas\Contactos.aspx" />
+    <Content Include="Paginas\InfoContacto.aspx" />
     <Content Include="Paginas\InicioSesion.aspx" />
+    <Content Include="Paginas\MantenimientoCorreos.aspx" />
+    <Content Include="Paginas\MantenimientoTelefono.aspx" />
     <Content Include="Paginas\RegistroContactos.aspx" />
     <Content Include="Paginas\RegistroUsuarios.aspx" />
     <Content Include="recursos\eye.png" />
@@ -207,12 +210,33 @@
     <Compile Include="Paginas\Contactos.aspx.designer.cs">
       <DependentUpon>Contactos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\InfoContacto.aspx.cs">
+      <DependentUpon>InfoContacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\InfoContacto.aspx.designer.cs">
+      <DependentUpon>InfoContacto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\InicioSesion.aspx.cs">
       <DependentUpon>InicioSesion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Paginas\InicioSesion.aspx.designer.cs">
       <DependentUpon>InicioSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MantenimientoCorreos.aspx.cs">
+      <DependentUpon>MantenimientoCorreos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\MantenimientoCorreos.aspx.designer.cs">
+      <DependentUpon>MantenimientoCorreos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MantenimientoTelefono.aspx.cs">
+      <DependentUpon>MantenimientoTelefono.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\MantenimientoTelefono.aspx.designer.cs">
+      <DependentUpon>MantenimientoTelefono.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\RegistroContactos.aspx.cs">
       <DependentUpon>RegistroContactos.aspx</DependentUpon>

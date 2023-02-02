@@ -108,6 +108,12 @@
         <Function Name="SP_ConsultarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUsuario" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_ConsultarCorreos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ConsultarTelefonos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_EliminarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idContacto" Type="int" Mode="In" />
         </Function>
@@ -364,10 +370,10 @@
           <Parameter Name="identificacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarContactos" ReturnType="Collection(Tarea3Model.SP_ConsultarContactos_Result)">
-            <Parameter Name="idUsuario" Mode="In" Type="String" />
+          <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_EliminarContacto">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_IngresarContactos">
             <Parameter Name="idUsuario" Mode="In" Type="String" />
@@ -405,6 +411,12 @@
             <Parameter Name="Instagram" Mode="In" Type="String" />
             <Parameter Name="Twitter" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_ConsultarTelefonos" ReturnType="Collection(Tarea3Model.SP_ConsultarTelefonos_Result)">
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ConsultarCorreos" ReturnType="Collection(Tarea3Model.SP_ConsultarCorreos_Result)">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_BuscarUsuario_Result">
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
@@ -421,6 +433,14 @@
           <Property Type="String" Name="Facebook" Nullable="false" MaxLength="60" />
           <Property Type="String" Name="Instagram" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="Twitter" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="SP_ConsultarTelefonos_Result">
+          <Property Type="Int32" Name="TelefonoID" Nullable="false" />
+          <Property Type="String" Name="NumeroTelefono" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SP_ConsultarCorreos_Result">
+          <Property Type="Int32" Name="CorreoID" Nullable="false" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="60" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -507,6 +527,22 @@
           <FunctionImportMapping FunctionImportName="SP_MantenimientoCorreo" FunctionName="Tarea3Model.Store.SP_MantenimientoCorreo" />
           <FunctionImportMapping FunctionImportName="SP_MantenimientoTelefono" FunctionName="Tarea3Model.Store.SP_MantenimientoTelefono" />
           <FunctionImportMapping FunctionImportName="SP_ModificarContacto" FunctionName="Tarea3Model.Store.SP_ModificarContacto" />
+          <FunctionImportMapping FunctionImportName="SP_ConsultarTelefonos" FunctionName="Tarea3Model.Store.SP_ConsultarTelefonos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.SP_ConsultarTelefonos_Result">
+                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+                <ScalarProperty Name="NumeroTelefono" ColumnName="NumeroTelefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ConsultarCorreos" FunctionName="Tarea3Model.Store.SP_ConsultarCorreos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.SP_ConsultarCorreos_Result">
+                <ScalarProperty Name="CorreoID" ColumnName="CorreoID" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

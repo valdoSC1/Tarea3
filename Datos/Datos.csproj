@@ -84,6 +84,12 @@
     <Compile Include="SP_ConsultarContactos_Result.cs">
       <DependentUpon>ModeloUsuarios.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_ConsultarCorreos_Result.cs">
+      <DependentUpon>ModeloUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ConsultarTelefonos_Result.cs">
+      <DependentUpon>ModeloUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="Telefono.cs">
       <DependentUpon>ModeloUsuarios.tt</DependentUpon>
     </Compile>

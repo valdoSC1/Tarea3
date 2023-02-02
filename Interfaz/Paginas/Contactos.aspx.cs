@@ -25,9 +25,10 @@ namespace Interfaz.Paginas
             {
                 Contactos.Append("<div class=\"col-md-4\" style=\"background-color:bisque;margin:20px;width:280px\">");
                 Contactos.Append("<div class=\"card\">");
-                Contactos.Append("<p>" + ctn.Nombre + "</p>");
-                Contactos.Append("<p>" + ctn.PrimerApellido + "</p>");
-                Contactos.Append("<p>" + ctn.SegundoApellido + "</p>");
+                Contactos.Append("<p>Nombre: " + ctn.Nombre + "</p>");
+                Contactos.Append("<p>Primer apellido: " + ctn.PrimerApellido + "</p>");
+                Contactos.Append("<p>Segundo apellido: " + ctn.SegundoApellido + "</p>");
+                Contactos.Append("<a class=\"editar\" href='InfoContacto.aspx?idContacto="+ ctn.IdContacto + "'>Ver información</a>");
                 Contactos.Append("</div>");
                 Contactos.Append("</div>");
             }
