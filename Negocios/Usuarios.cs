@@ -66,6 +66,7 @@ namespace Negocios
 
             try
             {
+                Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                     db.SP_IngresarUsuarios(Identificacion, Nombre, PrimerApellido, SegundoApellido, Contrasena, Estado, Correo);
@@ -96,7 +97,6 @@ namespace Negocios
 
         public void cambiarContrasenaUsuario()
         {
-
             try
             {
                 using (Tarea3Entities1 db = new Tarea3Entities1())
