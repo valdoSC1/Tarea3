@@ -87,7 +87,16 @@ namespace Interfaz.Paginas
         protected global::System.Web.UI.WebControls.Button btnRegistrar;
 
         /// <summary>
-        /// Control txtIdM.
+        /// txtGenerar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button txtGenerar;
+
+        /// <summary>
+        /// txtIdM control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.

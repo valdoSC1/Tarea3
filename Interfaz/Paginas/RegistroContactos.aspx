@@ -19,7 +19,7 @@
         <div class="col-md-4">
             <label>
                 Nombre:<br />
-                <asp:TextBox runat="server" pattern="[0-9]+" MaxLength="20" placeholder="Nombre" />
+                <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
             </label>
         </div>
         <div class="col-md-4">
@@ -37,21 +37,21 @@
         <div class="col-md-4">
             <label>
                 Facebook:<br />
-                <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
             </label>
         </div>
 
         <div class="col-md-4">
             <label>
                 Instagram:<br />
-                <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
             </label>
         </div>
 
         <div class="col-md-4">
             <label>
                 Twitter:<br />
-                <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
             </label>
         </div>
 
@@ -59,7 +59,7 @@
             <label>
                 Teléfono:
                 <asp:ImageButton ID="imgAgregar" runat="server" ImageUrl="~/recursos/simboloMas.png" OnClick="imgAgregar_Click" /><br />
-                <asp:TextBox runat="server" MaxLength="20" placeholder="85644664" ID="txtTelefono" />
+                <asp:TextBox runat="server" MaxLength="20" pattern="[+()0-9]+" placeholder="85644664" ID="txtTelefono"/>
             </label>
         </div>
         <div>
@@ -70,7 +70,7 @@
             <label>
                 Correo:
                 <asp:ImageButton ID="imgAgregarCorreo" runat="server" ImageUrl="~/recursos/simboloMas.png" OnClick="imgAgregarCorreo_Click" /><br />
-                <asp:TextBox runat="server" MaxLength="20" placeholder="ejemplo@gmail.com" ID="txtCorreo" />
+                <asp:TextBox TextMode="Email" runat="server" MaxLength="20" placeholder="ejemplo@gmail.com" ID="txtCorreo" />
             </label>
         </div>
 

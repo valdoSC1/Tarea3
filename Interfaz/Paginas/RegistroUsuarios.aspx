@@ -60,12 +60,13 @@
                     <label>
                         Correo Electrónico:<br />
                         <asp:TextBox ID="txtEmail" type="email" runat="server" MaxLength="60" placeholder="Email" />
-                        <span>
-                            <img role="button" onclick="mostrarContrasena(MainContent_txtContrasena)" src="../recursos/eye.png" alt="Ojo" /></span>
                     </label>
                 </div>
                 <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                     <asp:Button Text="Registrar" runat="server" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                </div>
+                <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+                    <asp:Button Text="Generar Contraseña" runat="server" ID="txtGenerar" OnClick="txtGenerar_Click" />
                 </div>
             </div>
         </div>
