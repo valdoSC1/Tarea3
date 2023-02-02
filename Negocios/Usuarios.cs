@@ -24,8 +24,6 @@ namespace Negocios
         public int Estado { get => _Estado; set => _Estado = value; }
 
 
-
-
         public void registrarUsuarios()
         {
 

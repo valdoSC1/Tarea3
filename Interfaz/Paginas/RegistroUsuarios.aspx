@@ -17,25 +17,25 @@
                 <div class="col-md-4">
                     <label>
                         Identificación:<br />
-                        <asp:TextBox runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                        <asp:TextBox ID="txtId" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Nombre:<br />
-                        <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
+                        <asp:TextBox ID="txtNombre" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Primer Apellido:<br />
-                        <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
+                        <asp:TextBox ID="txtPApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Segundo Apellido:<br />
-                        <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                        <asp:TextBox ID="txtSApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
                     </label>
                 </div>
                 <div class="col-md-4">
@@ -56,7 +56,7 @@
                     </label>
                 </div>
                 <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                    <asp:Button Text="Registrar" runat="server" ID="btnRegistrar" />
+                    <asp:Button Text="Registrar" runat="server" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
                 </div>
             </div>
         </div>
@@ -69,11 +69,11 @@
                         Indique la identificación del usuario
                     <br />
                         que desea modificar:<br />
-                        <asp:TextBox runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                        <asp:TextBox ID="txtIdM" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
                     </label>
                 </div>
                 <div style="display: flex; justify-content: center; align-content: center">
-                    <asp:Button Text="Buscar" runat="server" Style="background-color: #f36b39" />
+                    <asp:Button ID="btnBuscarM" Text="Buscar" runat="server" Style="background-color: #f36b39" OnClick="btnBuscarM_Click" />
                 </div>
             </div>
 
@@ -81,20 +81,23 @@
                 <div class="col-md-4">
                     <label>
                         Nombre:<br />
-                        <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
+                        <asp:TextBox ID="txtNombreM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Primer Apellido:<br />
-                        <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
+                        <asp:TextBox ID="txtPApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Segundo Apellido:<br />
-                        <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                        <asp:TextBox ID="txtSApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
                     </label>
+                </div>
+                <div style="display: flex; justify-content: center; align-content: center">
+                    <asp:Button ID="btnCambiar" Text="Buscar" runat="server" Style="background-color: #f36b39" OnClick="" />
                 </div>
             </div>
         </div>
@@ -107,13 +110,11 @@
                         Indique la identificación del usuario
                     <br />
                         que desea modificar:<br />
-                        <asp:TextBox runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                        <asp:TextBox ID="txtIdC" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
                     </label>
                 </div>
             </div>
-        
 
-        
             <div class="col-md-6" style="display: flex; justify-content: start; align-content: center">
                 <label>
                     Contraseña nueva:<br />
@@ -124,7 +125,7 @@
             </div>
 
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <asp:Button Text="Buscar" runat="server" Style="background-color: #f36b39" />
+                <asp:Button ID="btnCambiarContra" Text="Cambiar" runat="server" Style="background-color: #f36b39" OnClick="btnCambiarContra_Click" />
             </div>
 
         </div>
@@ -135,7 +136,7 @@
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                 <label>
                     Identificación:<br />
-                    <asp:TextBox runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                    <asp:TextBox ID="txtIdE" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
                 </label>
             </div>
 
@@ -150,7 +151,7 @@
             </div>
 
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <asp:Button Text="Cambiar estado" runat="server" Style="background-color: #f36b39" />
+                <asp:Button ID="btnCambiarEstado" Text="Cambiar estado" runat="server" Style="background-color: #f36b39" OnClick="btnCambiarEstado_Click"/>
             </div>
         </div>
 
@@ -163,7 +164,7 @@
                 </label>
             </div>
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <asp:Button Text="Eliminar" runat="server" Style="background-color: #f50400" />
+                <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" Style="background-color: #f50400" OnClick="btnEliminar_Click"/>
             </div>
         </div>
     </div>
