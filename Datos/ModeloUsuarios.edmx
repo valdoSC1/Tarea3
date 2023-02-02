@@ -106,7 +106,6 @@
         </Function>
         <Function Name="SP_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
-          <Parameter Name="contrasena" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_EstadoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
@@ -288,7 +287,6 @@
           </FunctionImport>
           <FunctionImport Name="SP_EliminarUsuario">
             <Parameter Name="id" Mode="In" Type="String" />
-            <Parameter Name="contrasena" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_EstadoUsuario">
             <Parameter Name="id" Mode="In" Type="String" />

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Datos;
+using System.Data.Entity.Core.Objects;
 
 namespace Negocios
 {
@@ -15,6 +18,7 @@ namespace Negocios
         private String _SegundoApellido;
         private String _Contrasena;
         private int _Estado;
+        private bool credencialValida = false;
 
         public string Identificacion { get => _Identificacion; set => _Identificacion = value; }
         public string Nombre { get => _Nombre; set => _Nombre = value; }
@@ -22,6 +26,27 @@ namespace Negocios
         public string SegundoApellido { get => _SegundoApellido; set => _SegundoApellido = value; }
         public string Contrasena { get => _Contrasena; set => _Contrasena = value; }
         public int Estado { get => _Estado; set => _Estado = value; }
+        public bool CredencialValida { get => credencialValida; set => credencialValida = value; }
+
+        public void InicioSesion()
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                   ObjectResult<String> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
+
+                    if (objetoUsuario.Count() == 1)
+                    {
+                        credencialValida = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         public void registrarUsuarios()
@@ -93,9 +118,10 @@ namespace Negocios
         {
             try
             {
-                using (Tarea3Entities1 db = new Tarea3Entities1())
+                using (Tarea3Entities1 db = new Tarea3Entities1()) 
                 {
                     db.SP_EliminarUsuario(Identificacion);
+
                 }
             }
             catch (Exception ex)
