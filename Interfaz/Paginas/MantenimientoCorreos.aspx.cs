@@ -28,7 +28,7 @@ namespace Interfaz.Paginas
                 btnAccion.Text = "Eliminar";
             }
 
-            ViewState["Accion"] = idCorreo;
+            ViewState["Accion"] = opc;
             ViewState["ID"] = idCorreo;
         }
 
