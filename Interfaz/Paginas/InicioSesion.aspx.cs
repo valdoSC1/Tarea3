@@ -1,4 +1,6 @@
 ﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.FriendlyUrls;
+using Negocios;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -20,26 +22,39 @@ namespace Interfaz.Paginas
 
         protected void btnInicioSesion_Click(object sender, EventArgs e)
         {
-            string contrasena = txtContrasena.Value;
-            string usuario = txtUsuario.Value;
-            // Patrones SQL
-            if (Regex.IsMatch(contrasena.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(contrasena.ToUpper(), "\'|\""))
+            try
             {
-                // Mostrar un mensaje de error y limpiar el textbox
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña incorrectos.');", true);
+                string contrasena = txtContrasena.Value;
+                string usuario = txtUsuario.Value;
+                Usuarios iUsuarios = new Usuarios();
 
-                txtContrasena.Value = "";
+                // Patrones SQL
+                if (Regex.IsMatch(contrasena.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(contrasena.ToUpper(), "\'|\""))
+                {
+                    // Mostrar un mensaje de error y limpiar el textbox
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña incorrectos.');", true);
+
+                    txtContrasena.Value = "";
+                }
+                else if (contrasena.Trim().Length == 0 || usuario.Trim().Length == 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña no pueden estar vacíos.');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('¡Bienvenido!');", true);
+                }
+
+                if (iUsuarios.CredencialValida == true)
+                {
+                    Session["LogueoValido"] = iUsuarios;
+                    Response.Redirect("~/Paginas/InicioSesion", false);
+                }
             }
-             else if(contrasena.Trim().Length == 0 || usuario.Trim().Length == 0)
+            catch (Exception)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña no pueden estar vacíos.');", true);
+                throw;
             }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('¡Bienvenido!');", true);
-            }
-
-
         }
     }
 }
