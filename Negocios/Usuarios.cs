@@ -36,8 +36,6 @@ namespace Negocios
                 {
                    ObjectResult<String> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
 
-                    objetoUsuario.Count();
-
                     if (objetoUsuario.Count() == 1)
                     {
                         credencialValida = true;
