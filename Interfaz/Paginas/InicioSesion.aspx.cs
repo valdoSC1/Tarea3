@@ -27,7 +27,7 @@ namespace Interfaz.Paginas
                 string contrasena = txtContrasena.Value;
                 string usuario = txtUsuario.Value;
                 Usuarios iUsuarios = new Usuarios();
-
+                
                 // Patrones SQL
                 if (Regex.IsMatch(contrasena.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(contrasena.ToUpper(), "\'|\""))
                 {
@@ -42,14 +42,20 @@ namespace Interfaz.Paginas
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('¡Bienvenido!');", true);
-                }
-
-                if (iUsuarios.CredencialValida == true)
-                {
-                    Session["LogueoValido"] = iUsuarios;
-                    Response.Redirect("~/Paginas/InicioSesion", false);
-                }
+                    iUsuarios.Identificacion = txtUsuario.Value;
+                    iUsuarios.Contrasena = txtContrasena.Value;
+                    iUsuarios.InicioSesion();
+                    if (iUsuarios.CredencialValida == true)
+                    {
+                        Session["LogueoValido"] = iUsuarios;
+                        Response.Redirect("~/Default", false);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña incorrectos.');", true);
+                        Session["LogueoValido"] = null;
+                    }
+                }    
             }
             catch (Exception)
             {

@@ -17,6 +17,7 @@ namespace Negocios
         private String _PrimerApellido;
         private String _SegundoApellido;
         private String _Contrasena;
+        private String _Correo;
         private int _Estado;
         private bool credencialValida = false;
 
@@ -27,16 +28,25 @@ namespace Negocios
         public string Contrasena { get => _Contrasena; set => _Contrasena = value; }
         public int Estado { get => _Estado; set => _Estado = value; }
         public bool CredencialValida { get => credencialValida; set => credencialValida = value; }
+        public string Correo { get => _Correo; set => _Correo = value; }
+
+        /// Encripta una cadena
+        public void Encriptando()
+        {
+            string result = string.Empty;
+            byte[] OcultarString = System.Text.Encoding.Unicode.GetBytes(Contrasena);
+            Contrasena = Convert.ToBase64String(OcultarString);
+            
+        }
 
         public void InicioSesion()
         {
             try
             {
+                Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                    ObjectResult<String> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
-
-                    objetoUsuario.Count();
 
                     if (objetoUsuario.Count() == 1)
                     {
@@ -56,9 +66,10 @@ namespace Negocios
 
             try
             {
+                Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                    db.SP_IngresarUsuarios(Identificacion, Nombre, PrimerApellido, SegundoApellido, Contrasena, Estado);
+                    db.SP_IngresarUsuarios(Identificacion, Nombre, PrimerApellido, SegundoApellido, Contrasena, Estado, Correo);
                 }
             }
             catch (Exception ex)
@@ -86,7 +97,6 @@ namespace Negocios
 
         public void cambiarContrasenaUsuario()
         {
-
             try
             {
                 using (Tarea3Entities1 db = new Tarea3Entities1())

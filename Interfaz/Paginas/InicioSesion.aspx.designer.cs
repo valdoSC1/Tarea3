@@ -30,7 +30,7 @@ namespace Interfaz.Paginas
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtContrasena;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtContrasena;
 
         /// <summary>
         /// Control btnInicioSesion.
