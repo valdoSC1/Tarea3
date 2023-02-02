@@ -2,6 +2,17 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <style>
+        th, td {
+            padding: 5px 15px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ddd;
+        }
+    </style>
+
     <h2 class="text-center text-primary">Registro de contactos</h2>
 
     <div class="row">
@@ -44,14 +55,28 @@
             </label>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12">
             <label>
-                Teléfono: <asp:ImageButton ID="imgAgregar" runat="server" ImageUrl="~/recursos/simboloMas.png" OnClick="imgAgregar_Click" /><br />
-                     
-                <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
-            </label>                        
-            <asp:PlaceHolder runat="server" ID="phTelefonos"></asp:PlaceHolder>
+                Teléfono:
+                <asp:ImageButton ID="imgAgregar" runat="server" ImageUrl="~/recursos/simboloMas.png" OnClick="imgAgregar_Click" /><br />
+                <asp:TextBox runat="server" MaxLength="20" placeholder="85644664" ID="txtTelefono" />
+            </label>
         </div>
+        <div>
+            <asp:PlaceHolder ID="plhTelefonos" runat="server"></asp:PlaceHolder>
+        </div>
+
+        <div class="col-md-12">
+            <label>
+                Correo:
+                <asp:ImageButton ID="imgAgregarCorreo" runat="server" ImageUrl="~/recursos/simboloMas.png" OnClick="imgAgregarCorreo_Click" /><br />
+                <asp:TextBox runat="server" MaxLength="20" placeholder="ejemplo@gmail.com" ID="txtCorreo" />
+            </label>
+        </div>
+
+        <div>
+            <asp:PlaceHolder ID="plhCorreo" runat="server"></asp:PlaceHolder>
+        </div>
+
     </div>
-   
 </asp:Content>
