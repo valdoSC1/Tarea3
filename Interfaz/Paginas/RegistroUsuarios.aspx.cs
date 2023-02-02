@@ -97,8 +97,8 @@ namespace Interfaz.Paginas
             try
             {
                 Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdE.Text;
-                iUsuario.cambiarEstadoUsuarios();
+                iUsuario.Identificacion = txtIdentificacionEliminar.Text;
+                iUsuario.eliminarUsuarios();
             }
             catch (Exception)
             {

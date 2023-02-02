@@ -99,6 +99,7 @@ namespace Negocios
         {
             try
             {
+                Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                     db.SP_CambiarContrasena(Identificacion, Contrasena);
@@ -142,6 +143,23 @@ namespace Negocios
                 throw ex;
             }
             
+        }
+
+        public void BuscaUsuario()
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    //ObjectResult objetoUsuario = db.SP_BuscarUsuario(Identificacion);
+                    //objetoUsuario.
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }
