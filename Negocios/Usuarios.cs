@@ -17,6 +17,7 @@ namespace Negocios
         private String _PrimerApellido;
         private String _SegundoApellido;
         private String _Contrasena;
+        private String _Correo;
         private int _Estado;
         private bool credencialValida = false;
 
@@ -27,6 +28,7 @@ namespace Negocios
         public string Contrasena { get => _Contrasena; set => _Contrasena = value; }
         public int Estado { get => _Estado; set => _Estado = value; }
         public bool CredencialValida { get => credencialValida; set => credencialValida = value; }
+        public string Correo { get => _Correo; set => _Correo = value; }
 
         /// Encripta una cadena
         public void Encriptando()
@@ -66,7 +68,7 @@ namespace Negocios
             {
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                    db.SP_IngresarUsuarios(Identificacion, Nombre, PrimerApellido, SegundoApellido, Contrasena, Estado);
+                    db.SP_IngresarUsuarios(Identificacion, Nombre, PrimerApellido, SegundoApellido, Contrasena, Estado, Correo);
                 }
             }
             catch (Exception ex)
