@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -38,7 +40,28 @@ namespace Interfaz.Paginas
 
         protected void btnBuscarM_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Usuarios iUsuario = new Usuarios();
+                
+                ArrayList infoUsuarios = new ArrayList();
+                infoUsuarios = iUsuario.BuscaUsuario();
 
+                StringBuilder Usuarios = new StringBuilder();
+                foreach (Usuarios user in infoUsuarios)
+                {
+                    txtNombreM.Text = user.Nombre;
+                    txtPApellidoM.Text = user.PrimerApellido;
+                    txtSApellidoM.Text = user.SegundoApellido;
+                    txtCorreo.Text = user.Correo;
+                }
+                this.modificar.Visible = true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         protected void btnCambiar_Click(object sender, EventArgs e)

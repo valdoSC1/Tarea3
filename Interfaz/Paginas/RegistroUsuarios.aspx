@@ -105,6 +105,12 @@
                         <asp:TextBox ID="txtSApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
                     </label>
                 </div>
+                <div class="col-md-4">
+                    <label>
+                        Correo Electronico:<br />
+                        <asp:TextBox ID="txtCorreo" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="60" placeholder="Correo Electronico" />
+                    </label>
+                </div>
                 <div style="display: flex; justify-content: center; align-content: center">
                     <asp:Button ID="btnCambiar" Text="Buscar" runat="server" Style="background-color: #f36b39" OnClick="btnCambiar_Click" />
                 </div>
