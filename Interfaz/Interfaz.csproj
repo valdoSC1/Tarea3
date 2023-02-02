@@ -134,8 +134,10 @@
     <Content Include="Estilos\estilos.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Paginas\InicioSesion.aspx" />
+    <Content Include="Paginas\RegistroContactos.aspx" />
     <Content Include="Paginas\RegistroUsuarios.aspx" />
     <Content Include="recursos\eye.png" />
+    <Content Include="recursos\simboloMas.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -203,6 +205,13 @@
     </Compile>
     <Compile Include="Paginas\InicioSesion.aspx.designer.cs">
       <DependentUpon>InicioSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\RegistroContactos.aspx.cs">
+      <DependentUpon>RegistroContactos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\RegistroContactos.aspx.designer.cs">
+      <DependentUpon>RegistroContactos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\RegistroUsuarios.aspx.cs">
       <DependentUpon>RegistroUsuarios.aspx</DependentUpon>
