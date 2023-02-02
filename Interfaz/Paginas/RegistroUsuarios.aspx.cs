@@ -83,7 +83,7 @@ namespace Interfaz.Paginas
             {
                 Usuarios iUsuario = new Usuarios();
                 iUsuario.Identificacion = txtIdE.Text;
-                iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
+                iUsuario.Estado = Int32.Parse(dllCambioEstado.SelectedValue);
                 iUsuario.cambiarEstadoUsuarios();
             }
             catch (Exception)
@@ -97,8 +97,8 @@ namespace Interfaz.Paginas
             try
             {
                 Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdE.Text;
-                iUsuario.cambiarEstadoUsuarios();
+                iUsuario.Identificacion = txtIdentificacionEliminar.Text;
+                iUsuario.eliminarUsuarios();
             }
             catch (Exception)
             {

@@ -19,6 +19,7 @@ namespace Interfaz
                     Home.Visible = true;
                     About.Visible = true;
                     Contact.Visible = true;
+                    RegistroUsuarios.Visible = true;
                 }
                 else
                 {

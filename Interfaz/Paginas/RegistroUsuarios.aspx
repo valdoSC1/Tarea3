@@ -153,8 +153,8 @@
                 <label>
                     Estado:<br />
                     <asp:DropDownList runat="server" ID="dllCambioEstado">
-                        <asp:ListItem Text="Activo" Value="1" Selected="True" />
-                        <asp:ListItem Text="Inactivo" Value="0" />
+                        <asp:ListItem Value="1">Activo</asp:ListItem>
+                        <asp:ListItem Value="0">Inactivo</asp:ListItem> 
                     </asp:DropDownList>
                 </label>
             </div>
@@ -169,7 +169,7 @@
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                 <label class="text-center">
                     Indique la identificación del usuario que desea eliminar.<br />
-                    <asp:TextBox runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                    <asp:TextBox ID="txtIdentificacionEliminar" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
                 </label>
             </div>
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
