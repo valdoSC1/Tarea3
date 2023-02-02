@@ -4,7 +4,7 @@
         <div id="formContent">
 
             <input runat="server" type="text" id="txtUsuario" class="fadeIn second" name="login" placeholder="Usuario">
-            <input runat="server" type="text" id="txtContrasena" class="fadeIn third" name="pass" placeholder="Contraseña">
+            <input runat="server" type="password" id="txtContrasena" class="fadeIn third" name="pass" placeholder="Contraseña">
             <asp:Button ID="btnInicioSesion" runat="server" Text="Iniciar Sesión" OnClick="btnInicioSesion_Click" />
 
         </div>

@@ -48,7 +48,7 @@ namespace Interfaz.Paginas
                     if (iUsuarios.CredencialValida == true)
                     {
                         Session["LogueoValido"] = iUsuarios;
-                        Response.Redirect("~/Paginas/InicioSesion", false);
+                        Response.Redirect("~/Default", false);
                     }
                     else
                     {
