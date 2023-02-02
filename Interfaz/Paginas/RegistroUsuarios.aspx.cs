@@ -25,6 +25,7 @@ namespace Interfaz.Paginas
                 iUsuario.PrimerApellido = txtPApellido.Text;
                 iUsuario.SegundoApellido = txtSApellido.Text;
                 iUsuario.Contrasena = txtContrasena.Text;
+                iUsuario.Correo = txtEmail.Text;
                 iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
                 iUsuario.registrarUsuarios();
             }
