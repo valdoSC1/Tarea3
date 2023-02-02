@@ -23,6 +23,9 @@ namespace Negocios
         public string Contrasena { get => _Contrasena; set => _Contrasena = value; }
         public int Estado { get => _Estado; set => _Estado = value; }
 
+
+
+
         public void registrarUsuarios()
         {
 

@@ -50,6 +50,7 @@
           <Property Name="Segundo_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Contrasena" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="EstadoID" Type="int" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
         <Association Name="FK_Contacto_Contacto_Usuario">
           <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
@@ -105,6 +106,7 @@
         </Function>
         <Function Name="SP_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="contrasena" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_EstadoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
@@ -117,6 +119,10 @@
           <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
           <Parameter Name="Contrasena" Type="varchar" Mode="In" />
           <Parameter Name="EstadoID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Logueo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="identificacion" Type="varchar" Mode="In" />
+          <Parameter Name="contrasena" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_ModificarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
@@ -204,6 +210,7 @@
           <Property Name="EstadoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Contacto_Usuario" Relationship="Self.FK_Contacto_Usuario_Usuario" FromRole="Usuario" ToRole="Contacto_Usuario" />
           <NavigationProperty Name="Estado" Relationship="Self.FK_Usuario_Estado" FromRole="Usuario" ToRole="Estado" />
+          <Property Name="CorreoElectronico" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Contacto_Contacto_Usuario">
           <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
@@ -281,6 +288,7 @@
           </FunctionImport>
           <FunctionImport Name="SP_EliminarUsuario">
             <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="contrasena" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_EstadoUsuario">
             <Parameter Name="id" Mode="In" Type="String" />
@@ -299,6 +307,10 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
             <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Logueo" ReturnType="Collection(String)">
+            <Parameter Name="identificacion" Mode="In" Type="String" />
+            <Parameter Name="contrasena" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -349,6 +361,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="Tarea3Model.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
                 <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
@@ -363,6 +376,7 @@
           <FunctionImportMapping FunctionImportName="SP_EstadoUsuario" FunctionName="Tarea3Model.Store.SP_EstadoUsuario" />
           <FunctionImportMapping FunctionImportName="SP_IngresarUsuarios" FunctionName="Tarea3Model.Store.SP_IngresarUsuarios" />
           <FunctionImportMapping FunctionImportName="SP_ModificarUsuario" FunctionName="Tarea3Model.Store.SP_ModificarUsuario" />
+          <FunctionImportMapping FunctionImportName="SP_Logueo" FunctionName="Tarea3Model.Store.SP_Logueo" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
