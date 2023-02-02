@@ -152,9 +152,9 @@
             <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                 <label>
                     Estado:<br />
-                    <asp:DropDownList runat="server" ID="dllCambioEstado">
-                        <asp:ListItem Text="Activo" Value="1" Selected="True" />
-                        <asp:ListItem Text="Inactivo" Value="0" />
+                    <asp:DropDownList runat="server" ID="dllCambioEstado" AutoPostBack="False">
+                        <asp:ListItem Value="1">Activo</asp:ListItem>
+                        <asp:ListItem Value="0">Inactivo</asp:ListItem>                                                       
                     </asp:DropDownList>
                 </label>
             </div>

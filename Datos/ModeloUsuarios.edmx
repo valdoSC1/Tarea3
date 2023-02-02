@@ -20,10 +20,11 @@
           <Property Name="ContactoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UsuarioID" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Apellidos" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="Facebook" Type="varchar" MaxLength="60" />
-          <Property Name="Instagram" Type="varchar" MaxLength="30" />
-          <Property Name="Twitter" Type="varchar" MaxLength="30" />
+          <Property Name="Primer_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Segundo_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Facebook" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Instagram" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Twitter" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Estado">
           <Key>
@@ -104,12 +105,35 @@
           <Parameter Name="id" Type="varchar" Mode="In" />
           <Parameter Name="contrasena" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_ConsultarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_EliminarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_EstadoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Facebook" Type="varchar" Mode="In" />
+          <Parameter Name="Instagram" Type="varchar" Mode="In" />
+          <Parameter Name="Twitter" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarCorreos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarTelefonos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+          <Parameter Name="NumeroTelefono" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_IngresarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
@@ -123,6 +147,25 @@
         <Function Name="SP_Logueo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="identificacion" Type="varchar" Mode="In" />
           <Parameter Name="contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_MantenimientoCorreo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opc" Type="int" Mode="In" />
+          <Parameter Name="idCorreo" Type="int" Mode="In" />
+          <Parameter Name="CorreoNuevo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_MantenimientoTelefono" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opc" Type="int" Mode="In" />
+          <Parameter Name="idTelefono" Type="int" Mode="In" />
+          <Parameter Name="NumeroNuevo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Facebook" Type="varchar" Mode="In" />
+          <Parameter Name="Instagram" Type="varchar" Mode="In" />
+          <Parameter Name="Twitter" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_ModificarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
@@ -173,13 +216,14 @@
           <Property Name="ContactoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UsuarioID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Apellidos" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Facebook" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="Instagram" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Twitter" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Facebook" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Instagram" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Twitter" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Contactoes" Relationship="Self.FK_Contacto_Contacto_Usuario" FromRole="Contacto_Usuario" ToRole="Contacto" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Contacto_Usuario_Usuario" FromRole="Contacto_Usuario" ToRole="Usuario" />
           <NavigationProperty Name="Telefonoes" Relationship="Self.FK_Telefono_Contacto_Usuario" FromRole="Contacto_Usuario" ToRole="Telefono" />
+          <Property Name="Primer_Apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_Apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Estado">
           <Key>
@@ -316,7 +360,58 @@
             <Parameter Name="identificacion" Mode="In" Type="String" />
             <Parameter Name="contrasena" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_EliminarContacto">
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarContactos">
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Facebook" Mode="In" Type="String" />
+            <Parameter Name="Instagram" Mode="In" Type="String" />
+            <Parameter Name="Twitter" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarCorreos">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarTelefonos">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroTelefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MantenimientoCorreo">
+            <Parameter Name="opc" Mode="In" Type="Int32" />
+            <Parameter Name="idCorreo" Mode="In" Type="Int32" />
+            <Parameter Name="CorreoNuevo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MantenimientoTelefono">
+            <Parameter Name="opc" Mode="In" Type="Int32" />
+            <Parameter Name="idTelefono" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroNuevo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificarContacto">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Facebook" Mode="In" Type="String" />
+            <Parameter Name="Instagram" Mode="In" Type="String" />
+            <Parameter Name="Twitter" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ConsultarContactos" ReturnType="Collection(Tarea3Model.SP_ConsultarContactos_Result)">
+          <Parameter Name="idUsuario" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="SP_ConsultarContactos_Result">
+          <Property Type="Int32" Name="IdContacto" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Facebook" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="Instagram" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Twitter" Nullable="false" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -335,10 +430,11 @@
           <EntitySetMapping Name="Contacto_Usuario">
             <EntityTypeMapping TypeName="Tarea3Model.Contacto_Usuario">
               <MappingFragment StoreEntitySet="Contacto_Usuario">
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
                 <ScalarProperty Name="ContactoID" ColumnName="ContactoID" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
                 <ScalarProperty Name="Facebook" ColumnName="Facebook" />
                 <ScalarProperty Name="Instagram" ColumnName="Instagram" />
                 <ScalarProperty Name="Twitter" ColumnName="Twitter" />
@@ -381,6 +477,26 @@
           <FunctionImportMapping FunctionImportName="SP_IngresarUsuarios" FunctionName="Tarea3Model.Store.SP_IngresarUsuarios" />
           <FunctionImportMapping FunctionImportName="SP_ModificarUsuario" FunctionName="Tarea3Model.Store.SP_ModificarUsuario" />
           <FunctionImportMapping FunctionImportName="SP_Logueo1" FunctionName="Tarea3Model.Store.SP_Logueo" />
+          <FunctionImportMapping FunctionImportName="SP_EliminarContacto" FunctionName="Tarea3Model.Store.SP_EliminarContacto" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarContactos" FunctionName="Tarea3Model.Store.SP_IngresarContactos" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarCorreos" FunctionName="Tarea3Model.Store.SP_IngresarCorreos" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarTelefonos" FunctionName="Tarea3Model.Store.SP_IngresarTelefonos" />
+          <FunctionImportMapping FunctionImportName="SP_MantenimientoCorreo" FunctionName="Tarea3Model.Store.SP_MantenimientoCorreo" />
+          <FunctionImportMapping FunctionImportName="SP_MantenimientoTelefono" FunctionName="Tarea3Model.Store.SP_MantenimientoTelefono" />
+          <FunctionImportMapping FunctionImportName="SP_ModificarContacto" FunctionName="Tarea3Model.Store.SP_ModificarContacto" />
+          <FunctionImportMapping FunctionImportName="SP_ConsultarContactos" FunctionName="Tarea3Model.Store.SP_ConsultarContactos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.SP_ConsultarContactos_Result">
+                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />
+                <ScalarProperty Name="SegundoApellido" ColumnName="SegundoApellido" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="Instagram" ColumnName="Instagram" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

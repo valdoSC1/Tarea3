@@ -147,5 +147,149 @@ namespace Datos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_Logueo1", identificacionParameter, contrasenaParameter);
         }
+    
+        public virtual int SP_EliminarContacto(Nullable<int> idContacto)
+        {
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EliminarContacto", idContactoParameter);
+        }
+    
+        public virtual int SP_IngresarContactos(string idUsuario, string nombre, string primer_Apellido, string segundo_Apellido, string facebook, string instagram, string twitter)
+        {
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var primer_ApellidoParameter = primer_Apellido != null ?
+                new ObjectParameter("Primer_Apellido", primer_Apellido) :
+                new ObjectParameter("Primer_Apellido", typeof(string));
+    
+            var segundo_ApellidoParameter = segundo_Apellido != null ?
+                new ObjectParameter("Segundo_Apellido", segundo_Apellido) :
+                new ObjectParameter("Segundo_Apellido", typeof(string));
+    
+            var facebookParameter = facebook != null ?
+                new ObjectParameter("Facebook", facebook) :
+                new ObjectParameter("Facebook", typeof(string));
+    
+            var instagramParameter = instagram != null ?
+                new ObjectParameter("Instagram", instagram) :
+                new ObjectParameter("Instagram", typeof(string));
+    
+            var twitterParameter = twitter != null ?
+                new ObjectParameter("Twitter", twitter) :
+                new ObjectParameter("Twitter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_IngresarContactos", idUsuarioParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, facebookParameter, instagramParameter, twitterParameter);
+        }
+    
+        public virtual int SP_IngresarCorreos(Nullable<int> idContacto, string correo)
+        {
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_IngresarCorreos", idContactoParameter, correoParameter);
+        }
+    
+        public virtual int SP_IngresarTelefonos(Nullable<int> idContacto, string numeroTelefono)
+        {
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            var numeroTelefonoParameter = numeroTelefono != null ?
+                new ObjectParameter("NumeroTelefono", numeroTelefono) :
+                new ObjectParameter("NumeroTelefono", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_IngresarTelefonos", idContactoParameter, numeroTelefonoParameter);
+        }
+    
+        public virtual int SP_MantenimientoCorreo(Nullable<int> opc, Nullable<int> idCorreo, string correoNuevo)
+        {
+            var opcParameter = opc.HasValue ?
+                new ObjectParameter("opc", opc) :
+                new ObjectParameter("opc", typeof(int));
+    
+            var idCorreoParameter = idCorreo.HasValue ?
+                new ObjectParameter("idCorreo", idCorreo) :
+                new ObjectParameter("idCorreo", typeof(int));
+    
+            var correoNuevoParameter = correoNuevo != null ?
+                new ObjectParameter("CorreoNuevo", correoNuevo) :
+                new ObjectParameter("CorreoNuevo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MantenimientoCorreo", opcParameter, idCorreoParameter, correoNuevoParameter);
+        }
+    
+        public virtual int SP_MantenimientoTelefono(Nullable<int> opc, Nullable<int> idTelefono, string numeroNuevo)
+        {
+            var opcParameter = opc.HasValue ?
+                new ObjectParameter("opc", opc) :
+                new ObjectParameter("opc", typeof(int));
+    
+            var idTelefonoParameter = idTelefono.HasValue ?
+                new ObjectParameter("idTelefono", idTelefono) :
+                new ObjectParameter("idTelefono", typeof(int));
+    
+            var numeroNuevoParameter = numeroNuevo != null ?
+                new ObjectParameter("NumeroNuevo", numeroNuevo) :
+                new ObjectParameter("NumeroNuevo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MantenimientoTelefono", opcParameter, idTelefonoParameter, numeroNuevoParameter);
+        }
+    
+        public virtual int SP_ModificarContacto(Nullable<int> idContacto, string nombre, string primer_Apellido, string segundo_Apellido, string facebook, string instagram, string twitter)
+        {
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var primer_ApellidoParameter = primer_Apellido != null ?
+                new ObjectParameter("Primer_Apellido", primer_Apellido) :
+                new ObjectParameter("Primer_Apellido", typeof(string));
+    
+            var segundo_ApellidoParameter = segundo_Apellido != null ?
+                new ObjectParameter("Segundo_Apellido", segundo_Apellido) :
+                new ObjectParameter("Segundo_Apellido", typeof(string));
+    
+            var facebookParameter = facebook != null ?
+                new ObjectParameter("Facebook", facebook) :
+                new ObjectParameter("Facebook", typeof(string));
+    
+            var instagramParameter = instagram != null ?
+                new ObjectParameter("Instagram", instagram) :
+                new ObjectParameter("Instagram", typeof(string));
+    
+            var twitterParameter = twitter != null ?
+                new ObjectParameter("Twitter", twitter) :
+                new ObjectParameter("Twitter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ModificarContacto", idContactoParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, facebookParameter, instagramParameter, twitterParameter);
+        }
+    
+        public virtual ObjectResult<SP_ConsultarContactos_Result> SP_ConsultarContactos(string idUsuario)
+        {
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ConsultarContactos_Result>("SP_ConsultarContactos", idUsuarioParameter);
+        }
     }
 }

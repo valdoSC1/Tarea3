@@ -54,6 +54,7 @@
                         <li runat="server" visible="false" id=Home><a runat="server" href="~/">Home</a></li>
                         <li runat="server" visible="false" id=About><a  runat="server" href="~/About">About</a></li>
                         <li runat="server" visible="false" id=Contact><a  runat="server" href="~/Contact">Contact</a></li>
+                         <li runat="server" visible="false" id=Contactos><a  runat="server" href="~/Paginas/Contactos.aspx">Contactos</a></li>
                     </ul>
                 </div>
             </div>

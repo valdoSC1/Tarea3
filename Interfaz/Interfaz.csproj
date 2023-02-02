@@ -133,6 +133,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Estilos\estilos.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Paginas\Contactos.aspx" />
     <Content Include="Paginas\InicioSesion.aspx" />
     <Content Include="Paginas\RegistroContactos.aspx" />
     <Content Include="Paginas\RegistroUsuarios.aspx" />
@@ -198,6 +199,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Contactos.aspx.cs">
+      <DependentUpon>Contactos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Contactos.aspx.designer.cs">
+      <DependentUpon>Contactos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\InicioSesion.aspx.cs">
       <DependentUpon>InicioSesion.aspx</DependentUpon>

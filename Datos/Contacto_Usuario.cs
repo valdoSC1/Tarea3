@@ -24,10 +24,11 @@ namespace Datos
         public int ContactoID { get; set; }
         public string UsuarioID { get; set; }
         public string Nombre { get; set; }
-        public string Apellidos { get; set; }
         public string Facebook { get; set; }
         public string Instagram { get; set; }
         public string Twitter { get; set; }
+        public string Primer_Apellido { get; set; }
+        public string Segundo_Apellido { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contacto> Contactoes { get; set; }
