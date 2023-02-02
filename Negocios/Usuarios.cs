@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using System.Data.Entity.Core.Objects;
+using System.Collections;
 
 namespace Negocios
 {
@@ -145,14 +146,24 @@ namespace Negocios
             
         }
 
-        public void BuscaUsuario()
+        public ArrayList BuscaUsuario()
         {
             try
             {
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                    //ObjectResult objetoUsuario = db.SP_BuscarUsuario(Identificacion);
-                    //objetoUsuario.
+                    ArrayList infoUsuario = new ArrayList();
+                    var usuario = db.SP_BuscarUsuario(Identificacion);
+                    foreach (SP_BuscarUsuario_Result user in usuario.ToList())
+                    {
+                        Usuario iUsuario = new Usuario();
+                        iUsuario.Nombre = user.Nombre;
+                        iUsuario.Primer_Apellido = user.Primer_Apellido;
+                        iUsuario.Segundo_Apellido = user.Segundo_Apellido;
+                        iUsuario.CorreoElectronico = user.CorreoElectronico;
+                        infoUsuario.Add(iUsuario);
+                    }
+                    return infoUsuario;
                 }
             }
             catch (Exception ex)

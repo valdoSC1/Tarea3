@@ -11,14 +11,11 @@ namespace Datos
 {
     using System;
     
-    public partial class SP_ConsultarContactos_Result
+    public partial class SP_BuscarUsuario1_Result
     {
-        public int IdContacto { get; set; }
         public string Nombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string SegundoApellido { get; set; }
-        public string Facebook { get; set; }
-        public string Instagram { get; set; }
-        public string Twitter { get; set; }
+        public string Primer_Apellido { get; set; }
+        public string Segundo_Apellido { get; set; }
+        public string CorreoElectronico { get; set; }
     }
 }
