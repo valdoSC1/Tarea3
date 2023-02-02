@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,19 +16,48 @@ namespace Interfaz.Paginas
 
         }
 
+        public bool validar(string dato)
+        {
+            if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool validarVacios(string dato)
+        {
+            if (dato.Trim().Length==0)
+            {
+                return true;
+            }
+            return false ;
+        }
+
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             try
             {
-                Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtId.Text;
-                iUsuario.Nombre = txtNombre.Text;
-                iUsuario.PrimerApellido = txtPApellido.Text;
-                iUsuario.SegundoApellido = txtSApellido.Text;
-                iUsuario.Contrasena = txtContrasena.Text;
-                iUsuario.Correo = txtEmail.Text;
-                iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
-                iUsuario.registrarUsuarios();
+                if (validar(txtId.Text) || validar(txtNombre.Text) || validar(txtPApellido.Text) || validar(txtSApellido.Text) || validar(txtContrasena.Text) || validar(txtEmail.Text))
+                {
+                    // Mostrar un mensaje de error y limpiar el textbox
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                } else if(validarVacios(txtId.Text) || validarVacios(txtNombre.Text) || validarVacios(txtPApellido.Text) || validarVacios(txtSApellido.Text) || validarVacios(txtContrasena.Text) || validarVacios(txtEmail.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                }
+                else
+                {
+                    Usuarios iUsuario = new Usuarios();
+                    iUsuario.Identificacion = txtId.Text;
+                    iUsuario.Nombre = txtNombre.Text;
+                    iUsuario.PrimerApellido = txtPApellido.Text;
+                    iUsuario.SegundoApellido = txtSApellido.Text;
+                    iUsuario.Contrasena = txtContrasena.Text;
+                    iUsuario.Correo = txtEmail.Text;
+                    iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
+                    iUsuario.registrarUsuarios();
+                }
             }
             catch (Exception)
             {
@@ -35,6 +65,8 @@ namespace Interfaz.Paginas
             }
 
         }
+
+
 
         protected void btnBuscarM_Click(object sender, EventArgs e)
         {
@@ -45,12 +77,24 @@ namespace Interfaz.Paginas
         {
             try
             {
-                Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdM.Text;
-                iUsuario.Nombre = txtNombreM.Text;
-                iUsuario.PrimerApellido = txtPApellidoM.Text;
-                iUsuario.SegundoApellido = txtSApellidoM.Text;
-                iUsuario.modificarUsuarios();
+                if (validar(txtIdM.Text) || validar(txtNombreM.Text) || validar(txtPApellidoM.Text) || validar(txtSApellidoM.Text))
+                {
+                    // Mostrar un mensaje de error y limpiar el textbox
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                }
+                else if (validarVacios(txtIdM.Text) || validarVacios(txtNombreM.Text) || validarVacios(txtPApellidoM.Text) || validarVacios(txtSApellidoM.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                }
+                else
+                {
+                    Usuarios iUsuario = new Usuarios();
+                    iUsuario.Identificacion = txtIdM.Text;
+                    iUsuario.Nombre = txtNombreM.Text;
+                    iUsuario.PrimerApellido = txtPApellidoM.Text;
+                    iUsuario.SegundoApellido = txtSApellidoM.Text;
+                    iUsuario.modificarUsuarios();
+                }
             }
             catch (Exception)
             {
@@ -64,10 +108,23 @@ namespace Interfaz.Paginas
         {
             try
             {
-                Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdC.Text;
-                iUsuario.Contrasena = txtContrasenaModificar.Text;
-                iUsuario.cambiarContrasenaUsuario();
+
+                if (validar(txtIdC.Text) || validar(txtContrasenaModificar.Text))
+                {
+                    // Mostrar un mensaje de error y limpiar el textbox
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                }
+                else if (validarVacios(txtIdC.Text) || validarVacios(txtContrasenaModificar.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                }
+                else
+                {
+                    Usuarios iUsuario = new Usuarios();
+                    iUsuario.Identificacion = txtIdC.Text;
+                    iUsuario.Contrasena = txtContrasenaModificar.Text;
+                    iUsuario.cambiarContrasenaUsuario();
+                }
             }
             catch (Exception)
             {
@@ -81,10 +138,23 @@ namespace Interfaz.Paginas
         {
             try
             {
-                Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdE.Text;
-                iUsuario.Estado = Int32.Parse(dllCambioEstado.SelectedValue);
-                iUsuario.cambiarEstadoUsuarios();
+                if (validar(txtIdE.Text))
+                {
+                    // Mostrar un mensaje de error y limpiar el textbox
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                }
+                else if (validarVacios(txtIdE.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                }
+                else
+                {
+                    Usuarios iUsuario = new Usuarios();
+                    iUsuario.Identificacion = txtIdE.Text;
+                    iUsuario.Estado = Int32.Parse(dllCambioEstado.SelectedValue);
+                    iUsuario.cambiarEstadoUsuarios();
+
+                }
             }
             catch (Exception)
             {
@@ -96,14 +166,59 @@ namespace Interfaz.Paginas
         {
             try
             {
-                Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdentificacionEliminar.Text;
-                iUsuario.eliminarUsuarios();
+                if (validar(txtIdentificacionEliminar.Text))
+                {
+                    // Mostrar un mensaje de error y limpiar el textbox
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                }
+                else if (validarVacios(txtIdentificacionEliminar.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                }
+                else
+                {
+                    Usuarios iUsuario = new Usuarios();
+                    iUsuario.Identificacion = txtIdentificacionEliminar.Text;
+                    iUsuario.eliminarUsuarios();
+                }
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", $"javascript:alert('{ex.Message}');", true);
+            }
+        }
+
+        protected void txtGenerar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtContrasena.Text = GeneraPalabra();
             }
             catch (Exception)
             {
+
                 throw;
             }
+        }
+
+        public string GeneraPalabra()
+        {
+            Random random = new Random();
+            string abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            string numeros = "0123456789";
+            string especiales = "!@#$%";
+            string Generado = "";
+            int index;
+            for (int i = 0; i < 6; i++)
+            {
+                index = random.Next(abecedario.Length);
+                Generado = Generado + abecedario.Substring(index, 1);
+            }
+            index = random.Next(numeros.Length);
+            Generado = Generado + numeros.Substring(index, 1);
+            index = random.Next(especiales.Length);
+            Generado = Generado + especiales.Substring(index, 1);
+            return Generado;
         }
     }
 }
