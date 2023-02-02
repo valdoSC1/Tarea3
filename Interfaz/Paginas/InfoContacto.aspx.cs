@@ -59,8 +59,8 @@ namespace Interfaz.Paginas
             {
                 infoCorreos.Append("<tr>");
                 infoCorreos.Append("<td>" + ctn.Correo + "</td>");
-                infoCorreos.Append("<td><a href='frmCliente.aspx?accion=0&idCorreo=" + ctn.IdCorreo + "' Class='btn btn-success'>Modificar</a></td>");
-                infoCorreos.Append("<td><a href='frmCliente.aspx?accion=1&idCorreo=" + ctn.IdCorreo + "' Class='btn btn-success'>Eliminar</a></td>");
+                infoCorreos.Append("<td><a href='MantenimientoCorreos.aspx?accion=0&idCorreo=" + ctn.IdCorreo + "' Class='btn btn-success'>Modificar</a></td>");
+                infoCorreos.Append("<td><a href='MantenimientoCorreos.aspx?accion=1&idCorreo=" + ctn.IdCorreo + "' Class='btn btn-success'>Eliminar</a></td>");
                 infoCorreos.Append("</tr>");
             }
             lstCorreos.InnerHtml = infoCorreos.ToString();
