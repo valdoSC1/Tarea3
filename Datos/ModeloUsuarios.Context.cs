@@ -134,5 +134,18 @@ namespace Datos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_Logueo", identificacionParameter, contrasenaParameter);
         }
+    
+        public virtual ObjectResult<string> SP_Logueo1(string identificacion, string contrasena)
+        {
+            var identificacionParameter = identificacion != null ?
+                new ObjectParameter("identificacion", identificacion) :
+                new ObjectParameter("identificacion", typeof(string));
+    
+            var contrasenaParameter = contrasena != null ?
+                new ObjectParameter("contrasena", contrasena) :
+                new ObjectParameter("contrasena", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_Logueo1", identificacionParameter, contrasenaParameter);
+        }
     }
 }

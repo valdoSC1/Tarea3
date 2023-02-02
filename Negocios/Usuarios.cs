@@ -46,7 +46,7 @@ namespace Negocios
                 Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                   ObjectResult<String> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
+                   ObjectResult<String> objetoUsuario = db.SP_Logueo1(Identificacion, Contrasena);
 
                     if (objetoUsuario.Count() == 1)
                     {
