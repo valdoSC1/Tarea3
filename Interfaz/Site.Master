@@ -58,15 +58,18 @@
                 </div>
             </div>
         </div>
+        
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - MOHISA Application</p>
-            </footer>
+            </asp:ContentPlaceHolder>            
         </div>
 
     </form>
+    <div class="container">
+        <footer style="bottom: 0; width: 75%; background-color: #ffffff;">
+            <hr/>
+            <p class=""><strong>&copy; <%: DateTime.Now.Year %> - MOHISA Application</strong></p>
+        </footer>
+    </div>
 </body>
 </html>
