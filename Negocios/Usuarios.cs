@@ -99,6 +99,7 @@ namespace Negocios
         {
             try
             {
+                Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                     db.SP_CambiarContrasena(Identificacion, Contrasena);
