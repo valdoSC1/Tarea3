@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Tarea3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contacto">
+          <Key>
+            <PropertyRef Name="CorreoID" />
+          </Key>
+          <Property Name="CorreoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactoID" Type="int" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contacto_Usuario">
+          <Key>
+            <PropertyRef Name="ContactoID" />
+          </Key>
+          <Property Name="ContactoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Primer_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Segundo_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Facebook" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Instagram" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Twitter" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="EstadoID" />
+          </Key>
+          <Property Name="EstadoID" Type="int" Nullable="false" />
+          <Property Name="NombreEstado" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="TelefonoID" />
+          </Key>
+          <Property Name="TelefonoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactoID" Type="int" Nullable="false" />
+          <Property Name="NumeroTelefono" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Identificacion" />
+          </Key>
+          <Property Name="Identificacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Primer_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Segundo_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EstadoID" Type="int" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contacto_Contacto_Usuario">
+          <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
+          <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacto_Usuario">
+              <PropertyRef Name="ContactoID" />
+            </Principal>
+            <Dependent Role="Contacto">
+              <PropertyRef Name="ContactoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contacto_Usuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Identificacion" />
+            </Principal>
+            <Dependent Role="Contacto_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefono_Contacto_Usuario">
+          <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacto_Usuario">
+              <PropertyRef Name="ContactoID" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="ContactoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="EstadoID" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="EstadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_CambiarContrasena" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ConsultarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_EliminarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_EstadoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Facebook" Type="varchar" Mode="In" />
+          <Parameter Name="Instagram" Type="varchar" Mode="In" />
+          <Parameter Name="Twitter" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarCorreos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarTelefonos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+          <Parameter Name="NumeroTelefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_IngresarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+          <Parameter Name="EstadoID" Type="int" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Logueo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="identificacion" Type="varchar" Mode="In" />
+          <Parameter Name="contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_MantenimientoCorreo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opc" Type="int" Mode="In" />
+          <Parameter Name="idCorreo" Type="int" Mode="In" />
+          <Parameter Name="CorreoNuevo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_MantenimientoTelefono" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opc" Type="int" Mode="In" />
+          <Parameter Name="idTelefono" Type="int" Mode="In" />
+          <Parameter Name="NumeroNuevo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idContacto" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Facebook" Type="varchar" Mode="In" />
+          <Parameter Name="Instagram" Type="varchar" Mode="In" />
+          <Parameter Name="Twitter" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Tarea3ModelStoreContainer">
+          <EntitySet Name="Contacto" EntityType="Self.Contacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacto_Usuario" EntityType="Self.Contacto_Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Contacto_Contacto_Usuario" Association="Self.FK_Contacto_Contacto_Usuario">
+            <End Role="Contacto_Usuario" EntitySet="Contacto_Usuario" />
+            <End Role="Contacto" EntitySet="Contacto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contacto_Usuario_Usuario" Association="Self.FK_Contacto_Usuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Contacto_Usuario" EntitySet="Contacto_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefono_Contacto_Usuario" Association="Self.FK_Telefono_Contacto_Usuario">
+            <End Role="Contacto_Usuario" EntitySet="Contacto_Usuario" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Estado" Association="Self.FK_Usuario_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Tarea3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contacto">
+          <Key>
+            <PropertyRef Name="CorreoID" />
+          </Key>
+          <Property Name="CorreoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactoID" Type="Int32" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contacto_Usuario" Relationship="Self.FK_Contacto_Contacto_Usuario" FromRole="Contacto" ToRole="Contacto_Usuario" />
+        </EntityType>
+        <EntityType Name="Contacto_Usuario">
+          <Key>
+            <PropertyRef Name="ContactoID" />
+          </Key>
+          <Property Name="ContactoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Facebook" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Instagram" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Twitter" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contactoes" Relationship="Self.FK_Contacto_Contacto_Usuario" FromRole="Contacto_Usuario" ToRole="Contacto" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Contacto_Usuario_Usuario" FromRole="Contacto_Usuario" ToRole="Usuario" />
+          <NavigationProperty Name="Telefonoes" Relationship="Self.FK_Telefono_Contacto_Usuario" FromRole="Contacto_Usuario" ToRole="Telefono" />
+          <Property Name="Primer_Apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_Apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="EstadoID" />
+          </Key>
+          <Property Name="EstadoID" Type="Int32" Nullable="false" />
+          <Property Name="NombreEstado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuario_Estado" FromRole="Estado" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="TelefonoID" />
+          </Key>
+          <Property Name="TelefonoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactoID" Type="Int32" Nullable="false" />
+          <Property Name="NumeroTelefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contacto_Usuario" Relationship="Self.FK_Telefono_Contacto_Usuario" FromRole="Telefono" ToRole="Contacto_Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Identificacion" />
+          </Key>
+          <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Primer_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Segundo_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EstadoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contacto_Usuario" Relationship="Self.FK_Contacto_Usuario_Usuario" FromRole="Usuario" ToRole="Contacto_Usuario" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK_Usuario_Estado" FromRole="Usuario" ToRole="Estado" />
+          <Property Name="CorreoElectronico" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Contacto_Contacto_Usuario">
+          <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
+          <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacto_Usuario">
+              <PropertyRef Name="ContactoID" />
+            </Principal>
+            <Dependent Role="Contacto">
+              <PropertyRef Name="ContactoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contacto_Usuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Identificacion" />
+            </Principal>
+            <Dependent Role="Contacto_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefono_Contacto_Usuario">
+          <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacto_Usuario">
+              <PropertyRef Name="ContactoID" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="ContactoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="EstadoID" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="EstadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Tarea3Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contactoes" EntityType="Self.Contacto" />
+          <EntitySet Name="Contacto_Usuario" EntityType="Self.Contacto_Usuario" />
+          <EntitySet Name="Estadoes" EntityType="Self.Estado" />
+          <EntitySet Name="Telefonoes" EntityType="Self.Telefono" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Contacto_Contacto_Usuario" Association="Self.FK_Contacto_Contacto_Usuario">
+            <End Role="Contacto_Usuario" EntitySet="Contacto_Usuario" />
+            <End Role="Contacto" EntitySet="Contactoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contacto_Usuario_Usuario" Association="Self.FK_Contacto_Usuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Contacto_Usuario" EntitySet="Contacto_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefono_Contacto_Usuario" Association="Self.FK_Telefono_Contacto_Usuario">
+            <End Role="Contacto_Usuario" EntitySet="Contacto_Usuario" />
+            <End Role="Telefono" EntitySet="Telefonoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Estado" Association="Self.FK_Usuario_Estado">
+            <End Role="Estado" EntitySet="Estadoes" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <FunctionImport Name="SP_CambiarContrasena">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EliminarUsuario">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EstadoUsuario">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarUsuarios">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+            <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificarUsuario">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Logueo" ReturnType="Collection(String)">
+            <Parameter Name="identificacion" Mode="In" Type="String" />
+            <Parameter Name="contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Logueo1" ReturnType="Collection(String)">
+            <Parameter Name="identificacion" Mode="In" Type="String" />
+            <Parameter Name="contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BuscarUsuario" ReturnType="Collection(Tarea3Model.SP_BuscarUsuario_Result)">
+          <Parameter Name="identificacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ConsultarContactos" ReturnType="Collection(Tarea3Model.SP_ConsultarContactos_Result)">
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EliminarContacto">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarContactos">
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Facebook" Mode="In" Type="String" />
+            <Parameter Name="Instagram" Mode="In" Type="String" />
+            <Parameter Name="Twitter" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarCorreos">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IngresarTelefonos">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroTelefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MantenimientoCorreo">
+            <Parameter Name="opc" Mode="In" Type="Int32" />
+            <Parameter Name="idCorreo" Mode="In" Type="Int32" />
+            <Parameter Name="CorreoNuevo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MantenimientoTelefono">
+            <Parameter Name="opc" Mode="In" Type="Int32" />
+            <Parameter Name="idTelefono" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroNuevo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificarContacto">
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Facebook" Mode="In" Type="String" />
+            <Parameter Name="Instagram" Mode="In" Type="String" />
+            <Parameter Name="Twitter" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_BuscarUsuario_Result">
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Primer_Apellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Segundo_Apellido" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="EstadoID" Nullable="false" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="SP_ConsultarContactos_Result">
+          <Property Type="Int32" Name="IdContacto" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Facebook" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="Instagram" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Twitter" Nullable="false" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Tarea3ModelStoreContainer" CdmEntityContainer="Tarea3Entities1">
+          <EntitySetMapping Name="Contactoes">
+            <EntityTypeMapping TypeName="Tarea3Model.Contacto">
+              <MappingFragment StoreEntitySet="Contacto">
+                <ScalarProperty Name="CorreoID" ColumnName="CorreoID" />
+                <ScalarProperty Name="ContactoID" ColumnName="ContactoID" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacto_Usuario">
+            <EntityTypeMapping TypeName="Tarea3Model.Contacto_Usuario">
+              <MappingFragment StoreEntitySet="Contacto_Usuario">
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
+                <ScalarProperty Name="ContactoID" ColumnName="ContactoID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="Instagram" ColumnName="Instagram" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estadoes">
+            <EntityTypeMapping TypeName="Tarea3Model.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+                <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefonoes">
+            <EntityTypeMapping TypeName="Tarea3Model.Telefono">
+              <MappingFragment StoreEntitySet="Telefono">
+                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+                <ScalarProperty Name="ContactoID" ColumnName="ContactoID" />
+                <ScalarProperty Name="NumeroTelefono" ColumnName="NumeroTelefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Tarea3Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_CambiarContrasena" FunctionName="Tarea3Model.Store.SP_CambiarContrasena" />
+          <FunctionImportMapping FunctionImportName="SP_EliminarUsuario" FunctionName="Tarea3Model.Store.SP_EliminarUsuario" />
+          <FunctionImportMapping FunctionImportName="SP_EstadoUsuario" FunctionName="Tarea3Model.Store.SP_EstadoUsuario" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarUsuarios" FunctionName="Tarea3Model.Store.SP_IngresarUsuarios" />
+          <FunctionImportMapping FunctionImportName="SP_ModificarUsuario" FunctionName="Tarea3Model.Store.SP_ModificarUsuario" />
+          <FunctionImportMapping FunctionImportName="SP_Logueo1" FunctionName="Tarea3Model.Store.SP_Logueo" />
+          <FunctionImportMapping FunctionImportName="SP_ConsultarContactos" FunctionName="Tarea3Model.Store.SP_ConsultarContactos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.SP_ConsultarContactos_Result">
+                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />
+                <ScalarProperty Name="SegundoApellido" ColumnName="SegundoApellido" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="Instagram" ColumnName="Instagram" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_EliminarContacto" FunctionName="Tarea3Model.Store.SP_EliminarContacto" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarContactos" FunctionName="Tarea3Model.Store.SP_IngresarContactos" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarCorreos" FunctionName="Tarea3Model.Store.SP_IngresarCorreos" />
+          <FunctionImportMapping FunctionImportName="SP_IngresarTelefonos" FunctionName="Tarea3Model.Store.SP_IngresarTelefonos" />
+          <FunctionImportMapping FunctionImportName="SP_MantenimientoCorreo" FunctionName="Tarea3Model.Store.SP_MantenimientoCorreo" />
+          <FunctionImportMapping FunctionImportName="SP_MantenimientoTelefono" FunctionName="Tarea3Model.Store.SP_MantenimientoTelefono" />
+          <FunctionImportMapping FunctionImportName="SP_ModificarContacto" FunctionName="Tarea3Model.Store.SP_ModificarContacto" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

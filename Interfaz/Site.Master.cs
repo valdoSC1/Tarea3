@@ -19,11 +19,8 @@ namespace Interfaz
                     Home.Visible = true;
                     About.Visible = true;
                     Contact.Visible = true;
-<<<<<<< HEAD
-                    Contactos.Visible = true;
-=======
                     RegistroUsuarios.Visible = true;
->>>>>>> b67f7e397716d462bef93a120a9c7b4d8658e716
+                    Contactos.Visible = true;
                 }
                 else
                 {
