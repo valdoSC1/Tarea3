@@ -48,7 +48,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Primer_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Segundo_Apellido" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="EstadoID" Type="int" Nullable="false" />
           <Property Name="CorreoElectronico" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
@@ -100,6 +100,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_BuscarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="identificacion" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="SP_CambiarContrasena" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
           <Parameter Name="contrasena" Type="varchar" Mode="In" />
@@ -206,7 +209,7 @@
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Primer_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Segundo_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EstadoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Contacto_Usuario" Relationship="Self.FK_Contacto_Usuario_Usuario" FromRole="Usuario" ToRole="Contacto_Usuario" />
           <NavigationProperty Name="Estado" Relationship="Self.FK_Usuario_Estado" FromRole="Usuario" ToRole="Estado" />
@@ -316,7 +319,17 @@
             <Parameter Name="identificacion" Mode="In" Type="String" />
             <Parameter Name="contrasena" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_BuscarUsuario" ReturnType="Collection(Tarea3Model.SP_BuscarUsuario_Result)">
+          <Parameter Name="identificacion" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="SP_BuscarUsuario_Result">
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Primer_Apellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Segundo_Apellido" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="EstadoID" Nullable="false" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="60" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -381,6 +394,17 @@
           <FunctionImportMapping FunctionImportName="SP_IngresarUsuarios" FunctionName="Tarea3Model.Store.SP_IngresarUsuarios" />
           <FunctionImportMapping FunctionImportName="SP_ModificarUsuario" FunctionName="Tarea3Model.Store.SP_ModificarUsuario" />
           <FunctionImportMapping FunctionImportName="SP_Logueo1" FunctionName="Tarea3Model.Store.SP_Logueo" />
+          <FunctionImportMapping FunctionImportName="SP_BuscarUsuario" FunctionName="Tarea3Model.Store.SP_BuscarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.SP_BuscarUsuario_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

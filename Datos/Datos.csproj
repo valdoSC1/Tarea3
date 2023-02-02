@@ -78,6 +78,9 @@
       <DependentUpon>ModeloUsuarios.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SP_BuscarUsuario_Result.cs">
+      <DependentUpon>ModeloUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="Telefono.cs">
       <DependentUpon>ModeloUsuarios.tt</DependentUpon>
     </Compile>

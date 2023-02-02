@@ -144,5 +144,22 @@ namespace Negocios
             }
             
         }
+
+        public void BuscaUsuario()
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    //ObjectResult objetoUsuario = db.SP_BuscarUsuario(Identificacion);
+                    //objetoUsuario.
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

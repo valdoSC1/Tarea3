@@ -10,26 +10,13 @@
 namespace Datos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class SP_BuscarUsuario_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
-        {
-            this.Contacto_Usuario = new HashSet<Contacto_Usuario>();
-        }
-    
-        public string Identificacion { get; set; }
         public string Nombre { get; set; }
         public string Primer_Apellido { get; set; }
         public string Segundo_Apellido { get; set; }
-        public string Contrasena { get; set; }
         public int EstadoID { get; set; }
         public string CorreoElectronico { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contacto_Usuario> Contacto_Usuario { get; set; }
-        public virtual Estado Estado { get; set; }
     }
 }
