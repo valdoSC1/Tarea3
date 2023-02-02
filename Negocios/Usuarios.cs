@@ -28,10 +28,20 @@ namespace Negocios
         public int Estado { get => _Estado; set => _Estado = value; }
         public bool CredencialValida { get => credencialValida; set => credencialValida = value; }
 
+        /// Encripta una cadena
+        public void Encriptando()
+        {
+            string result = string.Empty;
+            byte[] OcultarString = System.Text.Encoding.Unicode.GetBytes(Contrasena);
+            Contrasena = Convert.ToBase64String(OcultarString);
+            
+        }
+
         public void InicioSesion()
         {
             try
             {
+                Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                    ObjectResult<String> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
