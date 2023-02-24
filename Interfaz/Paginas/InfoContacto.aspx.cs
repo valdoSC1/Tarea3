@@ -14,29 +14,22 @@ namespace Interfaz.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string idContacto = Request.QueryString["idContacto"];
-            StringBuilder info = new StringBuilder();
+            string idContacto = Request.QueryString["idContacto"];           
             Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
             Contacto iContacto = new Contacto();
             ArrayList infoContactos = new ArrayList();
             infoContactos = iContacto.ConsultarContactos(iUsuario.Identificacion);
-            
+
             foreach (Contacto ctn in infoContactos)
             {
-                info.Append("<div class='row'>");
-                info.Append("<div class=\"col-md-6\" style=\"background-color:bisque;margin:20px;width:280px\">");
-                info.Append("<div class=\"card\">");
-                info.Append("<p>Nombre: " + ctn.Nombre + "</p>");
-                info.Append("<p>Primer apellido: " + ctn.PrimerApellido + "</p>");
-                info.Append("<p>Segundo apellido: " + ctn.SegundoApellido + "</p>");
-                info.Append("<p>Facebook: " + ctn.Facebook + "</p>");
-                info.Append("<p>Instagram: " + ctn.Instragram + "</p>");
-                info.Append("<p>Twitter: " + ctn.Twitter + "</p>");
-                info.Append("</div>");
-                info.Append("</div>");
-                info.Append("</div>");
+                txtNombre.Text = ctn.Nombre;
+                txtPrimerApellido.Text = ctn.PrimerApellido;
+                txtSegundoApellido.Text = ctn.SegundoApellido;
+                txtFacebook.Text = ctn.Facebook;
+                txtInstagram.Text = ctn.Instragram;
+                txtTwitter.Text = ctn.Twitter;
             }
-            informacion.InnerHtml = info.ToString();
+                       
             StringBuilder infoTelefonos = new StringBuilder();
 
             ArrayList telefonos = new ArrayList();

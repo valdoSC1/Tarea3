@@ -15,4 +15,8 @@
         <asp:Button ID="btnAccion" runat="server" Text="Modificar" OnClick="btnAccion_Click" />
     </div>
 
+    <div runat="server" id="hh">
+        <input runat="server" type="text" id="txtUsuario" class="fadeIn second">
+    </div>
+
 </asp:Content>

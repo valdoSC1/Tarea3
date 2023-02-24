@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contactos.aspx.cs" Inherits="Interfaz.Paginas.Contactos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+  
     <style>
         .card {
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -43,8 +43,8 @@
 
     </style>
 
-    <h2 class="text-center text-primary">Contactos</h2>
-
+     <h2 class="text-center text-primary">Contactos</h2>
+    
     <div class="row" runat="server" id="contactosInfo">        
     </div>
 

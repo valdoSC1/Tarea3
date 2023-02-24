@@ -21,14 +21,15 @@ namespace Interfaz.Paginas
             {
                 lblTitulo.Text = "Modificar";
                 btnAccion.Text = "Modificar";
-            } else
+            }
+            else
             {
                 lblTitulo.Text = "Eliminar";
                 btnAccion.Text = "Eliminar";
             }
 
             ViewState["Accion"] = opc;
-            ViewState["ID"] = idTelefono;           
+            ViewState["ID"] = idTelefono;
         }
 
         protected void btnAccion_Click(object sender, EventArgs e)
