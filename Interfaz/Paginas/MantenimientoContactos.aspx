@@ -2,6 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <link href="../Estilos/toastr.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Scripts/toastr.min.js"></script>
+
     <nav>
         <div style="display: flex; justify-content: center; align-content: center; margin-top: 50px; gap: 10px" class="nav" id="nav-tab" role="tablist">
             <button class="nav-link active btn" style="background-color: #39ACE7" id="nav-home-tab" data-toggle="tab" data-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Información del contacto</button>
@@ -61,20 +65,99 @@
                         <asp:TextBox ID="txtTwitter" runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="30" placeholder="Twitter" />
                     </label>
                 </div>
+
+                <div class="col-md-12" id="telefonos" style="display: grid; justify-content: center" runat="server">
+                </div>
+
+                <div class="col-md-12" id="correos" style="display: grid; justify-content: center" runat="server">
+                </div>
             </div>
 
-            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
-
-            <input id="btnAgregar1" type="button" value="Agregar" />
-            <div id="telefonos">                
-            </div>
-
-            <div>
-                <input type="text" name="ctl00$MainContent$id" value="Hola" required>
-                <input type="text" name="ctl00$MainContent$id" value="Holis" required>
-                <input type="text" name="ctl00$MainContent$id" value="Bren" required>
-            </div>
         </div>
     </div>
+
+    <script>
+
+        const telefonos = document.getElementById("MainContent_telefonos");
+        const correos = document.getElementById("MainContent_correos");
+        const btnAgregarTelefono = document.getElementById("btnAgregarTelefono");
+        const btnAgregarCorreo = document.getElementById("btnAgregarCorreo");
+
+        btnAgregarTelefono.addEventListener('click', e => {
+            let div = document.createElement('div');
+            div.innerHTML = `<input type="text" name="ctl00$MainContent$Telefono" value="" required>
+                            <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="eliminar(this,1)">`
+            div.setAttribute(
+                'style',
+                'display:inline-flex;align-items:center;justify-content:center;width:307px'
+            );
+            telefonos.appendChild(div);
+        })
+
+        btnAgregarCorreo.addEventListener('click', e => {
+            let div = document.createElement('div');
+            div.innerHTML = `<input type="text" name="ctl00$MainContent$Correo" value="" required>
+                            <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="eliminar(this,2)">`
+            div.setAttribute(
+                'style',
+                'display:inline-flex;align-items:center;justify-content:center;width:307px'
+            );
+            correos.appendChild(div);
+        })
+
+        const eliminar = (e, num) => {
+            const div = e.parentNode;
+            const cantTelefono = telefonos.childElementCount;
+            const cantCorreo = correos.childElementCount;
+            if (num === 1) {
+                if (cantTelefono > 2) {
+                    telefonos.removeChild(div);
+                } else {
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-full-width",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr["warning"]("No se puede eliminar, debido a que se necesita mínimo un número de teléfono registrado", "Información")
+                }
+            } else {
+                if (cantCorreo > 2) {
+                    correos.removeChild(div);
+                } else {
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-full-width",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr["warning"]("No se puede eliminar, debido a que se necesita mínimo un correo eléctronico registrado", "Información")
+                }
+            }
+        }
+
+    </script>
 
 </asp:Content>

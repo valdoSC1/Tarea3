@@ -40,6 +40,7 @@ namespace Interfaz.Paginas
         {
             try
             {
+                /*
                 if (validar(txtId.Text) || validar(txtNombre.Text) || validar(txtPApellido.Text) || validar(txtSApellido.Text) || validar(txtContrasena.Text) || validar(txtEmail.Text))
                 {
                     // Mostrar un mensaje de error y limpiar el textbox
@@ -60,6 +61,11 @@ namespace Interfaz.Paginas
                     iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
                     iUsuario.registrarUsuarios();
                 }
+                */
+                string script = @"<script type='text/javascript'>
+                        Alerta();
+                  </script>";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "script", script, false);
             }
             catch (Exception)
             {
