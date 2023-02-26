@@ -68,8 +68,6 @@ namespace Interfaz.Paginas
 
         }
 
-
-
         protected void btnBuscarM_Click(object sender, EventArgs e)
         {
             try
@@ -121,10 +119,8 @@ namespace Interfaz.Paginas
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
 
         protected void btnCambiarContra_Click(object sender, EventArgs e)
@@ -152,9 +148,7 @@ namespace Interfaz.Paginas
             catch (Exception)
             {
                 throw;
-            }
-            
-
+            }            
         }
 
         protected void btnCambiarEstado_Click(object sender, EventArgs e)

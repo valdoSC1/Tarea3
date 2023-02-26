@@ -77,18 +77,4 @@
         </div>
     </div>
 
-    <script>
-
-        const telefonos = document.getElementById("telefonos");
-        const btnAgregar = document.getElementById("btnAgregar1");
-
-        btnAgregar.addEventListener('click', e => {
-            let div = document.createElement('div');
-            div.innerHTML = `<input type"text" name="ctl00$MainContent$id" value="" required`
-            telefonos.appendChild(div);
-        })
-
-
-    </script>
-
 </asp:Content>

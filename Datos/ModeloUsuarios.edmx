@@ -107,6 +107,7 @@
         </Function>
         <Function Name="SP_ConsultarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="idContacto" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_ConsultarCorreos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idContacto" Type="int" Mode="In" />
@@ -114,6 +115,7 @@
         <Function Name="SP_ConsultarTelefonos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idContacto" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_ConsultarUltimoContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_EliminarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idContacto" Type="int" Mode="In" />
         </Function>
@@ -370,16 +372,17 @@
           <Parameter Name="identificacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarContactos" ReturnType="Collection(Tarea3Model.SP_ConsultarContactos_Result)">
-            <Parameter Name="idUsuario" Mode="In" Type="String" />
+          <Parameter Name="idUsuario" Mode="In" Type="String" />
+            <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarCorreos" ReturnType="Collection(Tarea3Model.SP_ConsultarCorreos_Result)">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarTelefonos" ReturnType="Collection(Tarea3Model.SP_ConsultarTelefonos_Result)">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_EliminarContacto">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_IngresarContactos">
             <Parameter Name="idUsuario" Mode="In" Type="String" />
@@ -417,6 +420,7 @@
             <Parameter Name="Instagram" Mode="In" Type="String" />
             <Parameter Name="Twitter" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_ConsultarUltimoContacto" ReturnType="Collection(Int32)" />
         </EntityContainer>
         <ComplexType Name="SP_BuscarUsuario_Result">
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
@@ -543,6 +547,7 @@
           <FunctionImportMapping FunctionImportName="SP_MantenimientoCorreo" FunctionName="Tarea3Model.Store.SP_MantenimientoCorreo" />
           <FunctionImportMapping FunctionImportName="SP_MantenimientoTelefono" FunctionName="Tarea3Model.Store.SP_MantenimientoTelefono" />
           <FunctionImportMapping FunctionImportName="SP_ModificarContacto" FunctionName="Tarea3Model.Store.SP_ModificarContacto" />
+          <FunctionImportMapping FunctionImportName="SP_ConsultarUltimoContacto" FunctionName="Tarea3Model.Store.SP_ConsultarUltimoContacto" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

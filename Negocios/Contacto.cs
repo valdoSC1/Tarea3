@@ -38,6 +38,102 @@ namespace Negocios
         public string IdCorreo { get => _idCorreo; set => _idCorreo = value; }
         public string Correo { get => _Correo; set => _Correo = value; }
 
+        public void registrarContactos(String idUsuario)
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    db.SP_IngresarContactos(idUsuario, Nombre, PrimerApellido, SegundoApellido, Facebook, Instragram, Twitter);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ArrayList consultarUltimoContacto()
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    ArrayList idContacto = new ArrayList();
+                    var infoIdContacto = db.SP_ConsultarUltimoContacto();
+                    foreach (Nullable<int> cnt in infoIdContacto.ToList())
+                    {
+                        idContacto.Add(cnt.Value);
+                    }
+                    return idContacto;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void registrarTelefonos(int idContacto, String telefono)
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    db.SP_IngresarTelefonos(idContacto, telefono);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void registrarCorreos(int idContacto, String correo)
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    db.SP_IngresarCorreos(idContacto, correo);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ArrayList consultarInfoContacto(int idContacto)
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    ArrayList infoContactos = new ArrayList();
+                    var contactos = db.SP_ConsultarContactos("", idContacto);
+
+                    foreach (SP_ConsultarContactos_Result cnt in contactos.ToList())
+                    {
+                        Contacto iContacto = new Contacto();                        
+                        iContacto.Nombre = cnt.Nombre;
+                        iContacto.PrimerApellido = cnt.PrimerApellido;
+                        iContacto.SegundoApellido = cnt.SegundoApellido;
+                        iContacto.Facebook = cnt.Facebook;
+                        iContacto.Instragram = cnt.Instagram;
+                        iContacto.Twitter = cnt.Twitter;
+                        infoContactos.Add(iContacto);
+                    }
+
+                    return infoContactos;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public ArrayList ConsultarContactos(String idUsuario)
         {
             try
@@ -45,7 +141,7 @@ namespace Negocios
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                     ArrayList infoContactos = new ArrayList();
-                    var contactos = db.SP_ConsultarContactos(idUsuario);
+                    var contactos = db.SP_ConsultarContactos(idUsuario, 0);
 
                     foreach (SP_ConsultarContactos_Result cnt in contactos.ToList())
                     {
@@ -61,7 +157,6 @@ namespace Negocios
                     }
 
                     return infoContactos;
-
                 }
             }
             catch (Exception ex)

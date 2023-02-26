@@ -61,10 +61,8 @@ namespace Negocios
             }
         }
 
-
         public void registrarUsuarios()
         {
-
             try
             {
                 Encriptando();

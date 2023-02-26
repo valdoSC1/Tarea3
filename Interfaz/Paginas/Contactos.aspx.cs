@@ -28,7 +28,7 @@ namespace Interfaz.Paginas
                 Contactos.Append("<p>Nombre: " + ctn.Nombre + "</p>");
                 Contactos.Append("<p>Primer apellido: " + ctn.PrimerApellido + "</p>");
                 Contactos.Append("<p>Segundo apellido: " + ctn.SegundoApellido + "</p>");
-                Contactos.Append("<a class=\"editar\" href='InfoContacto.aspx?idContacto="+ ctn.IdContacto + "'>Ver información</a>");
+                Contactos.Append("<a class=\"editar\" href='MantenimientoContactos?idContacto=" + ctn.IdContacto + "'>Ver información</a>");
                 Contactos.Append("</div>");
                 Contactos.Append("</div>");
             }

@@ -20,7 +20,7 @@ namespace Interfaz.Paginas
             Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
             StringBuilder infoContacto = new StringBuilder();
             Contacto iContacto = new Contacto();
-            ArrayList infoContactos = iContacto.ConsultarContactos(iUsuario.Identificacion);
+            ArrayList infoContactos = iContacto.consultarInfoContacto(int.Parse(idContacto));
             ArrayList telefonos = iContacto.ConsultarTelefonos(int.Parse(idContacto));
             ArrayList correos = iContacto.ConsultarCorreos(int.Parse(idContacto));
 
@@ -56,7 +56,7 @@ namespace Interfaz.Paginas
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            int asa = 86;
+           
         }
     }
 }

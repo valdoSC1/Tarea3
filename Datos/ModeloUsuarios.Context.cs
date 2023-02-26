@@ -157,13 +157,17 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_BuscarUsuario_Result>("SP_BuscarUsuario", identificacionParameter);
         }
     
-        public virtual ObjectResult<SP_ConsultarContactos_Result> SP_ConsultarContactos(string idUsuario)
+        public virtual ObjectResult<SP_ConsultarContactos_Result> SP_ConsultarContactos(string idUsuario, Nullable<int> idContacto)
         {
             var idUsuarioParameter = idUsuario != null ?
                 new ObjectParameter("idUsuario", idUsuario) :
                 new ObjectParameter("idUsuario", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ConsultarContactos_Result>("SP_ConsultarContactos", idUsuarioParameter);
+            var idContactoParameter = idContacto.HasValue ?
+                new ObjectParameter("idContacto", idContacto) :
+                new ObjectParameter("idContacto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ConsultarContactos_Result>("SP_ConsultarContactos", idUsuarioParameter, idContactoParameter);
         }
     
         public virtual ObjectResult<SP_ConsultarCorreos_Result> SP_ConsultarCorreos(Nullable<int> idContacto)
@@ -317,6 +321,11 @@ namespace Datos
                 new ObjectParameter("Twitter", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ModificarContacto", idContactoParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, facebookParameter, instagramParameter, twitterParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> SP_ConsultarUltimoContacto()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_ConsultarUltimoContacto");
         }
     }
 }

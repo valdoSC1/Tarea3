@@ -51,6 +51,15 @@ namespace Interfaz
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl RegistroUsuarios;
 
         /// <summary>
+        /// RegistroContactos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RegistroContactos;
+
+        /// <summary>
         /// Contactos control.
         /// </summary>
         /// <remarks>
