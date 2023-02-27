@@ -116,6 +116,16 @@ namespace Interfaz.Paginas
                     iUsuario.SegundoApellido = txtSApellidoM.Text;
                     iUsuario.Correo = txtCorreo.Text;
                     iUsuario.modificarUsuarios();
+
+                    txtIdM.Text = "";
+                    txtNombreM.Text = "";
+                    txtPApellidoM.Text = "";
+                    txtSApellidoM.Text = "";
+                    txtCorreo.Text = "";
+
+                    this.modificar.Visible = false;
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaModificar()", true);                    
                 }
             }
             catch (Exception)

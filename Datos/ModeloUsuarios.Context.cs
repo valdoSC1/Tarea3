@@ -101,7 +101,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_IngresarUsuarios", idParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, contrasenaParameter, estadoIDParameter, correoParameter);
         }
     
-        public virtual int SP_ModificarUsuario(string id, string nombre, string primer_Apellido, string segundo_Apellido)
+        public virtual int SP_ModificarUsuario(string id, string nombre, string primer_Apellido, string segundo_Apellido, string correo)
         {
             var idParameter = id != null ?
                 new ObjectParameter("id", id) :
@@ -119,7 +119,11 @@ namespace Datos
                 new ObjectParameter("Segundo_Apellido", segundo_Apellido) :
                 new ObjectParameter("Segundo_Apellido", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ModificarUsuario", idParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter);
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ModificarUsuario", idParameter, nombreParameter, primer_ApellidoParameter, segundo_ApellidoParameter, correoParameter);
         }
     
         public virtual ObjectResult<string> SP_Logueo(string identificacion, string contrasena)

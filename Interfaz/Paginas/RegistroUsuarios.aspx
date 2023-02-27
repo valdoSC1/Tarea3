@@ -7,7 +7,7 @@
     <script src="../Scripts/toastr.min.js"></script>
 
     <script type="text/javascript">
-        function Alerta() {
+        function AlertaRegistro() {
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -27,6 +27,28 @@
             }
             toastr["success"]("Se ha registrado el usuario", "Información")
         }
+
+        function AlertaModificar() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("Se ha modificado la información del usuario", "Información")
+        }
+
     </script>
 
     <nav>
@@ -106,118 +128,133 @@
             </div>
         </div>
 
+
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <h2 class="text-center text-primary" style="margin-bottom: 25px">Modificar Usuarios</h2>
-            <div class="col-md-12">
-                <div style="display: flex; justify-content: center; align-content: center">
-                    <label class="text-center">
-                        Indique la identificación del usuario
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                <ContentTemplate>
+                    <h2 class="text-center text-primary" style="margin-bottom: 25px">Modificar Usuarios</h2>
+                    <div class="col-md-12">
+                        <div style="display: flex; justify-content: center; align-content: center">
+                            <label class="text-center">
+                                Indique la identificación del usuario
                     <br />
-                        que desea modificar:<br />
-                        <asp:TextBox ID="txtIdM" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
-                    </label>
-                </div>
-                <div style="display: flex; justify-content: center; align-content: center">
-                    <asp:Button ID="btnBuscarM" Text="Buscar" runat="server" Style="background-color: #f36b39" OnClick="btnBuscarM_Click" />
-                </div>
-            </div>
+                                que desea modificar:<br />
+                                <asp:TextBox ID="txtIdM" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                            </label>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-content: center">
+                            <asp:Button ID="btnBuscarM" Text="Buscar" runat="server" Style="background-color: #f36b39" OnClick="btnBuscarM_Click" />
+                        </div>
+                    </div>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnCambiar" EventName="Click" />
+                </Triggers>
+            </asp:UpdatePanel>
 
-            <div class="row" id="modificar" runat="server" visible="false">
-                <div class="col-md-4">
-                    <label>
-                        Nombre:<br />
-                        <asp:TextBox ID="txtNombreM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
-                    </label>
-                </div>
-                <div class="col-md-4">
-                    <label>
-                        Primer Apellido:<br />
-                        <asp:TextBox ID="txtPApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
-                    </label>
-                </div>
-                <div class="col-md-4">
-                    <label>
-                        Segundo Apellido:<br />
-                        <asp:TextBox ID="txtSApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
-                    </label>
-                </div>
-                <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                    <label>
-                        Correo Electrónico:<br />
-                        <asp:TextBox ID="txtCorreo" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="60" placeholder="Correo Electronico" />
-                    </label>
-                </div>
-                <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                    <asp:Button ID="btnCambiar" Text="Modificar" runat="server" Style="background-color: #f36b39" OnClick="btnCambiar_Click" />
-                </div>
-            </div>
+            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                <ContentTemplate>
+                    <div class="row" id="modificar" runat="server" visible="false">
+                        <div class="col-md-4">
+                            <label>
+                                Nombre:<br />
+                                <asp:TextBox ID="txtNombreM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                Primer Apellido:<br />
+                                <asp:TextBox ID="txtPApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                Segundo Apellido:<br />
+                                <asp:TextBox ID="txtSApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                            </label>
+                        </div>
+                        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+                            <label>
+                                Correo Electrónico:<br />
+                                <asp:TextBox ID="txtCorreo" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="60" placeholder="Correo Electronico" />
+                            </label>
+                        </div>
+                        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+                            <asp:Button ID="btnCambiar" Text="Modificar" runat="server" Style="background-color: #f36b39" OnClick="btnCambiar_Click" />
+                        </div>
+                    </div>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnBuscarM" EventName="Click" />
+                </Triggers>
+            </asp:UpdatePanel>
         </div>
 
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <h2 class="text-center text-primary" style="margin-bottom: 25px">Modificar Contraseña</h2>
-            <div class="col-md-6">
-                <div style="display: flex; justify-content: end; align-content: center">
-                    <label class="text-center">
-                        Indique la identificación del usuario
-                    <br />
-                        que desea modificar:<br />
-                        <asp:TextBox ID="txtIdC" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-md-6" style="display: flex; justify-content: start; align-content: center">
-                <label>
-                    Contraseña nueva:<br />
-                    <asp:TextBox ID="txtContrasenaModificar" type="password" runat="server" MaxLength="20" pattern="(?=\w*[A-Z])(?=\w*[!@#$%&*])(?=\w*[a-z])\S{3,20}" placeholder="Contraseña" />
-                    <span>
-                        <img role="button" onclick="mostrarContrasena(MainContent_txtContrasenaModificar)" src="../recursos/eye.png" alt="Ojo" /></span>
-                </label>
-            </div>
-
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <asp:Button ID="btnCambiarContra" Text="Cambiar" runat="server" Style="background-color: #f36b39" OnClick="btnCambiarContra_Click" />
-            </div>
-
-        </div>
-
-        <div class="tab-pane fade" id="nav-estado" role="tabpanel" aria-labelledby="nav-home-tab">
-            <h2 class="text-center text-primary" style="margin-bottom: 25px">Cambiar estado</h2>
-
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <label>
-                    Identificación:<br />
-                    <asp:TextBox ID="txtIdE" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
-                </label>
-            </div>
-
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <label>
-                    Estado:<br />
-                    <asp:DropDownList runat="server" ID="dllCambioEstado">
-                        <asp:ListItem Value="1">Activo</asp:ListItem>
-                        <asp:ListItem Value="0">Inactivo</asp:ListItem>
-                    </asp:DropDownList>
-                </label>
-            </div>
-
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <asp:Button ID="btnCambiarEstado" Text="Cambiar estado" runat="server" Style="background-color: #f36b39" OnClick="btnCambiarEstado_Click" />
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="nav-eliminar" role="tabpanel" aria-labelledby="nav-home-tab">
-            <h2 class="text-center text-primary col-md-12" style="margin-bottom: 25px">Eliminar usuario</h2>
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <h2 class="text-center text-primary" style="margin-bottom: 25px">Modificar Contraseña</h2>
+        <div class="col-md-12" style="display: flex; justify-content: end; align-content: center">           
                 <label class="text-center">
-                    Indique la identificación del usuario que desea eliminar.<br />
-                    <asp:TextBox ID="txtIdentificacionEliminar" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
-                </label>
-            </div>
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
-                <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" Style="background-color: #f50400" OnClick="btnEliminar_Click" />
-            </div>
+                    Indique la identificación del usuario
+                    <br />
+                    que desea modificar:<br />
+                    <asp:TextBox ID="txtIdC" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                </label>           
         </div>
+
+        <br />
+
+        <div class="col-md-12" style="display: flex; justify-content: start; align-content: center">
+            <label>
+                Contraseña nueva:<br />
+                <asp:TextBox ID="txtContrasenaModificar" type="password" runat="server" MaxLength="20" pattern="(?=\w*[A-Z])(?=\w*[!@#$%&*])(?=\w*[a-z])\S{3,20}" placeholder="Contraseña" />
+                <span>
+                    <img role="button" onclick="mostrarContrasena(MainContent_txtContrasenaModificar)" src="../recursos/eye.png" alt="Ojo" /></span>
+            </label>
+        </div>
+
+        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+            <asp:Button ID="btnCambiarContra" Text="Cambiar" runat="server" Style="background-color: #f36b39" OnClick="btnCambiarContra_Click" />
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-estado" role="tabpanel" aria-labelledby="nav-home-tab">
+        <h2 class="text-center text-primary" style="margin-bottom: 25px">Cambiar estado</h2>
+
+        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+            <label>
+                Identificación:<br />
+                <asp:TextBox ID="txtIdE" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+            </label>
+        </div>
+
+        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+            <label>
+                Estado:<br />
+                <asp:DropDownList runat="server" ID="dllCambioEstado">
+                    <asp:ListItem Value="1">Activo</asp:ListItem>
+                    <asp:ListItem Value="0">Inactivo</asp:ListItem>
+                </asp:DropDownList>
+            </label>
+        </div>
+
+        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+            <asp:Button ID="btnCambiarEstado" Text="Cambiar estado" runat="server" Style="background-color: #f36b39" OnClick="btnCambiarEstado_Click" />
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="nav-eliminar" role="tabpanel" aria-labelledby="nav-home-tab">
+        <h2 class="text-center text-primary col-md-12" style="margin-bottom: 25px">Eliminar usuario</h2>
+        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+            <label class="text-center">
+                Indique la identificación del usuario que desea eliminar.<br />
+                <asp:TextBox ID="txtIdentificacionEliminar" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+            </label>
+        </div>
+        <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+            <asp:Button ID="btnEliminar" Text="Eliminar" runat="server" Style="background-color: #f50400" OnClick="btnEliminar_Click" />
+        </div>
+    </div>
     </div>
     <script>
         function mostrarContrasena(nombre) {

@@ -183,6 +183,7 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
           <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="Tarea3ModelStoreContainer">
           <EntitySet Name="Contacto" EntityType="Self.Contacto" Schema="dbo" store:Type="Tables" />
@@ -362,6 +363,7 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
             <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_Logueo" ReturnType="Collection(String)">
             <Parameter Name="identificacion" Mode="In" Type="String" />
@@ -425,7 +427,7 @@
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarUltimoContacto" ReturnType="Collection(Int32)" />
           <FunctionImport Name="SP_BuscarUsuario1" ReturnType="Collection(Tarea3Model.SP_BuscarUsuario1_Result)">
-            <Parameter Name="identificacion" Mode="In" Type="String" />
+          <Parameter Name="identificacion" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_BuscarUsuario_Result">

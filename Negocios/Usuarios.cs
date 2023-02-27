@@ -84,7 +84,7 @@ namespace Negocios
             {
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                    db.SP_ModificarUsuario(Identificacion, Nombre, PrimerApellido, SegundoApellido);
+                    db.SP_ModificarUsuario(Identificacion, Nombre, PrimerApellido, SegundoApellido, Correo);
                 }
             }
             catch (Exception ex)
