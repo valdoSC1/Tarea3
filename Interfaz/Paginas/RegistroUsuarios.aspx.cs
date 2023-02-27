@@ -61,7 +61,7 @@ namespace Interfaz.Paginas
                     iUsuario.registrarUsuarios();
                 }
                 
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta()", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
             }
             catch (Exception)
             {
