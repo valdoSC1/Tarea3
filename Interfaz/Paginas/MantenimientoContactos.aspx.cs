@@ -13,17 +13,50 @@ namespace Interfaz.Paginas
     public partial class MantenimientoContactos : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
+            Contacto iContacto = new Contacto();
             string idContacto = Request.QueryString["idContacto"];
-            Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+            string opc = Request.Form["ctl00$MainContent$Eliminar"];
+
+            if (opc == null || opc == "0")
+            {
+                string rawTelefonos = Request.Form["ctl00$MainContent$Telefono"];
+                string rawCorreos = Request.Form["ctl00$MainContent$Correo"];
+                string rawIDTelefonos = Request.Form["ctl00$MainContent$idTelefono"];
+                string rawIDCorreos = Request.Form["ctl00$MainContent$idCorreo"];
+                ArrayList correos;
+                ArrayList telefonos;
+                if (rawTelefonos != null && rawCorreos != null)
+                {
+                    telefonos = iContacto.ConsultarTelefonos(int.Parse(idContacto));
+                    correos = iContacto.ConsultarCorreos(int.Parse(idContacto));
+                    modificarContacto(rawTelefonos, rawCorreos, rawIDTelefonos, rawIDCorreos, idContacto, telefonos, correos);
+
+                    telefonos = iContacto.ConsultarTelefonos(int.Parse(idContacto));
+                    correos = iContacto.ConsultarCorreos(int.Parse(idContacto));
+                    consultarDatosContacto(idContacto, telefonos, correos);
+                }
+                else
+                {
+                    telefonos = iContacto.ConsultarTelefonos(int.Parse(idContacto));
+                    correos = iContacto.ConsultarCorreos(int.Parse(idContacto));
+                    consultarDatosContacto(idContacto, telefonos, correos);
+                }
+            }
+            else
+            {
+                eliminarContacto(idContacto);
+            }
+        }
+
+        private void consultarDatosContacto(string idContacto, ArrayList telefonos, ArrayList correos)
+        {
             StringBuilder infoContacto = new StringBuilder();
             StringBuilder infotelefonos = new StringBuilder();
             StringBuilder infoCorreos = new StringBuilder();
             Contacto iContacto = new Contacto();
             ArrayList infoContactos = iContacto.consultarInfoContacto(int.Parse(idContacto));
-            ArrayList telefonos = iContacto.ConsultarTelefonos(int.Parse(idContacto));
-            ArrayList correos = iContacto.ConsultarCorreos(int.Parse(idContacto));
-            
+
             foreach (Contacto ctn in infoContactos)
             {
                 txtNombre.Text = ctn.Nombre;
@@ -44,8 +77,9 @@ namespace Interfaz.Paginas
                 foreach (Contacto ctnTel in telefonos)
                 {
                     infotelefonos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                    infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" required pattern=\"[+()0 - 9]+\" placeholder=\"85644664\" value='" + ctnTel.Telefono + "'>");
-                    infotelefonos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"eliminar(this, 1)\">");
+                    infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" placeholder=\"85644664\" value='" + ctnTel.Telefono + "' required>");
+                    infotelefonos.Append("<input type=\"hidden\" name=\"ctl00$MainContent$idTelefono\" value='" + ctnTel.IdTelefono + "'>");
+                    infotelefonos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,1);\">");
                     infotelefonos.Append("</div>");
 
                     infoContacto.Append("<p>" + ctnTel.Telefono + "</p>");
@@ -61,8 +95,9 @@ namespace Interfaz.Paginas
                 foreach (Contacto ctnCorreo in correos)
                 {
                     infoCorreos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                    infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"20\" placeholder=\"ejemplo@gmail.com\" value='" + ctnCorreo.Correo + "'>");
-                    infoCorreos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"eliminar(this, 2)\">");
+                    infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"20\" placeholder=\"ejemplo@gmail.com\" value='" + ctnCorreo.Correo + "' required>");
+                    infoCorreos.Append("<input type=\"hidden\" name=\"ctl00$MainContent$idCorreo\" value='" + ctnCorreo.IdCorreo + "'>");
+                    infoCorreos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,2);\">");
                     infoCorreos.Append("</div>");
 
                     infoContacto.Append("<p>" + ctnCorreo.Correo + "</p>");
@@ -78,9 +113,116 @@ namespace Interfaz.Paginas
                 infoContacto.Append("<p>" + ctn.Twitter + "</p>");
             }
 
-            this.infoContacto.InnerHtml = infoContacto.ToString();      
+            this.infoContacto.InnerHtml = infoContacto.ToString();
             this.telefonos.InnerHtml = infotelefonos.ToString();
             this.correos.InnerHtml = infoCorreos.ToString();
+        }
+
+        private void modificarContacto(string rawTelefonos, string rawCorreos, string rawIDTelefonos, string rawIDCorreos, string idContacto, ArrayList listaOriginalTelefonos, ArrayList listaOriginalCorreos)
+        {
+            Contacto iContacto = new Contacto
+            {
+                IdContacto = idContacto,
+                Nombre = txtNombre.Text,
+                PrimerApellido = txtPrimerApellido.Text,
+                SegundoApellido = txtSegundoApellido.Text,
+                Facebook = txtFacebook.Text,
+                Instragram = txtInstagram.Text,
+                Twitter = txtTwitter.Text
+            };
+
+            iContacto.modificarContactos();
+
+            string[] telefonos = rawTelefonos.Split(',');
+            string[] correos = rawCorreos.Split(',');
+            string[] idTelefonos = rawIDTelefonos.Split(',');
+            string[] idCorreos = rawIDCorreos.Split(',');
+            if (telefonos.Length != listaOriginalTelefonos.Count)
+            {
+                for (int i = 0; i < idTelefonos.Length; i++)
+                {
+                    if (int.Parse(idTelefonos[i]) > 0)
+                    {
+                        iContacto.MantenimientoTelefonos(0, int.Parse(idTelefonos[i]), telefonos[i]);
+                    }
+                    else
+                    {
+                        iContacto.registrarTelefonos(int.Parse(idContacto), telefonos[i]);
+                    }
+                }
+
+                foreach (Contacto ctnTel in listaOriginalTelefonos)
+                {
+                    if (!idTelefonos.Contains(ctnTel.IdTelefono))
+                    {
+                        iContacto.MantenimientoTelefonos(1, int.Parse(ctnTel.IdTelefono));
+                    }
+                }
+            }
+            else
+            {
+                actualizarTelefonos(telefonos, listaOriginalTelefonos);
+            }
+
+            if (correos.Length != listaOriginalCorreos.Count)
+            {
+                for (int i = 0; i < idCorreos.Length; i++)
+                {
+                    if (int.Parse(idCorreos[i]) > 0)
+                    {
+                        iContacto.MantenimientoCorreos(0, int.Parse(idCorreos[i]), correos[i]);
+                    }
+                    else
+                    {
+                        iContacto.registrarCorreos(int.Parse(idContacto), correos[i]);
+                    }
+                }
+
+                foreach (Contacto ctnCorreo in listaOriginalCorreos)
+                {
+                    if (!idCorreos.Contains(ctnCorreo.IdCorreo))
+                    {
+                        iContacto.MantenimientoCorreos(1, int.Parse(ctnCorreo.IdCorreo));
+                    }
+                }
+            }
+            else
+            {
+                actualizarCorreos(correos, listaOriginalCorreos);
+            }
+
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaModificar()", true);
+        }
+
+        private void actualizarTelefonos(string[] telefonos, ArrayList listaOriginalTelefonos)
+        {
+            Contacto iContacto = new Contacto();
+            int i = 0;
+            foreach (Contacto ctnTel in listaOriginalTelefonos)
+            {
+                iContacto.MantenimientoTelefonos(0, int.Parse(ctnTel.IdTelefono), telefonos[i]);
+                i++;
+            }
+        }
+
+        private void actualizarCorreos(string[] correos, ArrayList listaOriginalCorreos)
+        {
+            Contacto iContacto = new Contacto();
+            int i = 0;
+            foreach (Contacto ctnCorreo in listaOriginalCorreos)
+            {
+                iContacto.MantenimientoCorreos(0, int.Parse(ctnCorreo.IdCorreo), correos[i]);
+                i++;
+            }
+        }
+
+        private void eliminarContacto(string idContacto)
+        {
+            Contacto iContacto = new Contacto();
+            iContacto.IdContacto = idContacto;
+            iContacto.eliminarContactos();
+
+            Response.Redirect("~/Paginas/Contactos?estado=0", false);
         }
     }
 }

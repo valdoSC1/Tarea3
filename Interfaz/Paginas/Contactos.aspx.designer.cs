@@ -11,7 +11,7 @@ namespace Interfaz.Paginas
 {
 
 
-    public partial class Contactos
+    public partial class Contactos1
     {
 
         /// <summary>

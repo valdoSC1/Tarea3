@@ -104,6 +104,36 @@ namespace Negocios
             }
         }
 
+        public void modificarContactos()
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    db.SP_ModificarContacto(int.Parse(IdContacto), Nombre, PrimerApellido, SegundoApellido, Facebook, Instragram, Twitter);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void eliminarContactos()
+        {
+            try
+            {
+                using (Tarea3Entities1 db = new Tarea3Entities1())
+                {
+                    db.SP_EliminarContacto(int.Parse(IdContacto));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public ArrayList consultarInfoContacto(int idContacto)
         {
             try

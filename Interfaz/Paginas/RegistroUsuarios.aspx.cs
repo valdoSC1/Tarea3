@@ -62,10 +62,7 @@ namespace Interfaz.Paginas
                     iUsuario.registrarUsuarios();
                 }
                 */
-                string script = @"<script type='text/javascript'>
-                        Alerta();
-                  </script>";
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "script", script, false);
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "toast", "Alerta()", true);
             }
             catch (Exception)
             {
@@ -79,7 +76,7 @@ namespace Interfaz.Paginas
             try
             {
                 Usuarios iUsuario = new Usuarios();
-                
+                //iUsuario.Identificacion = txtIdM.Text;
                 ArrayList infoUsuarios = new ArrayList();
                 infoUsuarios = iUsuario.BuscaUsuario();
 
