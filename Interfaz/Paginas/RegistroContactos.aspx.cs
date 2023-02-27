@@ -51,6 +51,15 @@ namespace Interfaz.Paginas
             {
                 iContacto.registrarCorreos(idContacto, c);
             }
+
+            txtNombre.Text = "";
+            txtPrimerApellido.Text = "";
+            txtSegundoApellido.Text = "";
+            txtFacebook.Text = "";
+            txtInstagram.Text = "";
+            txtTwitter.Text = "";
+
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
         }
     }
 }

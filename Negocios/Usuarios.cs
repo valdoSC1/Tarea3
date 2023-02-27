@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Datos;
 using System.Data.Entity.Core.Objects;
 using System.Collections;
+using System.Data.SqlClient;
 
 namespace Negocios
 {
@@ -133,15 +134,12 @@ namespace Negocios
                 using (Tarea3Entities1 db = new Tarea3Entities1()) 
                 {
                     db.SP_EliminarUsuario(Identificacion);
-
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-
                 throw ex;
-            }
-            
+            }            
         }
 
         public ArrayList BuscaUsuario()
@@ -164,7 +162,7 @@ namespace Negocios
                     return infoUsuario;
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
 
                 throw ex;

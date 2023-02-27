@@ -2,6 +2,33 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <link href="../Estilos/toastr.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Scripts/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        function AlertaRegistro() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("Se ha registrado el contacto", "Información")
+        }
+    </script>
+
     <style>
         th, td {
             padding: 5px 15px;
@@ -14,6 +41,8 @@
     </style>
 
     <h2 class="text-center text-primary">Registro de contactos</h2>
+
+    <br />
 
     <div class="row">
         <div class="col-md-4">

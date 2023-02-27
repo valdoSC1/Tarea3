@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 using Negocios;
 
 namespace Interfaz.Paginas
@@ -59,15 +60,22 @@ namespace Interfaz.Paginas
                     iUsuario.Correo = txtEmail.Text;
                     iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
                     iUsuario.registrarUsuarios();
-                }
-                
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
+
+                    txtId.Text = "";
+                    txtNombre.Text = "";
+                    txtPApellido.Text = "";
+                    txtSApellido.Text = "";
+                    txtContrasena.Text = "";
+                    txtEmail.Text = "";
+                    ddlEstado.SelectedValue = "1";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
+                }                
             }
             catch (Exception)
             {
                 throw;
             }
-
         }
 
         protected void btnBuscarM_Click(object sender, EventArgs e)
@@ -138,7 +146,6 @@ namespace Interfaz.Paginas
         {
             try
             {
-
                 if (validar(txtIdC.Text) || validar(txtContrasenaModificar.Text))
                 {
                     // Mostrar un mensaje de error y limpiar el textbox
@@ -154,6 +161,11 @@ namespace Interfaz.Paginas
                     iUsuario.Identificacion = txtIdC.Text;
                     iUsuario.Contrasena = txtContrasenaModificar.Text;
                     iUsuario.cambiarContrasenaUsuario();
+
+                    txtIdC.Text = "";
+                    txtContrasenaModificar.Text = "";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaContrasena()", true);
                 }
             }
             catch (Exception)
@@ -182,6 +194,10 @@ namespace Interfaz.Paginas
                     iUsuario.Estado = Int32.Parse(dllCambioEstado.SelectedValue);
                     iUsuario.cambiarEstadoUsuarios();
 
+                    txtIdE.Text = "";
+                    dllCambioEstado.SelectedValue = "1";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEstado()", true);
                 }
             }
             catch (Exception)
@@ -208,11 +224,15 @@ namespace Interfaz.Paginas
                     Usuarios iUsuario = new Usuarios();
                     iUsuario.Identificacion = txtIdentificacionEliminar.Text;
                     iUsuario.eliminarUsuarios();
+
+                    txtIdentificacionEliminar.Text = "";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEliminar()", true);
                 }
             }
             catch (Exception ex)
-            {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", $"javascript:alert('{ex.Message}');", true);
+            {                
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
