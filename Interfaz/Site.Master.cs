@@ -16,9 +16,6 @@ namespace Interfaz
 			{
                 if (iUsuario != null)
                 {
-                    Home.Visible = true;
-                    About.Visible = true;
-                    Contact.Visible = true;
                     RegistroUsuarios.Visible = true;
                     RegistroContactos.Visible = true;
                     Contactos.Visible = true;
