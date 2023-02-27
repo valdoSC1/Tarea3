@@ -39,8 +39,7 @@ namespace Interfaz.Paginas
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             try
-            {
-                /*
+            {                            
                 if (validar(txtId.Text) || validar(txtNombre.Text) || validar(txtPApellido.Text) || validar(txtSApellido.Text) || validar(txtContrasena.Text) || validar(txtEmail.Text))
                 {
                     // Mostrar un mensaje de error y limpiar el textbox
@@ -61,8 +60,8 @@ namespace Interfaz.Paginas
                     iUsuario.Estado = Int32.Parse(ddlEstado.SelectedValue);
                     iUsuario.registrarUsuarios();
                 }
-                */
-                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "toast", "Alerta()", true);
+                
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta()", true);
             }
             catch (Exception)
             {
@@ -76,11 +75,10 @@ namespace Interfaz.Paginas
             try
             {
                 Usuarios iUsuario = new Usuarios();
-                //iUsuario.Identificacion = txtIdM.Text;
+                iUsuario.Identificacion = txtIdM.Text;
                 ArrayList infoUsuarios = new ArrayList();
                 infoUsuarios = iUsuario.BuscaUsuario();
-
-                StringBuilder Usuarios = new StringBuilder();
+               
                 foreach (Usuarios user in infoUsuarios)
                 {
                     txtNombreM.Text = user.Nombre;
@@ -92,7 +90,6 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -117,6 +114,7 @@ namespace Interfaz.Paginas
                     iUsuario.Nombre = txtNombreM.Text;
                     iUsuario.PrimerApellido = txtPApellidoM.Text;
                     iUsuario.SegundoApellido = txtSApellidoM.Text;
+                    iUsuario.Correo = txtCorreo.Text;
                     iUsuario.modificarUsuarios();
                 }
             }

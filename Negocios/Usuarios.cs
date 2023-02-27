@@ -151,14 +151,14 @@ namespace Negocios
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                     ArrayList infoUsuario = new ArrayList();
-                    var usuario = db.SP_BuscarUsuario(Identificacion);
-                    foreach (SP_BuscarUsuario_Result user in usuario.ToList())
+                    var usuario = db.SP_BuscarUsuario1(Identificacion);
+                    foreach (SP_BuscarUsuario1_Result user in usuario.ToList())
                     {
-                        Usuario iUsuario = new Usuario();
+                        Usuarios iUsuario = new Usuarios();
                         iUsuario.Nombre = user.Nombre;
-                        iUsuario.Primer_Apellido = user.Primer_Apellido;
-                        iUsuario.Segundo_Apellido = user.Segundo_Apellido;
-                        iUsuario.CorreoElectronico = user.CorreoElectronico;
+                        iUsuario.PrimerApellido = user.Primer_Apellido;
+                        iUsuario.SegundoApellido = user.Segundo_Apellido;
+                        iUsuario.Correo = user.CorreoElectronico;
                         infoUsuario.Add(iUsuario);
                     }
                     return infoUsuario;

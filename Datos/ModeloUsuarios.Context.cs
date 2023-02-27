@@ -327,5 +327,14 @@ namespace Datos
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_ConsultarUltimoContacto");
         }
+    
+        public virtual ObjectResult<SP_BuscarUsuario1_Result> SP_BuscarUsuario1(string identificacion)
+        {
+            var identificacionParameter = identificacion != null ?
+                new ObjectParameter("identificacion", identificacion) :
+                new ObjectParameter("identificacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_BuscarUsuario1_Result>("SP_BuscarUsuario1", identificacionParameter);
+        }
     }
 }

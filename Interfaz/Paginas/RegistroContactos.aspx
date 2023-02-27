@@ -65,7 +65,7 @@
 
         <div class="col-md-12" id="correos" style="display: inline-grid; place-items: center;">
             <label>
-                Correo:         
+                Correo electrónico:         
                 <input type="image" src="../recursos/simboloMas.png" alt="Agregar" id="btnAgregarCorreo"><br />
                 <input type="text" name="ctl00$MainContent$Correo" maxlength="20" placeholder="ejemplo@gmail.com" value="">
             </label>

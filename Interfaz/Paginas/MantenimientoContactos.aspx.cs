@@ -85,10 +85,10 @@ namespace Interfaz.Paginas
                     infoContacto.Append("<p>" + ctnTel.Telefono + "</p>");
                 }
 
-                infoContacto.Append("<h5><b>Correo eléctronico:</b></h5>");
+                infoContacto.Append("<h5><b>Correo electrónico:</b></h5>");
 
                 infoCorreos.Append("<label>");
-                infoCorreos.Append("Correo eléctronico:");
+                infoCorreos.Append("Correo electrónico:");
                 infoCorreos.Append("<input type = \"image\" src=\"../recursos/simboloMas.png\" alt=\"Agregar\" id=\"btnAgregarCorreo\"><br/>");
                 infoCorreos.Append("</label>");
 
