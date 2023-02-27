@@ -101,6 +101,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_BuscarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="identificacion" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="SP_CambiarContrasena" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
           <Parameter Name="contrasena" Type="varchar" Mode="In" />
@@ -180,6 +183,7 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Primer_Apellido" Type="varchar" Mode="In" />
           <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="Tarea3ModelStoreContainer">
           <EntitySet Name="Contacto" EntityType="Self.Contacto" Schema="dbo" store:Type="Tables" />
@@ -359,6 +363,7 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Primer_Apellido" Mode="In" Type="String" />
             <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_Logueo" ReturnType="Collection(String)">
             <Parameter Name="identificacion" Mode="In" Type="String" />
@@ -372,7 +377,7 @@
           <Parameter Name="identificacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarContactos" ReturnType="Collection(Tarea3Model.SP_ConsultarContactos_Result)">
-          <Parameter Name="idUsuario" Mode="In" Type="String" />
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
             <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarCorreos" ReturnType="Collection(Tarea3Model.SP_ConsultarCorreos_Result)">
@@ -421,6 +426,9 @@
             <Parameter Name="Twitter" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarUltimoContacto" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="SP_BuscarUsuario1" ReturnType="Collection(Tarea3Model.SP_BuscarUsuario1_Result)">
+          <Parameter Name="identificacion" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_BuscarUsuario_Result">
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
@@ -445,6 +453,12 @@
         <ComplexType Name="SP_ConsultarTelefonos_Result">
           <Property Type="Int32" Name="TelefonoID" Nullable="false" />
           <Property Type="String" Name="NumeroTelefono" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SP_BuscarUsuario1_Result">
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Primer_Apellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Segundo_Apellido" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="60" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -548,6 +562,16 @@
           <FunctionImportMapping FunctionImportName="SP_MantenimientoTelefono" FunctionName="Tarea3Model.Store.SP_MantenimientoTelefono" />
           <FunctionImportMapping FunctionImportName="SP_ModificarContacto" FunctionName="Tarea3Model.Store.SP_ModificarContacto" />
           <FunctionImportMapping FunctionImportName="SP_ConsultarUltimoContacto" FunctionName="Tarea3Model.Store.SP_ConsultarUltimoContacto" />
+          <FunctionImportMapping FunctionImportName="SP_BuscarUsuario1" FunctionName="Tarea3Model.Store.SP_BuscarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.SP_BuscarUsuario1_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
