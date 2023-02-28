@@ -77,7 +77,7 @@ namespace Interfaz.Paginas
                 foreach (Contacto ctnTel in telefonos)
                 {
                     infotelefonos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                    infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" placeholder=\"85644664\" value='" + ctnTel.Telefono + "'>");
+                    infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" title=\"Solo se aceptan números telefónicos válidos\" pattern=\"[+()0-9]+\" placeholder=\"85644664\" value='" + ctnTel.Telefono + "'>");
                     infotelefonos.Append("<input type=\"hidden\" name=\"ctl00$MainContent$idTelefono\" value='" + ctnTel.IdTelefono + "'>");
                     infotelefonos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,1);\">");
                     infotelefonos.Append("</div>");
@@ -95,7 +95,7 @@ namespace Interfaz.Paginas
                 foreach (Contacto ctnCorreo in correos)
                 {
                     infoCorreos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                    infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"20\" placeholder=\"ejemplo@gmail.com\" value='" + ctnCorreo.Correo + "'>");
+                    infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"60\" title=\"Solo se aceptan correos electrónicos válidos\" pattern='^([a-zA-Z0-9_\\-\\.]+)@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})' placeholder=\"ejemplo@gmail.com\" value='" + ctnCorreo.Correo + "'>");
                     infoCorreos.Append("<input type=\"hidden\" name=\"ctl00$MainContent$idCorreo\" value='" + ctnCorreo.IdCorreo + "'>");
                     infoCorreos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,2);\">");
                     infoCorreos.Append("</div>");

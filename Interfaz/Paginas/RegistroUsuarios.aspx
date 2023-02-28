@@ -174,25 +174,25 @@
                         <div class="col-md-4">
                             <label>
                                 Identificación:<br />
-                                <asp:TextBox ID="txtId" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                                <asp:TextBox ID="txtId" runat="server" pattern="[0-9]+" MaxLength="20" title="Solo se permiten números en este campo" placeholder="101230123" />
                             </label>
                         </div>
                         <div class="col-md-4">
                             <label>
                                 Nombre:<br />
-                                <asp:TextBox ID="txtNombre" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
+                                <asp:TextBox ID="txtNombre" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Nombre" />
                             </label>
                         </div>
                         <div class="col-md-4">
                             <label>
                                 Primer Apellido:<br />
-                                <asp:TextBox ID="txtPApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
+                                <asp:TextBox ID="txtPApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Primer Apellido" />
                             </label>
                         </div>
                         <div class="col-md-4">
                             <label>
                                 Segundo Apellido:<br />
-                                <asp:TextBox ID="txtSApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                                <asp:TextBox ID="txtSApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Segundo Apellido" />
                             </label>
                         </div>
                         <div class="col-md-4">
@@ -223,7 +223,7 @@
                         <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                             <label>
                                 Correo Electrónico:<br />
-                                <asp:TextBox ID="txtEmail" type="email" runat="server" MaxLength="60" placeholder="Email" />
+                                <asp:TextBox ID="txtEmail" type="email" runat="server" MaxLength="60" pattern="^([a-zA-Z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" title="Solo se aceptan correos electrónicos válidos" placeholder="ejemplo@gmail.com" />
                             </label>
                         </div>
 
@@ -252,7 +252,7 @@
                             Indique la identificación del usuario
                     <br />
                             que desea modificar:<br />
-                            <asp:TextBox ID="txtIdM" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                            <asp:TextBox ID="txtIdM" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123"/>
                         </label>
                     </div>
                     <div style="display: flex; justify-content: center; align-content: center">
@@ -271,25 +271,25 @@
                     <div class="col-md-4">
                         <label>
                             Nombre:<br />
-                            <asp:TextBox ID="txtNombreM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
+                            <asp:TextBox ID="txtNombreM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Nombre" />
                         </label>
                     </div>
                     <div class="col-md-4">
                         <label>
                             Primer Apellido:<br />
-                            <asp:TextBox ID="txtPApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
+                            <asp:TextBox ID="txtPApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Primer Apellido" />
                         </label>
                     </div>
                     <div class="col-md-4">
                         <label>
                             Segundo Apellido:<br />
-                            <asp:TextBox ID="txtSApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                            <asp:TextBox ID="txtSApellidoM" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Segundo Apellido" />
                         </label>
                     </div>
                     <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                         <label>
                             Correo Electrónico:<br />
-                            <asp:TextBox ID="txtCorreo" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="60" placeholder="Correo Electronico" />
+                            <asp:TextBox ID="txtCorreo" runat="server" pattern="^([a-zA-Z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" MaxLength="60" title="Solo se aceptan correos electrónicos válidos" placeholder="ejemplo@gmail.com" />
                         </label>
                     </div>
                     <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
@@ -312,7 +312,7 @@
                         Indique la identificación del usuario
                     <br />
                         que desea modificar:<br />
-                        <asp:TextBox ID="txtIdC" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                        <asp:TextBox ID="txtIdC" runat="server" pattern="[0-9]+" MaxLength="20" title="Solo se permiten números en este campo" placeholder="101230123"/>
                     </label>
                 </div>
 
@@ -344,7 +344,7 @@
                 <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                     <label>
                         Identificación:<br />
-                        <asp:TextBox ID="txtIdE" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                        <asp:TextBox ID="txtIdE" runat="server" pattern="[0-9]+" MaxLength="20" title="Solo se permiten números en este campo" placeholder="101230123"/>
                     </label>
                 </div>
 
@@ -375,7 +375,7 @@
                 <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
                     <label class="text-center">
                         Indique la identificación del usuario que desea eliminar.<br />
-                        <asp:TextBox ID="txtIdentificacionEliminar" runat="server" pattern="[0-9]+" MaxLength="20" placeholder="101230123" />
+                        <asp:TextBox ID="txtIdentificacionEliminar" runat="server" pattern="[0-9]+" MaxLength="20" title="Solo se permiten números en este campo" placeholder="101230123"/>
                     </label>
                 </div>
             </ContentTemplate>

@@ -54,39 +54,39 @@
                 <div class="col-md-4">
                     <label>
                         Nombre:<br />
-                        <asp:TextBox ID="txtNombre" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Nombre" />
+                        <asp:TextBox ID="txtNombre" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Nombre" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Primer Apellido:<br />
-                        <asp:TextBox ID="txtPrimerApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Primer Apellido" />
+                        <asp:TextBox ID="txtPrimerApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Primer Apellido" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Segundo Apellido:<br />
-                        <asp:TextBox ID="txtSegundoApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Segundo Apellido" />
+                        <asp:TextBox ID="txtSegundoApellido" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" title="Solo se permiten letras en este campo" placeholder="Segundo Apellido" />
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         Facebook:<br />
-                        <asp:TextBox ID="txtFacebook" runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="60" placeholder="Facebook" />
+                        <asp:TextBox ID="txtFacebook" runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ ]+" MaxLength="60" title="Solo se permiten usuarios de Facebook válidos" placeholder="Facebook" />
                     </label>
                 </div>
 
                 <div class="col-md-4">
                     <label>
                         Instagram:<br />
-                        <asp:TextBox ID="txtInstagram" runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="30" placeholder="Instagram" />
+                        <asp:TextBox ID="txtInstagram" runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ_]+" MaxLength="30" title="Solo se permiten usuarios de Instagram válidos" placeholder="Instagram" />
                     </label>
                 </div>
 
                 <div class="col-md-4">
                     <label>
                         Twitter:<br />
-                        <asp:TextBox ID="txtTwitter" runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="30" placeholder="Twitter" />
+                        <asp:TextBox ID="txtTwitter" runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ_]+" MaxLength="30" title="Solo se permiten usuarios de Twitter válidos" placeholder="Twitter" />
                     </label>
                 </div>
 
@@ -131,7 +131,7 @@
         btnAgregarTelefono.addEventListener('click', e => {
             e.preventDefault();
             let div = document.createElement('div');
-            div.innerHTML = `<input type="text" name="ctl00$MainContent$Telefono" value="">
+            div.innerHTML = `<input type="text" name="ctl00$MainContent$Telefono" maxlength="20" title="Solo se aceptan números telefónicos válidos" pattern="[+()0-9]+" placeholder="85644664" value="">
                             <input type="hidden" name="ctl00$MainContent$idTelefono" value="0">
                             <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="return eliminar(this,1);">`
             div.setAttribute(
@@ -144,7 +144,7 @@
         btnAgregarCorreo.addEventListener('click', e => {
             e.preventDefault();
             let div = document.createElement('div');
-            div.innerHTML = `<input type="text" name="ctl00$MainContent$Correo" value="">
+            div.innerHTML = `<input type="text" name="ctl00$MainContent$Correo" maxlength="60" title="Solo se aceptan correos electrónicos válidos" pattern='^([a-zA-Z0-9_\\-\\.]+)@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})' placeholder="ejemplo@gmail.com" value="">
                             <input type="hidden" name="ctl00$MainContent$idCorreo" value="0">
                             <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="return eliminar(this,2);">`
             div.setAttribute(

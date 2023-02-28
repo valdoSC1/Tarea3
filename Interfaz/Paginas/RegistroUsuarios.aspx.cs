@@ -293,7 +293,7 @@ namespace Interfaz.Paginas
             Random random = new Random();
             string abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             string numeros = "0123456789";
-            string especiales = "!@#$%";
+            string especiales = "!@#$%&*";
             string Generado = "";
             int index;
             for (int i = 0; i < 6; i++)
@@ -301,6 +301,23 @@ namespace Interfaz.Paginas
                 index = random.Next(abecedario.Length);
                 Generado = Generado + abecedario.Substring(index, 1);
             }
+
+            if (!Regex.IsMatch(Generado, "[a-z]+"))
+            {
+                int remplazar = random.Next(0,6);
+                index = random.Next(27, abecedario.Length);
+                Generado = Generado.Remove(remplazar, 1);
+                Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
+            }
+
+            if (!Regex.IsMatch(Generado, "[A-Z]+"))
+            {
+                int remplazar = random.Next(0, 6);
+                index = random.Next(0, 27);
+                Generado = Generado.Remove(remplazar, 1);
+                Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
+            }
+
             index = random.Next(numeros.Length);
             Generado = Generado + numeros.Substring(index, 1);
             index = random.Next(especiales.Length);
