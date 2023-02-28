@@ -19,10 +19,11 @@ namespace Interfaz
                     RegistroUsuarios.Visible = true;
                     RegistroContactos.Visible = true;
                     Contactos.Visible = true;
+                    LoginAdmin.Visible = false;
                 }
                 else
                 {
-
+                    LoginAdmin.Visible = true;
                 }
 			}
 			catch (Exception ex)

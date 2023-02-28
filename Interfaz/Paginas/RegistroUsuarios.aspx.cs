@@ -30,22 +30,23 @@ namespace Interfaz.Paginas
 
         public bool validarVacios(string dato)
         {
-            if (dato.Trim().Length==0)
+            if (dato.Trim().Length == 0)
             {
                 return true;
             }
-            return false ;
+            return false;
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             try
-            {                            
+            {
                 if (validar(txtId.Text) || validar(txtNombre.Text) || validar(txtPApellido.Text) || validar(txtSApellido.Text) || validar(txtContrasena.Text) || validar(txtEmail.Text))
                 {
                     // Mostrar un mensaje de error y limpiar el textbox
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
-                } else if(validarVacios(txtId.Text) || validarVacios(txtNombre.Text) || validarVacios(txtPApellido.Text) || validarVacios(txtSApellido.Text) || validarVacios(txtContrasena.Text) || validarVacios(txtEmail.Text))
+                }
+                else if (validarVacios(txtId.Text) || validarVacios(txtNombre.Text) || validarVacios(txtPApellido.Text) || validarVacios(txtSApellido.Text) || validarVacios(txtContrasena.Text) || validarVacios(txtEmail.Text))
                 {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
                 }
@@ -70,11 +71,11 @@ namespace Interfaz.Paginas
                     ddlEstado.SelectedValue = "1";
 
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
-                }                
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
@@ -86,15 +87,27 @@ namespace Interfaz.Paginas
                 iUsuario.Identificacion = txtIdM.Text;
                 ArrayList infoUsuarios = new ArrayList();
                 infoUsuarios = iUsuario.BuscaUsuario();
-               
-                foreach (Usuarios user in infoUsuarios)
+
+                if (infoUsuarios.Count > 0)
                 {
-                    txtNombreM.Text = user.Nombre;
-                    txtPApellidoM.Text = user.PrimerApellido;
-                    txtSApellidoM.Text = user.SegundoApellido;
-                    txtCorreo.Text = user.Correo;
+                    foreach (Usuarios user in infoUsuarios)
+                    {
+                        txtNombreM.Text = user.Nombre;
+                        txtPApellidoM.Text = user.PrimerApellido;
+                        txtSApellidoM.Text = user.SegundoApellido;
+                        txtCorreo.Text = user.Correo;
+                    }
+                    this.modificar.Visible = true;
                 }
-                this.modificar.Visible = true;
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);                    
+                    txtNombreM.Text = "";
+                    txtPApellidoM.Text = "";
+                    txtSApellidoM.Text = "";
+                    txtCorreo.Text = "";
+                    this.modificar.Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -133,7 +146,7 @@ namespace Interfaz.Paginas
 
                     this.modificar.Visible = false;
 
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaModificar()", true);                    
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaModificar()", true);
                 }
             }
             catch (Exception)
@@ -160,18 +173,27 @@ namespace Interfaz.Paginas
                     Usuarios iUsuario = new Usuarios();
                     iUsuario.Identificacion = txtIdC.Text;
                     iUsuario.Contrasena = txtContrasenaModificar.Text;
-                    iUsuario.cambiarContrasenaUsuario();
 
-                    txtIdC.Text = "";
-                    txtContrasenaModificar.Text = "";
+                    ArrayList infoUsuarios = iUsuario.BuscaUsuario();
+                    if (infoUsuarios.Count > 0)
+                    {
+                        iUsuario.cambiarContrasenaUsuario();
 
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaContrasena()", true);
+                        txtIdC.Text = "";
+                        txtContrasenaModificar.Text = "";
+
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaContrasena()", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);
+                    }
                 }
             }
             catch (Exception)
             {
                 throw;
-            }            
+            }
         }
 
         protected void btnCambiarEstado_Click(object sender, EventArgs e)
@@ -191,13 +213,22 @@ namespace Interfaz.Paginas
                 {
                     Usuarios iUsuario = new Usuarios();
                     iUsuario.Identificacion = txtIdE.Text;
-                    iUsuario.Estado = Int32.Parse(dllCambioEstado.SelectedValue);
-                    iUsuario.cambiarEstadoUsuarios();
 
-                    txtIdE.Text = "";
-                    dllCambioEstado.SelectedValue = "1";
+                    ArrayList infoUsuarios = iUsuario.BuscaUsuario();
+                    if (infoUsuarios.Count > 0)
+                    {
+                        iUsuario.Estado = Int32.Parse(dllCambioEstado.SelectedValue);
+                        iUsuario.cambiarEstadoUsuarios();
 
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEstado()", true);
+                        txtIdE.Text = "";
+                        dllCambioEstado.SelectedValue = "1";
+
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEstado()", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);
+                    }                    
                 }
             }
             catch (Exception)
@@ -223,15 +254,24 @@ namespace Interfaz.Paginas
                 {
                     Usuarios iUsuario = new Usuarios();
                     iUsuario.Identificacion = txtIdentificacionEliminar.Text;
-                    iUsuario.eliminarUsuarios();
 
-                    txtIdentificacionEliminar.Text = "";
+                    ArrayList infoUsuarios = iUsuario.BuscaUsuario();
+                    if (infoUsuarios.Count > 0)
+                    {
+                        iUsuario.eliminarUsuarios();
 
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEliminar()", true);
+                        txtIdentificacionEliminar.Text = "";
+
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEliminar()", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);
+                    }
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
@@ -244,7 +284,6 @@ namespace Interfaz.Paginas
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

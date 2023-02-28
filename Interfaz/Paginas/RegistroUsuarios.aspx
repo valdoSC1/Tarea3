@@ -109,7 +109,7 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["success"]("Se ha elimiado el usuario", "Información")
+            toastr["success"]("Se ha eliminado el usuario", "Información")
         }
 
         function AlertaError(mensaje) {
@@ -131,6 +131,27 @@
                 "hideMethod": "fadeOut"
             }
             toastr["error"](mensaje, "Información")
+        }
+
+        function AlertaNoEncontrado(mensaje) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["warning"](mensaje, "Información")
         }
 
     </script>

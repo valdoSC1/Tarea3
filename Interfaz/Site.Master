@@ -51,6 +51,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        <li runat="server" visible="false" id=LoginAdmin><a  runat="server" href="~/Paginas/LoginAdmin">Administración</a></li>
                         <li runat="server" visible="false" id=RegistroUsuarios><a  runat="server" href="~/Paginas/RegistroUsuarios">Registro usuarios</a></li>
                         <li runat="server" visible="false" id=RegistroContactos><a  runat="server" href="~/Paginas/RegistroContactos">Registro contactos</a></li>
                         <li runat="server" visible="false" id=Contactos><a  runat="server" href="~/Paginas/Contactos.aspx">Contactos</a></li>

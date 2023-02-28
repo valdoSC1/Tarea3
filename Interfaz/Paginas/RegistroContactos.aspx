@@ -66,21 +66,21 @@
         <div class="col-md-4">
             <label>
                 Facebook:<br />
-                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Facebook" ID="txtFacebook" />
+                <asp:TextBox runat="server" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ ]+" MaxLength="60" placeholder="Facebook" ID="txtFacebook" />
             </label>
         </div>
 
         <div class="col-md-4">
             <label>
                 Instagram:<br />
-                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Instagram" ID="txtInstagram" />
+                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ_]+" MaxLength="30" placeholder="Instagram" ID="txtInstagram" />
             </label>
         </div>
 
         <div class="col-md-4">
             <label>
                 Twitter:<br />
-                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ]+" MaxLength="20" placeholder="Twitter" ID="txtTwitter" />
+                <asp:TextBox runat="server" pattern="[A-Za-z0-9ÁáÉéÍíÓóÚúÑñ_]+" MaxLength="30" placeholder="Twitter" ID="txtTwitter" />
             </label>
         </div>
 
@@ -88,7 +88,7 @@
             <label>
                 Teléfono:                              
                  <input type="image" src="../recursos/simboloMas.png" alt="Agregar" id="btnAgregarTelefono"><br />
-                <input type="text" name="ctl00$MainContent$Telefono" maxlength="20" required pattern="[+()0-9]+" placeholder="85644664" value="">
+                <input type="text" name="ctl00$MainContent$Telefono" maxlength="20" pattern="[+()0-9]+" placeholder="85644664" value="">
             </label>
         </div>
 
@@ -96,7 +96,7 @@
             <label>
                 Correo electrónico:         
                 <input type="image" src="../recursos/simboloMas.png" alt="Agregar" id="btnAgregarCorreo"><br />
-                <input type="text" name="ctl00$MainContent$Correo" maxlength="20" placeholder="ejemplo@gmail.com" value="">
+                <input type="text" name="ctl00$MainContent$Correo" maxlength="60" pattern="^([a-zA-Z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" placeholder="ejemplo@gmail.com" value="">
             </label>
         </div>
 
@@ -112,7 +112,7 @@
         const btnAgregarTelefono = document.getElementById("btnAgregarTelefono");
         const btnAgregarCorreo = document.getElementById("btnAgregarCorreo");
 
-        btnAgregarTelefono.addEventListener('click', e => {
+        btnAgregarTelefono.addEventListener('click', e => {            
             let div = document.createElement('div');
             div.innerHTML = `<input type="text" name="ctl00$MainContent$Telefono" value="" required>
                             <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="eliminar(this,1)">`

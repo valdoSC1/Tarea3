@@ -129,8 +129,9 @@
         const btnAgregarCorreo = document.getElementById("btnAgregarCorreo");
 
         btnAgregarTelefono.addEventListener('click', e => {
+            e.preventDefault();
             let div = document.createElement('div');
-            div.innerHTML = `<input type="text" name="ctl00$MainContent$Telefono" value="" required>
+            div.innerHTML = `<input type="text" name="ctl00$MainContent$Telefono" value="">
                             <input type="hidden" name="ctl00$MainContent$idTelefono" value="0">
                             <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="return eliminar(this,1);">`
             div.setAttribute(
@@ -141,8 +142,9 @@
         })
 
         btnAgregarCorreo.addEventListener('click', e => {
+            e.preventDefault();
             let div = document.createElement('div');
-            div.innerHTML = `<input type="text" name="ctl00$MainContent$Correo" value="" required>
+            div.innerHTML = `<input type="text" name="ctl00$MainContent$Correo" value="">
                             <input type="hidden" name="ctl00$MainContent$idCorreo" value="0">
                             <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="return eliminar(this,2);">`
             div.setAttribute(

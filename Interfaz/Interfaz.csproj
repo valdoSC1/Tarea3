@@ -137,6 +137,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Paginas\Contactos.aspx" />
     <Content Include="Paginas\InicioSesion.aspx" />
+    <Content Include="Paginas\LoginAdmin.aspx" />
     <Content Include="Paginas\MantenimientoContactos.aspx" />
     <Content Include="Paginas\RegistroContactos.aspx" />
     <Content Include="Paginas\RegistroUsuarios.aspx" />
@@ -219,6 +220,13 @@
     </Compile>
     <Compile Include="Paginas\InicioSesion.aspx.designer.cs">
       <DependentUpon>InicioSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\LoginAdmin.aspx.cs">
+      <DependentUpon>LoginAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\LoginAdmin.aspx.designer.cs">
+      <DependentUpon>LoginAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MantenimientoContactos.aspx.cs">
       <DependentUpon>MantenimientoContactos.aspx</DependentUpon>
