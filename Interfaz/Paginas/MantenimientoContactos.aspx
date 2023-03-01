@@ -27,6 +27,39 @@
             }
             toastr["success"]("Se ha modificado la información del contacto", "Información")
         }
+
+        function Alerta(mensaje) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["warning"](mensaje, "Información")
+        }
+
+        function cambiarClase() {
+
+            const divInfo = document.getElementById('nav-home');
+            const divModificar = document.getElementById('nav-profile');
+
+            console.log(divInfo);
+            console.log(divModificar);
+
+            divInfo.className = "tab-pane fade"
+            divModificar.className = "tab-pane fade in active"
+        }
         
     </script>
 
@@ -113,8 +146,8 @@
             </div>
 
 
-            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">       
-                <input type="button" id="btnEliminar" name="ctl00$MainContent$Eliminar" value="Si" style="background-color: #f50400;margin: 12px 0px 0px 0px" onclick="eliminarContacto()">                
+            <div class="col-md-12" style="display: flex; justify-content: center; align-content: center">
+                <input type="button" id="btnEliminar" name="ctl00$MainContent$Eliminar" value="Si" style="background-color: #f50400; margin: 12px 0px 0px 0px" onclick="eliminarContacto()">
                 <input type="hidden" id="opc" name="ctl00$MainContent$Eliminar" value="0">
             </div>
         </div>

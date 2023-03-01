@@ -21,7 +21,7 @@ namespace Interfaz.Paginas
 
                 if (telefonos != null && correos != null)
                 {
-                    if (validarVacios(txtNombre.Text))
+                    if (validarVacios(txtNombre.Text) || validarVacios(txtPrimerApellido.Text) || validarVacios(txtSegundoApellido.Text) || validarVacios(txtFacebook.Text) || validarVacios(txtInstagram.Text) || validarVacios(txtTwitter.Text) || validarCamposDinamicos(telefonos) || validarCamposDinamicos(correos))
                     {
                         generarCampos(telefonos, correos);
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos')", true);
@@ -29,9 +29,13 @@ namespace Interfaz.Paginas
                     else
                     {
                         registrarContacto(telefonos, correos);
+                        generarCampos(null, null);
                     }                    
-                }
-                generarCampos(telefonos, correos);
+                } 
+                else
+                {
+                    generarCampos(telefonos, correos);
+                }                 
             }
             catch (Exception ex)
             {
@@ -54,6 +58,20 @@ namespace Interfaz.Paginas
                 throw new Exception(ex.Message);
             }
         }
+
+        private bool validarCamposDinamicos(string datos)
+        {
+            string[] datosValidar = datos.Split(',');
+
+            foreach (string dato in datosValidar)
+            {
+                if (dato.Trim().Length == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        } 
 
         private void registrarContacto(string telefonos, string correos)
         {

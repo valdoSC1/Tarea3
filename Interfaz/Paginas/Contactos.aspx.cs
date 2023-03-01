@@ -20,6 +20,13 @@ namespace Interfaz.Paginas
                 Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
 
                 string contactoEliminado = Request.QueryString["estado"];
+                string eliminado = (string)Session["Eliminado"];
+
+                if (eliminado != null)
+                {
+                    Session["Eliminado"] = null;
+                    Response.Redirect("~/Paginas/Contactos", false);
+                }
 
                 Contacto iContacto = new Contacto();
                 ArrayList infoContactos = iContacto.ConsultarContactos(iUsuario.Identificacion);
@@ -41,9 +48,10 @@ namespace Interfaz.Paginas
 
                 contactosInfo.InnerHtml = Contactos.ToString();
 
-                if (contactoEliminado != null)
+                if (contactoEliminado != null && eliminado == null)
                 {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaEliminar()", true);
+                    Session["Eliminado"] = "eliminado";
                 }
             }
             catch (Exception ex)

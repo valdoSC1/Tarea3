@@ -48,6 +48,7 @@
             }
             toastr["warning"](mensaje, "Información")
         }
+
     </script>
 
     <style>
