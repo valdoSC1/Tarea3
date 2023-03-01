@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Collections;
-using System.Text;
+using System.Data.SqlClient;
 using Negocios;
 
 namespace Interfaz.Paginas
@@ -26,11 +28,16 @@ namespace Interfaz.Paginas
                         generarCampos(telefonos, correos);
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos')", true);
                     } 
+                    else if (validar(txtNombre.Text) || validar(txtPrimerApellido.Text) || validar(txtSegundoApellido.Text) || validar(txtFacebook.Text) || validar(txtInstagram.Text) || validar(txtTwitter.Text) || validarSQL(telefonos) || validarSQL(correos))
+                    {
+                        generarCampos(telefonos, correos);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar');", true);
+                    }         
                     else
                     {
                         registrarContacto(telefonos, correos);
                         generarCampos(null, null);
-                    }                    
+                    }
                 } 
                 else
                 {
@@ -40,6 +47,45 @@ namespace Interfaz.Paginas
             catch (Exception ex)
             {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+            }
+        }
+
+        private bool validar(string dato)
+        {
+            try
+            {
+                if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private bool validarSQL(string datos)
+        {
+            try
+            {
+                string[] datosValidar = datos.Split(',');
+
+                foreach (string dato in datosValidar)
+                {
+                    if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
             }
         }
 

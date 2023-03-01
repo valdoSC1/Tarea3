@@ -42,7 +42,7 @@ namespace Interfaz.Paginas
                         {
                             generarCampos(rawTelefonos, rawCorreos, rawIDTelefonos, rawIDCorreos);
                             ScriptManager.RegisterStartupScript(this, typeof(Page), "validar", "cambiarClase();", true);
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos');", true);
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar');", true);
                         } 
                         else
                         {
