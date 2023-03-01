@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 using Negocios;
 
 namespace Interfaz.Paginas
@@ -19,7 +21,7 @@ namespace Interfaz.Paginas
                 Contacto iContacto = new Contacto();
                 string idContacto = Request.QueryString["idContacto"];
                 string opc = Request.Form["ctl00$MainContent$Eliminar"];
-                
+
                 if (opc == null || opc == "0")
                 {
                     string rawTelefonos = Request.Form["ctl00$MainContent$Telefono"];
@@ -34,8 +36,14 @@ namespace Interfaz.Paginas
                         {
                             generarCampos(rawTelefonos, rawCorreos, rawIDTelefonos, rawIDCorreos);
                             ScriptManager.RegisterStartupScript(this, typeof(Page), "validar", "cambiarClase();", true);
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos');", true);                            
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos');", true);
                         }
+                        else if (validar(txtNombre.Text) || validar(txtPrimerApellido.Text) || validar(txtSegundoApellido.Text) || validar(txtFacebook.Text) || validar(txtInstagram.Text) || validar(txtTwitter.Text) || validarSQL(rawTelefonos) || validarSQL(rawCorreos))
+                        {
+                            generarCampos(rawTelefonos, rawCorreos, rawIDTelefonos, rawIDCorreos);
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "validar", "cambiarClase();", true);
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos');", true);
+                        } 
                         else
                         {
                             telefonos = iContacto.ConsultarTelefonos(int.Parse(idContacto));
@@ -62,6 +70,45 @@ namespace Interfaz.Paginas
             catch (Exception ex)
             {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+            }
+        }
+
+        private bool validar(string dato)
+        {
+            try
+            {
+                if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private bool validarSQL(string datos)
+        {
+            try
+            {
+                string[] datosValidar = datos.Split(',');
+
+                foreach (string dato in datosValidar)
+                {
+                    if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
             }
         }
 
@@ -248,6 +295,7 @@ namespace Interfaz.Paginas
                 string[] correos = rawCorreos.Split(',');
                 string[] idTelefonos = rawIDTelefonos.Split(',');
                 string[] idCorreos = rawIDCorreos.Split(',');
+
                 if (telefonos.Length != listaOriginalTelefonos.Count)
                 {
                     for (int i = 0; i < idTelefonos.Length; i++)

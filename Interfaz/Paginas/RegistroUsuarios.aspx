@@ -172,7 +172,7 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["warning"]("Por favor verifique los datos que desea ingresar, no pueden estar vacíos.", "Información")
+            toastr["warning"]("Por favor verifique los datos que desea ingresar, no pueden estar vacíos", "Información")
         }
 
         function AlertaValidar() {
@@ -193,7 +193,7 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["warning"]("Por favor verifique los datos que desea ingresar.", "Información")
+            toastr["warning"]("Por favor verifique los datos que desea ingresar", "Información")
         }
     </script>
 

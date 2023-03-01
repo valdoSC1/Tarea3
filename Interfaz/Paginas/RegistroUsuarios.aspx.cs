@@ -59,7 +59,6 @@ namespace Interfaz.Paginas
             {
                 if (validar(txtId.Text) || validar(txtNombre.Text) || validar(txtPApellido.Text) || validar(txtSApellido.Text) || validar(txtContrasena.Text) || validar(txtEmail.Text))
                 {
-                    // Mostrar un mensaje de error y limpiar el textbox
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtId.Text) || validarVacios(txtNombre.Text) || validarVacios(txtPApellido.Text) || validarVacios(txtSApellido.Text) || validarVacios(txtContrasena.Text) || validarVacios(txtEmail.Text))
@@ -99,30 +98,41 @@ namespace Interfaz.Paginas
         {
             try
             {
-                Usuarios iUsuario = new Usuarios();
-                iUsuario.Identificacion = txtIdM.Text;
-                ArrayList infoUsuarios = new ArrayList();
-                infoUsuarios = iUsuario.BuscaUsuario();
-
-                if (infoUsuarios.Count > 0)
+                if (validarVacios(txtIdM.Text))
                 {
-                    foreach (Usuarios user in infoUsuarios)
-                    {
-                        txtNombreM.Text = user.Nombre;
-                        txtPApellidoM.Text = user.PrimerApellido;
-                        txtSApellidoM.Text = user.SegundoApellido;
-                        txtCorreo.Text = user.Correo;
-                    }
-                    this.modificar.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaVacios()", true);
+                }
+                else if (validar(txtIdM.Text))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);                    
-                    txtNombreM.Text = "";
-                    txtPApellidoM.Text = "";
-                    txtSApellidoM.Text = "";
-                    txtCorreo.Text = "";
-                    this.modificar.Visible = false;
+                    Usuarios iUsuario = new Usuarios();
+                    iUsuario.Identificacion = txtIdM.Text;
+                    ArrayList infoUsuarios = new ArrayList();
+                    infoUsuarios = iUsuario.BuscaUsuario();
+
+                    if (infoUsuarios.Count > 0)
+                    {
+                        foreach (Usuarios user in infoUsuarios)
+                        {
+                            txtNombreM.Text = user.Nombre;
+                            txtPApellidoM.Text = user.PrimerApellido;
+                            txtSApellidoM.Text = user.SegundoApellido;
+                            txtCorreo.Text = user.Correo;
+                        }
+                        this.modificar.Visible = true;
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);
+                        txtNombreM.Text = "";
+                        txtPApellidoM.Text = "";
+                        txtSApellidoM.Text = "";
+                        txtCorreo.Text = "";
+                        this.modificar.Visible = false;
+                    }
                 }
             }
             catch (Exception ex)
@@ -137,12 +147,11 @@ namespace Interfaz.Paginas
             {
                 if (validar(txtIdM.Text) || validar(txtNombreM.Text) || validar(txtPApellidoM.Text) || validar(txtSApellidoM.Text))
                 {
-                    // Mostrar un mensaje de error y limpiar el textbox
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtIdM.Text) || validarVacios(txtNombreM.Text) || validarVacios(txtPApellidoM.Text) || validarVacios(txtSApellidoM.Text))
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaVacios()", true);
                 }
                 else
                 {
@@ -177,12 +186,11 @@ namespace Interfaz.Paginas
             {
                 if (validar(txtIdC.Text) || validar(txtContrasenaModificar.Text))
                 {
-                    // Mostrar un mensaje de error y limpiar el textbox
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtIdC.Text) || validarVacios(txtContrasenaModificar.Text))
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaVacios()", true);
                 }
                 else
                 {
@@ -218,12 +226,11 @@ namespace Interfaz.Paginas
             {
                 if (validar(txtIdE.Text))
                 {
-                    // Mostrar un mensaje de error y limpiar el textbox
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtIdE.Text))
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaVacios()", true);
                 }
                 else
                 {
@@ -244,7 +251,7 @@ namespace Interfaz.Paginas
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaNoEncontrado('No se encontró el usuario')", true);
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -258,13 +265,12 @@ namespace Interfaz.Paginas
             try
             {
                 if (validar(txtIdentificacionEliminar.Text))
-                {
-                    // Mostrar un mensaje de error y limpiar el textbox
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                {                  
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtIdentificacionEliminar.Text))
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaVacios()", true);
                 }
                 else
                 {
@@ -320,7 +326,7 @@ namespace Interfaz.Paginas
 
             if (!Regex.IsMatch(Generado, "[a-z]+"))
             {
-                int remplazar = random.Next(0,6);
+                int remplazar = random.Next(0, 6);
                 index = random.Next(27, abecedario.Length);
                 Generado = Generado.Remove(remplazar, 1);
                 Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
