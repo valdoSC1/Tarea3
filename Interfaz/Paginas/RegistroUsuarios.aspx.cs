@@ -21,20 +21,36 @@ namespace Interfaz.Paginas
 
         public bool validar(string dato)
         {
-            if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+            try
             {
-                return true;
+                if (Regex.IsMatch(dato.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(dato.ToUpper(), "\'|\""))
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public bool validarVacios(string dato)
         {
-            if (dato.Trim().Length == 0)
+            try
             {
-                return true;
+                if (dato.Trim().Length == 0)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
@@ -111,7 +127,7 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                throw ex;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
@@ -149,9 +165,9 @@ namespace Interfaz.Paginas
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaModificar()", true);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
@@ -190,9 +206,9 @@ namespace Interfaz.Paginas
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
@@ -231,9 +247,9 @@ namespace Interfaz.Paginas
                     }                    
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
@@ -282,30 +298,31 @@ namespace Interfaz.Paginas
             {
                 txtContrasena.Text = GeneraPalabra();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
         public string GeneraPalabra()
         {
-            Random random = new Random();
-            string abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            string numeros = "0123456789";
-            string especiales = "!@#$%";
-            string Generado = "";
-            int index;
-            for (int i = 0; i < 6; i++)
-            {
-                index = random.Next(abecedario.Length);
-                Generado = Generado + abecedario.Substring(index, 1);
-            }
-            index = random.Next(numeros.Length);
-            Generado = Generado + numeros.Substring(index, 1);
-            index = random.Next(especiales.Length);
-            Generado = Generado + especiales.Substring(index, 1);
-            return Generado;
+                Random random = new Random();
+                string abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                string numeros = "0123456789";
+                string especiales = "!@#$%";
+                string Generado = "";
+                int index;
+                for (int i = 0; i < 6; i++)
+                {
+                    index = random.Next(abecedario.Length);
+                    Generado = Generado + abecedario.Substring(index, 1);
+                }
+                index = random.Next(numeros.Length);
+                Generado = Generado + numeros.Substring(index, 1);
+                index = random.Next(especiales.Length);
+                Generado = Generado + especiales.Substring(index, 1);
+                return Generado;
+          
         }
     }
 }

@@ -14,52 +14,67 @@ namespace Interfaz.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            String telefonos = Request.Form["ctl00$MainContent$Telefono"];
-            String correos = Request.Form["ctl00$MainContent$Correo"];
-
-            if (telefonos != null && correos != null)
+            try
             {
-                registrarContacto(telefonos, correos);
+                String telefonos = Request.Form["ctl00$MainContent$Telefono"];
+                String correos = Request.Form["ctl00$MainContent$Correo"];
+
+                if (telefonos != null && correos != null)
+                {
+                    registrarContacto(telefonos, correos);
+                }
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
 
         private void registrarContacto(String telefonos, String correos)
         {
-            Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
-            Contacto iContacto = new Contacto
+            try
             {
-                Nombre = txtNombre.Text,
-                PrimerApellido = txtPrimerApellido.Text,
-                SegundoApellido = txtSegundoApellido.Text,
-                Facebook = txtFacebook.Text,
-                Instragram = txtInstagram.Text,
-                Twitter = txtTwitter.Text
-            };
-            iContacto.registrarContactos(iUsuario.Identificacion);
-            ArrayList infoIdContacto = iContacto.consultarUltimoContacto();
-            int idContacto = (int)infoIdContacto[0];
+                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+                Contacto iContacto = new Contacto
+                {
+                    Nombre = txtNombre.Text,
+                    PrimerApellido = txtPrimerApellido.Text,
+                    SegundoApellido = txtSegundoApellido.Text,
+                    Facebook = txtFacebook.Text,
+                    Instragram = txtInstagram.Text,
+                    Twitter = txtTwitter.Text
+                };
+                iContacto.registrarContactos(iUsuario.Identificacion);
+                ArrayList infoIdContacto = iContacto.consultarUltimoContacto();
+                int idContacto = (int)infoIdContacto[0];
 
-            String[] telefono = telefonos.Split(',');
-            String[] correo = correos.Split(',');
+                String[] telefono = telefonos.Split(',');
+                String[] correo = correos.Split(',');
 
-            foreach (String t in telefono)
-            {
-                iContacto.registrarTelefonos(idContacto, t);
+                foreach (String t in telefono)
+                {
+                    iContacto.registrarTelefonos(idContacto, t);
+                }
+
+                foreach (String c in correo)
+                {
+                    iContacto.registrarCorreos(idContacto, c);
+                }
+
+                txtNombre.Text = "";
+                txtPrimerApellido.Text = "";
+                txtSegundoApellido.Text = "";
+                txtFacebook.Text = "";
+                txtInstagram.Text = "";
+                txtTwitter.Text = "";
+
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
             }
-
-            foreach (String c in correo)
+            catch (Exception ex)
             {
-                iContacto.registrarCorreos(idContacto, c);
+
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
-
-            txtNombre.Text = "";
-            txtPrimerApellido.Text = "";
-            txtSegundoApellido.Text = "";
-            txtFacebook.Text = "";
-            txtInstagram.Text = "";
-            txtTwitter.Text = "";
-
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaRegistro()", true);
         }
     }
 }

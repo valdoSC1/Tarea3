@@ -57,9 +57,9 @@ namespace Interfaz.Paginas
                     }
                 }    
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
             }
         }
     }
