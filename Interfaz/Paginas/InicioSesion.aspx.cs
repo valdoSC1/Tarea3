@@ -32,13 +32,13 @@ namespace Interfaz.Paginas
                 if (Regex.IsMatch(contrasena.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(contrasena.ToUpper(), "\'|\""))
                 {
                     // Mostrar un mensaje de error y limpiar el textbox
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña incorrectos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
 
                     txtContrasena.Value = "";
                 }
                 else if (contrasena.Trim().Length == 0 || usuario.Trim().Length == 0)
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña no pueden estar vacíos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "CredencialesVacias()", true);
                 }
                 else
                 {
@@ -52,7 +52,7 @@ namespace Interfaz.Paginas
                     }
                     else
                     {
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Usuario y/o contraseña incorrectos.');", true);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Credenciales()", true);
                         Session["LogueoValido"] = null;
                     }
                 }    
