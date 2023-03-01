@@ -11,11 +11,9 @@ namespace Datos
 {
     using System;
     
-    public partial class SP_BuscarUsuario_Result
+    public partial class SP_LogueoAdmin_Result
     {
-        public string Nombre { get; set; }
-        public string Primer_Apellido { get; set; }
-        public string Segundo_Apellido { get; set; }
-        public string CorreoElectronico { get; set; }
+        public string codigoUsuario { get; set; }
+        public string Rol { get; set; }
     }
 }

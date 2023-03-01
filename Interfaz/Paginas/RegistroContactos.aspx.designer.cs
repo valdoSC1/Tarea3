@@ -69,6 +69,24 @@ namespace Interfaz.Paginas
         protected global::System.Web.UI.WebControls.TextBox txtTwitter;
 
         /// <summary>
+        /// telefonos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl telefonos;
+
+        /// <summary>
+        /// correos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl correos;
+
+        /// <summary>
         /// btnRegistrar control.
         /// </summary>
         /// <remarks>

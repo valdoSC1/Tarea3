@@ -11,25 +11,76 @@ namespace Interfaz
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
             try
-			{
+            {
+                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+                Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
+
                 if (iUsuario != null)
                 {
-                    RegistroUsuarios.Visible = true;
                     RegistroContactos.Visible = true;
                     Contactos.Visible = true;
+                    lnkCerrarSesion.Visible = true;
+
+                    RegistroUsuarios.Visible = false;
+                    LoginAdmin.Visible = false;                    
+                }
+                else if (iAdmin != null)
+                {
+                    RegistroUsuarios.Visible = true;
                     LoginAdmin.Visible = false;
+                    lnkCerrarSesion.Visible = true;
+
+                    RegistroContactos.Visible = false;
+                    Contactos.Visible = false;
                 }
                 else
                 {
+                    lnkCerrarSesion.Visible = false;
                     LoginAdmin.Visible = true;
                 }
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void lnkInicio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+                Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
+
+                if (iUsuario != null || iAdmin != null)
+                {
+                    Response.Redirect("~/Default", false);
+                }
+                else
+                {
+                    Response.Redirect("~/Paginas/InicioSesion", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+            }
+        }
+
+        protected void lnkCerrarSesion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Session["LogueoValido"] = null;
+                Session["LogueoValidoAdmin"] = null;
+
+                Response.Redirect("~/Paginas/InicioSesion", false);
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+            }
         }
     }
 }

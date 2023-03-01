@@ -10,12 +10,14 @@
 namespace Datos
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class SP_BuscarUsuario_Result
+    public partial class Correo
     {
-        public string Nombre { get; set; }
-        public string Primer_Apellido { get; set; }
-        public string Segundo_Apellido { get; set; }
+        public int CorreoID { get; set; }
+        public int ContactoID { get; set; }
         public string CorreoElectronico { get; set; }
+    
+        public virtual Contacto_Usuario Contacto_Usuario { get; set; }
     }
 }

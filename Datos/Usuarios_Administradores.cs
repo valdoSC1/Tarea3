@@ -12,12 +12,12 @@ namespace Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class Contacto
+    public partial class Usuarios_Administradores
     {
-        public int CorreoID { get; set; }
-        public int ContactoID { get; set; }
-        public string CorreoElectronico { get; set; }
+        public string codigoUsuario { get; set; }
+        public string contrasena { get; set; }
+        public int EstadoID { get; set; }
     
-        public virtual Contacto_Usuario Contacto_Usuario { get; set; }
+        public virtual Estado Estado { get; set; }
     }
 }

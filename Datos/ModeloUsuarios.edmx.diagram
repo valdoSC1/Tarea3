@@ -4,16 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f05364a8adbd47f2bea313fefba8d42a" Name="Diagram1">
-        <EntityTypeShape EntityType="Tarea3Model.Contacto" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="f578704fb5f8407fb461765cc60c8f7d" Name="Diagram1">
         <EntityTypeShape EntityType="Tarea3Model.Contacto_Usuario" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Tarea3Model.Estado" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Tarea3Model.Telefono" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Tarea3Model.Usuario" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea3Model.Correo" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea3Model.Estado" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea3Model.Telefono" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea3Model.Usuarios" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea3Model.Usuarios_Administradores" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <AssociationConnector Association="Tarea3Model.FK_Contacto_Contacto_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="Tarea3Model.FK_Contacto_Usuario_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="Tarea3Model.FK_Telefono_Contacto_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="Tarea3Model.FK_Usuario_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="Tarea3Model.FK_Usuarios_Administradores_Estado" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

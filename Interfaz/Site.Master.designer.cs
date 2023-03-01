@@ -15,6 +15,15 @@ namespace Interfaz
     {
 
         /// <summary>
+        /// lnkInicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkInicio;
+
+        /// <summary>
         /// LoginAdmin control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace Interfaz
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Contactos;
+
+        /// <summary>
+        /// lnkCerrarSesion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkCerrarSesion;
 
         /// <summary>
         /// MainContent control.

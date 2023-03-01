@@ -17,13 +17,16 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Estado()
         {
-            this.Usuarios = new HashSet<Usuario>();
+            this.Usuarios = new HashSet<Usuarios>();
+            this.Usuarios_Administradores = new HashSet<Usuarios_Administradores>();
         }
     
         public int EstadoID { get; set; }
         public string NombreEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios_Administradores> Usuarios_Administradores { get; set; }
     }
 }

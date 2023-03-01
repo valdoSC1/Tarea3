@@ -21,7 +21,7 @@ namespace Negocios
         private String _Contrasena;
         private String _Correo;
         private int _Estado;
-        private bool credencialValida = false;
+        private bool credencialValida = false;        
 
         public string Identificacion { get => _Identificacion; set => _Identificacion = value; }
         public string Nombre { get => _Nombre; set => _Nombre = value; }
@@ -48,7 +48,7 @@ namespace Negocios
                 Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                   ObjectResult<String> objetoUsuario = db.SP_Logueo1(Identificacion, Contrasena);
+                    ObjectResult<SP_Logueo_Result> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
 
                     if (objetoUsuario.Count() == 1)
                     {
@@ -149,8 +149,8 @@ namespace Negocios
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
                     ArrayList infoUsuario = new ArrayList();
-                    var usuario = db.SP_BuscarUsuario1(Identificacion);
-                    foreach (SP_BuscarUsuario1_Result user in usuario.ToList())
+                    var usuario = db.SP_BuscarUsuario(Identificacion);
+                    foreach (SP_BuscarUsuario_Result user in usuario.ToList())
                     {
                         Usuarios iUsuario = new Usuarios();
                         iUsuario.Nombre = user.Nombre;
@@ -164,7 +164,6 @@ namespace Negocios
             }
             catch (SqlException ex)
             {
-
                 throw ex;
             }
         }

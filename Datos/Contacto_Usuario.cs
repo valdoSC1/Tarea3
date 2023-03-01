@@ -17,23 +17,23 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Contacto_Usuario()
         {
-            this.Contactoes = new HashSet<Contacto>();
-            this.Telefonoes = new HashSet<Telefono>();
+            this.Correo = new HashSet<Correo>();
+            this.Telefono = new HashSet<Telefono>();
         }
     
         public int ContactoID { get; set; }
         public string UsuarioID { get; set; }
         public string Nombre { get; set; }
+        public string Primer_Apellido { get; set; }
+        public string Segundo_Apellido { get; set; }
         public string Facebook { get; set; }
         public string Instagram { get; set; }
         public string Twitter { get; set; }
-        public string Primer_Apellido { get; set; }
-        public string Segundo_Apellido { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contacto> Contactoes { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Correo> Correo { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Telefono> Telefonoes { get; set; }
+        public virtual ICollection<Telefono> Telefono { get; set; }
     }
 }

@@ -27,6 +27,27 @@
             }
             toastr["success"]("Se ha registrado el contacto", "Información")
         }
+
+        function Alerta(mensaje) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["warning"](mensaje, "Información")
+        }
     </script>
 
     <style>
@@ -84,26 +105,10 @@
             </label>
         </div>
 
-        <div class="col-md-12" id="telefonos" style="display: grid; justify-content: center">
-            <label>
-                Teléfono:                              
-                 <input type="image" src="../recursos/simboloMas.png" alt="Agregar" id="btnAgregarTelefono"><br />
-            </label>
-            <div>
-                <input type="text" name="ctl00$MainContent$Telefono" maxlength="20" title="Solo se aceptan números telefónicos válidos" pattern="[+()0-9]+" placeholder="85644664" value="">
-                <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="return eliminar(this,1);">
-            </div>
+        <div class="col-md-12" id="telefonos" style="display: grid; justify-content: center" runat="server">
         </div>
 
-        <div class="col-md-12" id="correos" style="display: inline-grid; place-items: center;">
-            <label>
-                Correo electrónico:         
-                <input type="image" src="../recursos/simboloMas.png" alt="Agregar" id="btnAgregarCorreo"><br />
-            </label>
-            <div>
-                <input type="text" name="ctl00$MainContent$Correo" maxlength="60" title="Solo se aceptan correos electrónicos válidos" pattern="^([a-zA-Z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" placeholder="ejemplo@gmail.com" value="">
-                <input type="image" src="../recursos/borrar.png" alt="Eliminar" onclick="return eliminar(this,2);">
-            </div>
+        <div class="col-md-12" id="correos" style="display: grid; justify-content: center" runat="server">
         </div>
 
         <div class="col-md-12" style="display: flex; justify-content: center; align-content: center;">
@@ -113,8 +118,8 @@
 
     <script>
 
-    const telefonos = document.getElementById("telefonos");
-    const correos = document.getElementById("correos");
+    const telefonos = document.getElementById("MainContent_telefonos");
+    const correos = document.getElementById("MainContent_correos");
     const btnAgregarTelefono = document.getElementById("btnAgregarTelefono");
     const btnAgregarCorreo = document.getElementById("btnAgregarCorreo");
 
