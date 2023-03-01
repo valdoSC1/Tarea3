@@ -154,6 +154,47 @@
             toastr["warning"](mensaje, "Información")
         }
 
+        function AlertaVacios(){
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["warning"]("Por favor verifique los datos que desea ingresar, no pueden estar vacíos.", "Información")
+        }
+
+        function AlertaValidar() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2000",
+                "hideDuration": "4000",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["warning"]("Por favor verifique los datos que desea ingresar.", "Información")
+        }
     </script>
 
     <nav>

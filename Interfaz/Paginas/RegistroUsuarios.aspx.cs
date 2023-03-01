@@ -60,11 +60,11 @@ namespace Interfaz.Paginas
                 if (validar(txtId.Text) || validar(txtNombre.Text) || validar(txtPApellido.Text) || validar(txtSApellido.Text) || validar(txtContrasena.Text) || validar(txtEmail.Text))
                 {
                     // Mostrar un mensaje de error y limpiar el textbox
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtId.Text) || validarVacios(txtNombre.Text) || validarVacios(txtPApellido.Text) || validarVacios(txtSApellido.Text) || validarVacios(txtContrasena.Text) || validarVacios(txtEmail.Text))
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Alerta", "javascript:alert('Por favor verifique los datos que desea ingresar, no pueden estar vacíos.');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaVacios()", true);
                 }
                 else
                 {
