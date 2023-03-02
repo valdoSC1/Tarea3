@@ -18,35 +18,50 @@ namespace Interfaz.Paginas
         {
             try
             {
-                string telefonos = Request.Form["ctl00$MainContent$Telefono"];
-                string correos = Request.Form["ctl00$MainContent$Correo"];
+                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+                Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
 
-                if (telefonos != null && correos != null)
+                if (iUsuario == null && iAdmin == null)
                 {
-                    if (validarVacios(txtNombre.Text) || validarVacios(txtPrimerApellido.Text) || validarVacios(txtSegundoApellido.Text) || validarVacios(txtFacebook.Text) || validarVacios(txtInstagram.Text) || validarVacios(txtTwitter.Text) || validarCamposDinamicos(telefonos) || validarCamposDinamicos(correos))
-                    {
-                        generarCampos(telefonos, correos);
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos')", true);
-                    } 
-                    else if (validar(txtNombre.Text) || validar(txtPrimerApellido.Text) || validar(txtSegundoApellido.Text) || validar(txtFacebook.Text) || validar(txtInstagram.Text) || validar(txtTwitter.Text) || validarSQL(telefonos) || validarSQL(correos))
-                    {
-                        generarCampos(telefonos, correos);
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar');", true);
-                    }         
-                    else
-                    {
-                        registrarContacto(telefonos, correos);
-                        generarCampos(null, null);
-                    }
-                } 
+                    Response.Redirect("~/Paginas/InicioSesion", false);
+                }
+                else if (iAdmin != null)
+                {
+                    Response.Redirect("~/Default", false);
+                }
                 else
                 {
-                    generarCampos(telefonos, correos);
-                }                 
+                    string telefonos = Request.Form["ctl00$MainContent$Telefono"];
+                    string correos = Request.Form["ctl00$MainContent$Correo"];
+
+                    if (telefonos != null && correos != null)
+                    {
+                        if (validarVacios(txtNombre.Text) || validarVacios(txtPrimerApellido.Text) || validarVacios(txtSegundoApellido.Text) || validarVacios(txtFacebook.Text) || validarVacios(txtInstagram.Text) || validarVacios(txtTwitter.Text) || validarCamposDinamicos(telefonos) || validarCamposDinamicos(correos))
+                        {
+                            generarCampos(telefonos, correos);
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar, no pueden estar vacíos')", true);
+                        }
+                        else if (validar(txtNombre.Text) || validar(txtPrimerApellido.Text) || validar(txtSegundoApellido.Text) || validar(txtFacebook.Text) || validar(txtInstagram.Text) || validar(txtTwitter.Text) || validarSQL(telefonos) || validarSQL(correos))
+                        {
+                            generarCampos(telefonos, correos);
+                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Alerta('Por favor verifique los datos que desea ingresar');", true);
+                        }
+                        else
+                        {
+                            registrarContacto(telefonos, correos);
+                            generarCampos(null, null);
+                        }
+                    }
+                    else
+                    {
+                        generarCampos(telefonos, correos);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -62,8 +77,9 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return false;
             }
         }
 
@@ -84,8 +100,9 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return false;
             }
         }
 
@@ -101,23 +118,34 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return false;
             }
         }
 
         private bool validarCamposDinamicos(string datos)
         {
-            string[] datosValidar = datos.Split(',');
-
-            foreach (string dato in datosValidar)
+            try
             {
-                if (dato.Trim().Length == 0)
+                string[] datosValidar = datos.Split(',');
+
+                foreach (string dato in datosValidar)
                 {
-                    return true;
+                    if (dato.Trim().Length == 0)
+                    {
+                        return true;
+                    }
                 }
+                return false;
             }
-            return false;
-        } 
+            catch (Exception ex)
+            {
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return false;
+            }
+        }
 
         private void registrarContacto(string telefonos, string correos)
         {
@@ -161,61 +189,69 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
         private void generarCampos(string rawTelefonos, string rawCorreos)
         {
-            StringBuilder infotelefonos = new StringBuilder();
-            StringBuilder infoCorreos = new StringBuilder();
-
-            infotelefonos.Append("<label>");
-            infotelefonos.Append("Teléfono:");
-            infotelefonos.Append("<input type = \"image\" src=\"../recursos/simboloMas.png\" alt=\"Agregar\" id=\"btnAgregarTelefono\"><br/>");
-            infotelefonos.Append("</label>");
-
-            infoCorreos.Append("<label>");
-            infoCorreos.Append("Correo electrónico:");
-            infoCorreos.Append("<input type = \"image\" src=\"../recursos/simboloMas.png\" alt=\"Agregar\" id=\"btnAgregarCorreo\"><br/>");
-            infoCorreos.Append("</label>");
-
-            if (rawTelefonos != null && rawCorreos != null)
+            try
             {
-                string[] telefonos = rawTelefonos.Split(',');
-                string[] correos = rawCorreos.Split(',');
+                StringBuilder infotelefonos = new StringBuilder();
+                StringBuilder infoCorreos = new StringBuilder();
 
-                foreach (string tel in telefonos)
+                infotelefonos.Append("<label>");
+                infotelefonos.Append("Teléfono:");
+                infotelefonos.Append("<input type = \"image\" src=\"../recursos/simboloMas.png\" alt=\"Agregar\" id=\"btnAgregarTelefono\"><br/>");
+                infotelefonos.Append("</label>");
+
+                infoCorreos.Append("<label>");
+                infoCorreos.Append("Correo electrónico:");
+                infoCorreos.Append("<input type = \"image\" src=\"../recursos/simboloMas.png\" alt=\"Agregar\" id=\"btnAgregarCorreo\"><br/>");
+                infoCorreos.Append("</label>");
+
+                if (rawTelefonos != null && rawCorreos != null)
+                {
+                    string[] telefonos = rawTelefonos.Split(',');
+                    string[] correos = rawCorreos.Split(',');
+
+                    foreach (string tel in telefonos)
+                    {
+                        infotelefonos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
+                        infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" title=\"Solo se aceptan números telefónicos válidos\" pattern=\"[+()0-9]+\" placeholder=\"85644664\" value='" + tel + "'>");
+                        infotelefonos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,1);\">");
+                        infotelefonos.Append("</div>");
+                    }
+
+                    foreach (string correo in correos)
+                    {
+                        infoCorreos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
+                        infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"60\" title=\"Solo se aceptan correos electrónicos válidos\" pattern='^([a-zA-Z0-9_\\-\\.]+)@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})' placeholder=\"ejemplo@gmail.com\" value='" + correo + "'>");
+                        infoCorreos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,2);\">");
+                        infoCorreos.Append("</div>");
+                    }
+                }
+                else
                 {
                     infotelefonos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                    infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" title=\"Solo se aceptan números telefónicos válidos\" pattern=\"[+()0-9]+\" placeholder=\"85644664\" value='" + tel + "'>");
+                    infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" title=\"Solo se aceptan números telefónicos válidos\" pattern=\"[+()0-9]+\" placeholder=\"85644664\" value=''>");
                     infotelefonos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,1);\">");
                     infotelefonos.Append("</div>");
-                }
 
-                foreach (string correo in correos)
-                {
                     infoCorreos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                    infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"60\" title=\"Solo se aceptan correos electrónicos válidos\" pattern='^([a-zA-Z0-9_\\-\\.]+)@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})' placeholder=\"ejemplo@gmail.com\" value='" + correo + "'>");
+                    infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"60\" title=\"Solo se aceptan correos electrónicos válidos\" pattern='^([a-zA-Z0-9_\\-\\.]+)@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})' placeholder=\"ejemplo@gmail.com\" value=''>");
                     infoCorreos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,2);\">");
                     infoCorreos.Append("</div>");
                 }
+                this.telefonos.InnerHtml = infotelefonos.ToString();
+                this.correos.InnerHtml = infoCorreos.ToString();
             }
-            else
+            catch (Exception ex)
             {
-                infotelefonos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                infotelefonos.Append("<input type=\"text\" name=\"ctl00$MainContent$Telefono\" maxlength=\"20\" title=\"Solo se aceptan números telefónicos válidos\" pattern=\"[+()0-9]+\" placeholder=\"85644664\" value=''>");
-                infotelefonos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,1);\">");
-                infotelefonos.Append("</div>");
-
-                infoCorreos.Append("<div style='display:inline-flex;align-items:center;justify-content:center;width:307px'>");
-                infoCorreos.Append("<input type=\"text\" name=\"ctl00$MainContent$Correo\" maxlength=\"60\" title=\"Solo se aceptan correos electrónicos válidos\" pattern='^([a-zA-Z0-9_\\-\\.]+)@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,3})' placeholder=\"ejemplo@gmail.com\" value=''>");
-                infoCorreos.Append("<input type=\"image\" src=\"../recursos/borrar.png\" alt=\"Eliminar\" onclick=\"return eliminar(this,2);\">");
-                infoCorreos.Append("</div>");
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);                
             }
-            this.telefonos.InnerHtml = infotelefonos.ToString();
-            this.correos.InnerHtml = infoCorreos.ToString();
         }
     }
 }

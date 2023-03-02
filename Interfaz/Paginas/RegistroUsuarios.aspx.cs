@@ -16,7 +16,25 @@ namespace Interfaz.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+                Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
 
+                if (iUsuario == null && iAdmin == null)
+                {
+                    Response.Redirect("~/Paginas/InicioSesion", false);
+                }
+                else if (iUsuario != null)
+                {
+                    Response.Redirect("~/Default", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);                
+            }
         }
 
         public bool validar(string dato)
@@ -31,8 +49,9 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return false;
             }
         }
 
@@ -48,8 +67,9 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return false;
             }
         }
 
@@ -137,7 +157,8 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -176,7 +197,8 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -216,7 +238,8 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -256,7 +279,8 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -294,7 +318,7 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);               
             }
         }
 
@@ -306,45 +330,55 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
         public string GeneraPalabra()
         {
-            Random random = new Random();
-            string abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            string numeros = "0123456789";
-            string especiales = "!@#$%&*";
-            string Generado = "";
-            int index;
-            for (int i = 0; i < 6; i++)
+            try
             {
-                index = random.Next(abecedario.Length);
-                Generado = Generado + abecedario.Substring(index, 1);
-            }
+                Random random = new Random();
+                string abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                string numeros = "0123456789";
+                string especiales = "!@#$%&*";
+                string Generado = "";
+                int index;
+                for (int i = 0; i < 6; i++)
+                {
+                    index = random.Next(abecedario.Length);
+                    Generado = Generado + abecedario.Substring(index, 1);
+                }
 
-            if (!Regex.IsMatch(Generado, "[a-z]+"))
+                if (!Regex.IsMatch(Generado, "[a-z]+"))
+                {
+                    int remplazar = random.Next(0, 6);
+                    index = random.Next(27, abecedario.Length);
+                    Generado = Generado.Remove(remplazar, 1);
+                    Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
+                }
+
+                if (!Regex.IsMatch(Generado, "[A-Z]+"))
+                {
+                    int remplazar = random.Next(0, 6);
+                    index = random.Next(0, 27);
+                    Generado = Generado.Remove(remplazar, 1);
+                    Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
+                }
+
+                index = random.Next(numeros.Length);
+                Generado = Generado + numeros.Substring(index, 1);
+                index = random.Next(especiales.Length);
+                Generado = Generado + especiales.Substring(index, 1);
+                return Generado;
+            }
+            catch (Exception ex)
             {
-                int remplazar = random.Next(0, 6);
-                index = random.Next(27, abecedario.Length);
-                Generado = Generado.Remove(remplazar, 1);
-                Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+                return "";
             }
-
-            if (!Regex.IsMatch(Generado, "[A-Z]+"))
-            {
-                int remplazar = random.Next(0, 6);
-                index = random.Next(0, 27);
-                Generado = Generado.Remove(remplazar, 1);
-                Generado = Generado.Insert(remplazar, abecedario.Substring(index, 1));
-            }
-
-            index = random.Next(numeros.Length);
-            Generado = Generado + numeros.Substring(index, 1);
-            index = random.Next(especiales.Length);
-            Generado = Generado + especiales.Substring(index, 1);
-            return Generado;
         }
     }
 }

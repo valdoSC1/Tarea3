@@ -18,7 +18,21 @@ namespace Interfaz.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
+                Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
 
+                if (iUsuario != null || iAdmin != null)
+                {
+                    Response.Redirect("~/Default", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
+            }
         }
 
         protected void btnInicioSesion_Click(object sender, EventArgs e)
@@ -62,7 +76,8 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
     }

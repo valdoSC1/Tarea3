@@ -74,6 +74,8 @@ namespace Interfaz
             {
                 Session["LogueoValido"] = null;
                 Session["LogueoValidoAdmin"] = null;
+                Session["CredencialesValidas"] = null;
+                Session["CredencialesValidasAdmin"] = null;
 
                 Response.Redirect("~/Paginas/InicioSesion", false);
             }
