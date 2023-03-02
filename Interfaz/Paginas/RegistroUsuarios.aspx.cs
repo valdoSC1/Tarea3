@@ -33,7 +33,7 @@ namespace Interfaz.Paginas
             catch (Exception ex)
             {
                 Session["Error"] = ex;
-                Response.Redirect("~/Paginas/PaginaError", false);                
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -110,7 +110,15 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                if (ex.InnerException.Message == null)
+                {
+                    Session["Error"] = ex;
+                    Response.Redirect("~/Paginas/PaginaError", false);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                }                
             }
         }
 
@@ -289,7 +297,7 @@ namespace Interfaz.Paginas
             try
             {
                 if (validar(txtIdentificacionEliminar.Text))
-                {                  
+                {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
                 }
                 else if (validarVacios(txtIdentificacionEliminar.Text))
@@ -318,7 +326,15 @@ namespace Interfaz.Paginas
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);               
+                if (ex.InnerException.Message == null)
+                {
+                    Session["Error"] = ex;
+                    Response.Redirect("~/Paginas/PaginaError", false);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                }
             }
         }
 

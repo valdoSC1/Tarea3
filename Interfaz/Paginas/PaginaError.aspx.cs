@@ -21,11 +21,17 @@ namespace Interfaz.Paginas
                 {
                     Response.Redirect("~/Paginas/InicioSesion", false);
                 }
+                else
+                {
+                    Exception ex = (Exception)Session["Error"];
+                    this.lblMensaje.Text = ex.Message;
+                    this.lblErrorTecnico.Text = ex.StackTrace;
+                }
             }
             catch (Exception ex)
             {
-                Session["Error"] = ex;
-                Response.Redirect("~/Paginas/PaginaError", false);                
+                this.lblMensaje.Text = ex.Message;
+                this.lblErrorTecnico.Text = ex.StackTrace;
             }
         }
     }
