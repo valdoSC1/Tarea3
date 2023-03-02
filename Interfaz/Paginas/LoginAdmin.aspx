@@ -25,7 +25,7 @@
                  "showMethod": "fadeIn",
                  "hideMethod": "fadeOut"
              }
-             toastr["warning"]("Usuario y/o contraseña incorrectos.", "Información")
+             toastr["warning"]("Usuario y/o contraseña incorrectos", "Información")
          }
 
         function Credenciales(){
@@ -46,7 +46,7 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["warning"]("Usuario y/o contraseña incorrectos.", "Información")
+            toastr["warning"]("Usuario y/o contraseña incorrectos", "Información")
         }
 
          function CredencialesVacias() {
@@ -67,7 +67,7 @@
                  "showMethod": "fadeIn",
                  "hideMethod": "fadeOut"
              }
-             toastr["warning"]("Usuario y/o contraseña no pueden estar vacíos.", "Información")
+             toastr["warning"]("Usuario y/o contraseña no pueden estar vacíos", "Información")
          }
      </script>
 

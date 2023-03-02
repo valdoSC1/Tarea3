@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Tarea3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Tarea3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contacto_Usuario">
           <Key>
             <PropertyRef Name="ContactoID" />
@@ -59,6 +59,7 @@
           </Key>
           <Property Name="codigoUsuario" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="EstadoID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Contacto_Contacto_Usuario">
@@ -121,6 +122,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
         <Function Name="SP_BuscarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="identificacion" Type="varchar" Mode="In" />
         </Function>
@@ -139,6 +147,16 @@
           <Parameter Name="idContacto" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_ConsultarUltimoContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_EliminarContacto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idContacto" Type="int" Mode="In" />
         </Function>
@@ -148,6 +166,14 @@
         <Function Name="SP_EstadoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_IngresarContactos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUsuario" Type="varchar" Mode="In" />
@@ -209,6 +235,12 @@
           <Parameter Name="Segundo_Apellido" Type="varchar" Mode="In" />
           <Parameter Name="Correo" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Tarea3ModelStoreContainer">
           <EntitySet Name="Contacto_Usuario" EntityType="Self.Contacto_Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Correo" EntityType="Self.Correo" Schema="dbo" store:Type="Tables" />
@@ -237,8 +269,7 @@
             <End Role="Usuarios_Administradores" EntitySet="Usuarios_Administradores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Tarea3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -307,6 +338,7 @@
           <Property Name="contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EstadoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Estado" Relationship="Self.FK_Usuarios_Administradores_Estado" FromRole="Usuarios_Administradores" ToRole="Estado" />
+          <Property Name="CorreoElectronico" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Contacto_Contacto_Usuario">
           <End Role="Contacto_Usuario" Type="Self.Contacto_Usuario" Multiplicity="1" />
@@ -396,7 +428,7 @@
             <End Role="Usuarios_Administradores" EntitySet="Usuarios_Administradores" />
           </AssociationSet>
           <FunctionImport Name="SP_BuscarUsuario" ReturnType="Collection(Tarea3Model.SP_BuscarUsuario_Result)">
-            <Parameter Name="identificacion" Mode="In" Type="String" />
+          <Parameter Name="identificacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_CambiarContrasena">
             <Parameter Name="id" Mode="In" Type="String" />
@@ -407,17 +439,17 @@
             <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarCorreos" ReturnType="Collection(Tarea3Model.SP_ConsultarCorreos_Result)">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarTelefonos" ReturnType="Collection(Tarea3Model.SP_ConsultarTelefonos_Result)">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ConsultarUltimoContacto" ReturnType="Collection(Int32)" />
           <FunctionImport Name="SP_EliminarContacto">
-            <Parameter Name="idContacto" Mode="In" Type="Int32" />
+          <Parameter Name="idContacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_EliminarUsuario">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_EstadoUsuario">
             <Parameter Name="id" Mode="In" Type="String" />
@@ -483,6 +515,36 @@
             <Parameter Name="Segundo_Apellido" Mode="In" Type="String" />
             <Parameter Name="Correo" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Tarea3Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Tarea3Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <ComplexType Name="SP_BuscarUsuario_Result">
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="20" />
@@ -514,6 +576,17 @@
         <ComplexType Name="SP_LogueoAdmin_Result">
           <Property Type="String" Name="codigoUsuario" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Rol" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -577,6 +650,7 @@
           <EntitySetMapping Name="Usuarios_Administradores">
             <EntityTypeMapping TypeName="Tarea3Model.Usuarios_Administradores">
               <MappingFragment StoreEntitySet="Usuarios_Administradores">
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
                 <ScalarProperty Name="codigoUsuario" ColumnName="codigoUsuario" />
                 <ScalarProperty Name="contrasena" ColumnName="contrasena" />
                 <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
@@ -651,6 +725,30 @@
           <FunctionImportMapping FunctionImportName="SP_MantenimientoTelefono" FunctionName="Tarea3Model.Store.SP_MantenimientoTelefono" />
           <FunctionImportMapping FunctionImportName="SP_ModificarContacto" FunctionName="Tarea3Model.Store.SP_ModificarContacto" />
           <FunctionImportMapping FunctionImportName="SP_ModificarUsuario" FunctionName="Tarea3Model.Store.SP_ModificarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Tarea3Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Tarea3Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Tarea3Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Tarea3Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Tarea3Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Tarea3Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Tarea3Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Tarea3Model.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

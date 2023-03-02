@@ -2,6 +2,7 @@
 using Microsoft.AspNet.FriendlyUrls;
 using Negocios;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -30,8 +31,7 @@ namespace Interfaz.Paginas
 
                 // Patrones SQL
                 if (Regex.IsMatch(contrasena.ToUpper(), @"\b(SELECT|FROM|WHERE|DELETE|UPDATE|INSERT|;|OR)\b") || Regex.IsMatch(contrasena.ToUpper(), "\'|\""))
-                {
-                    // Mostrar un mensaje de error y limpiar el textbox
+                {                    
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaValidar()", true);
 
                     txtContrasena.Value = "";
@@ -44,16 +44,19 @@ namespace Interfaz.Paginas
                 {
                     iAdmin.CodigoUsuario = txtUsuario.Value;
                     iAdmin.Contrasena = txtContrasena.Value;
-                    iAdmin.InicioSesion();
-                    if (iAdmin.CredencialValida == true)
+                    ArrayList objetoAdmin = iAdmin.InicioSesion();
+                    if (objetoAdmin.Count > 0)
                     {
-                        Session["LogueoValidoAdmin"] = iAdmin;
-                        Response.Redirect("~/Default", false);
+                        foreach (Administradores admin in objetoAdmin)
+                        {
+                            Session["CredencialesValidasAdmin"] = admin;
+                            Response.Redirect("~/Paginas/Authenticator", false);
+                        }
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "Credenciales()", true);
-                        Session["LogueoValidoAdmin"] = null;
+                        Session["CredencialesValidasAdmin"] = null;
                     }
                 }
             }

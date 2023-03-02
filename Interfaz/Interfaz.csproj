@@ -135,10 +135,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Estilos\estilos.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Paginas\Authenticator.aspx" />
     <Content Include="Paginas\Contactos.aspx" />
     <Content Include="Paginas\InicioSesion.aspx" />
     <Content Include="Paginas\LoginAdmin.aspx" />
     <Content Include="Paginas\MantenimientoContactos.aspx" />
+    <Content Include="Paginas\PaginaError.aspx" />
     <Content Include="Paginas\RegistroContactos.aspx" />
     <Content Include="Paginas\RegistroUsuarios.aspx" />
     <Content Include="recursos\avatar.png" />
@@ -207,6 +209,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\Authenticator.aspx.cs">
+      <DependentUpon>Authenticator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Authenticator.aspx.designer.cs">
+      <DependentUpon>Authenticator.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\Contactos.aspx.cs">
       <DependentUpon>Contactos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -234,6 +243,13 @@
     </Compile>
     <Compile Include="Paginas\MantenimientoContactos.aspx.designer.cs">
       <DependentUpon>MantenimientoContactos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\PaginaError.aspx.cs">
+      <DependentUpon>PaginaError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\PaginaError.aspx.designer.cs">
+      <DependentUpon>PaginaError.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\RegistroContactos.aspx.cs">
       <DependentUpon>RegistroContactos.aspx</DependentUpon>

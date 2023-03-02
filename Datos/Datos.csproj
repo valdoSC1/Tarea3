@@ -90,6 +90,12 @@
     <Compile Include="SP_ConsultarTelefonos_Result.cs">
       <DependentUpon>ModeloUsuarios.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModeloUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModeloUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_LogueoAdmin_Result.cs">
       <DependentUpon>ModeloUsuarios.tt</DependentUpon>
     </Compile>

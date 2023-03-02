@@ -11,34 +11,34 @@ namespace Interfaz.Paginas
 {
 
 
-    public partial class LoginAdmin
+    public partial class Authenticator
     {
 
         /// <summary>
-        /// txtUsuario control.
+        /// correo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtUsuario;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl correo;
 
         /// <summary>
-        /// txtContrasena control.
+        /// txtCodigo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtContrasena;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCodigo;
 
         /// <summary>
-        /// btnInicioSesion control.
+        /// btnSiguiente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInicioSesion;
+        protected global::System.Web.UI.WebControls.Button btnSiguiente;
     }
 }

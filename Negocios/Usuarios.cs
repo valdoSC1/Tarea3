@@ -41,19 +41,24 @@ namespace Negocios
             
         }
 
-        public void InicioSesion()
+        public ArrayList InicioSesion()
         {
             try
             {
                 Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                    ObjectResult<SP_Logueo_Result> objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
-
-                    if (objetoUsuario.Count() == 1)
+                    var objetoUsuario = db.SP_Logueo(Identificacion, Contrasena);
+                    ArrayList infoUsuario = new ArrayList();
+                    
+                    foreach (SP_Logueo_Result user in objetoUsuario.ToList())
                     {
-                        credencialValida = true;
+                        Usuarios iUsuario = new Usuarios();
+                        iUsuario.Identificacion = Identificacion;
+                        iUsuario.Correo = user.Rol;
+                        infoUsuario.Add(iUsuario);
                     }
+                    return infoUsuario;
                 }
             }
             catch (Exception ex)

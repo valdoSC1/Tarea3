@@ -11,34 +11,25 @@ namespace Interfaz.Paginas
 {
 
 
-    public partial class LoginAdmin
+    public partial class PaginaError
     {
 
         /// <summary>
-        /// txtUsuario control.
+        /// lblMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtUsuario;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
-        /// txtContrasena control.
+        /// lblErrorTecnico control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtContrasena;
-
-        /// <summary>
-        /// btnInicioSesion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInicioSesion;
+        protected global::System.Web.UI.WebControls.Label lblErrorTecnico;
     }
 }

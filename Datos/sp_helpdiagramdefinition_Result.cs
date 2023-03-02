@@ -10,15 +10,10 @@
 namespace Datos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Usuarios_Administradores
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string codigoUsuario { get; set; }
-        public string contrasena { get; set; }
-        public int EstadoID { get; set; }
-        public string CorreoElectronico { get; set; }
-    
-        public virtual Estado Estado { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

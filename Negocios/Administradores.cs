@@ -16,11 +16,13 @@ namespace Negocios
     {
         private String _CodigoUsuario;
         private String _Contrasena;
+        private String _Correo;
         private bool credencialValida = false;
 
         public string CodigoUsuario { get => _CodigoUsuario; set => _CodigoUsuario = value; }
         public string Contrasena { get => _Contrasena; set => _Contrasena = value; }
         public bool CredencialValida { get => credencialValida; set => credencialValida = value; }
+        public string Correo { get => _Correo; set => _Correo = value; }
 
         public void Encriptando()
         {
@@ -30,19 +32,24 @@ namespace Negocios
 
         }
 
-        public void InicioSesion()
+        public ArrayList InicioSesion()
         {
             try
             {
                 Encriptando();
                 using (Tarea3Entities1 db = new Tarea3Entities1())
                 {
-                    ObjectResult<SP_LogueoAdmin_Result> objetoUsuario = db.SP_LogueoAdmin(CodigoUsuario, Contrasena);
+                    var objetoAdmin = db.SP_LogueoAdmin(CodigoUsuario, Contrasena);
+                    ArrayList infoAdmin = new ArrayList();
 
-                    if (objetoUsuario.Count() == 1)
+                    foreach (SP_LogueoAdmin_Result admin in objetoAdmin.ToList())
                     {
-                        CredencialValida = true;
+                        Administradores iAdmin = new Administradores();
+                        iAdmin.CodigoUsuario = admin.codigoUsuario;
+                        iAdmin.Correo = admin.Rol;
+                        infoAdmin.Add(iAdmin);
                     }
+                    return infoAdmin;
                 }
             }
             catch (Exception ex)
