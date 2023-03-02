@@ -42,7 +42,8 @@ namespace Interfaz
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -64,7 +65,8 @@ namespace Interfaz
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);
             }
         }
 
@@ -81,7 +83,13 @@ namespace Interfaz
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaError('{ex.InnerException.Message}')", true);
+                Session["LogueoValido"] = null;
+                Session["LogueoValidoAdmin"] = null;
+                Session["CredencialesValidas"] = null;
+                Session["CredencialesValidasAdmin"] = null;
+
+                Session["Error"] = ex;
+                Response.Redirect("~/Paginas/PaginaError", false);                
             }
         }
     }

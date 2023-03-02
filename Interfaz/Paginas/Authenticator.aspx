@@ -7,7 +7,7 @@
     <script src="../Scripts/toastr.min.js"></script>
 
     <script type="text/javascript">
-        function AlertaCodigo() {
+        function AlertaCodigo(mensaje) {
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -25,7 +25,28 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["warning"]("El código es incorrecto. Inténtalo de nuevo", "Información")
+            toastr["warning"](mensaje, "Información")
+        }
+
+        function AlertaOtroCorreo() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "8000",
+                "hideDuration": "10000",
+                "timeOut": "6000",
+                "extendedTimeOut": "4000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["warning"]("Se ha enviado otro código al correo electrónico asociado a está cuenta, ya que se ingresó incorrectamente en tres intentos el código anteriormente enviado", "Información")
         }
     </script>
 
@@ -60,7 +81,7 @@
         </div>
 
         <div style='display: grid; place-items: center'>
-            <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente" OnClick="btnSiguiente_Click" />
+            <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente"/>
         </div>
 
     </div>

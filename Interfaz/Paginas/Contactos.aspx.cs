@@ -19,9 +19,10 @@ namespace Interfaz.Paginas
             {
                 Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
                 Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
-
+                
                 if (iUsuario == null && iAdmin == null)
                 {
+                    Session["codigo"] = null;
                     Response.Redirect("~/Paginas/InicioSesion", false);
                 }
                 else if (iAdmin != null)

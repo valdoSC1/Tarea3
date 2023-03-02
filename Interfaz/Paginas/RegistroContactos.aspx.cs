@@ -23,6 +23,7 @@ namespace Interfaz.Paginas
 
                 if (iUsuario == null && iAdmin == null)
                 {
+                    Session["codigo"] = null;
                     Response.Redirect("~/Paginas/InicioSesion", false);
                 }
                 else if (iAdmin != null)

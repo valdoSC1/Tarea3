@@ -27,6 +27,10 @@ namespace Interfaz.Paginas
                 {
                     Response.Redirect("~/Default", false);
                 }
+                else
+                {
+                    Session["codigo"] = null;
+                }
             }
             catch (Exception ex)
             {
