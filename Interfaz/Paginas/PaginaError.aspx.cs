@@ -14,20 +14,9 @@ namespace Interfaz.Paginas
         {
             try
             {
-                Usuarios iUsuario = (Usuarios)Session["LogueoValido"];
-                Administradores iAdmin = (Administradores)Session["LogueoValidoAdmin"];
-
-                if (iUsuario == null && iAdmin == null)
-                {
-                    Session["codigo"] = null;
-                    Response.Redirect("~/Paginas/InicioSesion", false);
-                }
-                else
-                {
-                    Exception ex = (Exception)Session["Error"];
-                    this.lblMensaje.Text = ex.Message;
-                    this.lblErrorTecnico.Text = ex.StackTrace;
-                }
+                Exception ex = (Exception)Session["Error"];
+                this.lblMensaje.Text = ex.Message;
+                this.lblErrorTecnico.Text = ex.StackTrace;
             }
             catch (Exception ex)
             {
