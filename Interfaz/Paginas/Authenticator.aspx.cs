@@ -58,30 +58,34 @@ namespace Interfaz.Paginas
                     {
                         int intentosNum = int.Parse(intentos);
                         intentosNum = validarCodigo(codigoGenerado, intentosNum);
-                        if (intentosNum < 1)
+                        if (intentosNum != -2)
                         {
-                            string correo = "";
-                            string codigo = generarCodigo();
-                            if (iUsuario != null)
+                            if (intentosNum < 1)
                             {
-                                correo = iUsuario.Correo;
-                                this.correo.InnerHtml = "<p>" + correo + "</p>";
-                            }
-                            else if (iAdmin != null)
-                            {
-                                correo = iAdmin.Correo;
-                                this.correo.InnerHtml = "<p>" + correo + "</p>";
-                            }
-                            enviarCorreo(correo, codigo);
-                            Session["codigo"] = codigo;
-                            Session["intentos"] = "3";
+                                string correo = "";
+                                string codigo = generarCodigo();
+                                if (iUsuario != null)
+                                {
+                                    correo = iUsuario.Correo;
+                                    this.correo.InnerHtml = "<p>" + correo + "</p>";
+                                }
+                                else if (iAdmin != null)
+                                {
+                                    correo = iAdmin.Correo;
+                                    this.correo.InnerHtml = "<p>" + correo + "</p>";
+                                }
+                                enviarCorreo(correo, codigo);
+                                Session["codigo"] = codigo;
+                                Session["intentos"] = "3";
+                                txtCodigo.Value = "";
 
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaOtroCorreo()", true);
-                        }
-                        else if (intentosNum != -2)
-                        {                            
-                            string mensaje = "El código es incorrecto. Inténtalo de nuevo, te quedan " + intentosNum.ToString() + " intentos";
-                            ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaCodigo('{mensaje}')", true);
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", "AlertaOtroCorreo()", true);
+                            }
+                            else if (intentosNum != -2)
+                            {
+                                string mensaje = "El código es incorrecto. Inténtalo de nuevo, te queda(n) " + intentosNum.ToString() + " intento(s)";
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "toast", $"AlertaCodigo('{mensaje}')", true);
+                            }
                         }
                     }
                 }
@@ -177,6 +181,7 @@ namespace Interfaz.Paginas
                         Session["LogueoValidoAdmin"] = iAdmin;
                     }
                     Session["codigo"] = null;
+                    Session["intentos"] = null;
                     Response.Redirect("~/Default", false);
                     return -2;
                 }
